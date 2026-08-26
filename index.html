@@ -1,333 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>HAVOC STYX — Tier List</title>
+  <title>HAVOC STYX FFA Tier List</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080a0f;
+      color: #ffffff;
+    }
 
-header {
-  padding: 35px 20px;
-  text-align: center;
-  background: #090909;
-  border-bottom: 2px solid #ff2020;
-}
+    header {
+      padding: 35px 20px;
+      text-align: center;
+      background: #0e1118;
+      border-bottom: 1px solid #252a35;
+    }
 
-h1 {
-  margin: 0;
-  font-size: 30px;
-}
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+    }
 
-.subtitle {
-  margin-top: 8px;
-  color: #aaa;
-}
+    header p {
+      margin: 8px 0 0;
+      color: #8f98a8;
+    }
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-}
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
 
-.controls {
-  display: grid;
-  grid-template-columns: 1fr 250px;
-  gap: 12px;
-  margin-bottom: 15px;
-}
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #303744;
+      border-radius: 10px;
+      background: #11151d;
+      color: #ffffff;
+      font-size: 16px;
+      outline: none;
+    }
 
-input,
-select {
-  width: 100%;
-  padding: 14px;
-  background: #111;
-  border: 2px solid #292929;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-}
+    input:focus,
+    select:focus {
+      border-color: #5865f2;
+    }
 
-.view-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+    .tier {
+      display: grid;
+      grid-template-columns: 85px 1fr;
+      margin-bottom: 8px;
+      background: #11151d;
+      border: 1px solid #252a35;
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
-.view-buttons button,
-.close {
-  flex: 1;
-  padding: 12px;
-  border: 2px solid #292929;
-  border-radius: 10px;
-  background: #111;
-  color: #aaa;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .tier-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #171c26;
+      font-size: 18px;
+      font-weight: 800;
+    }
 
-.view-buttons button.active,
-.view-buttons button:hover,
-.close:hover {
-  background: #ff2020;
-  border-color: #ff2020;
-  color: white;
-}
+    .points {
+      margin-top: 4px;
+      color: #8f98a8;
+      font-size: 11px;
+      font-weight: 600;
+    }
 
-.tier {
-  display: grid;
-  grid-template-columns: 85px 1fr;
-  margin-bottom: 10px;
-  overflow: hidden;
-  background: #111;
-  border: 2px solid #292929;
-  border-radius: 10px;
-}
+    .players {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      min-height: 55px;
+    }
 
-.tier-name {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #ff2020;
-  font-weight: 900;
-}
+    .player {
+      padding: 9px 13px;
+      background: #202632;
+      border: 1px solid #303847;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
 
-.tier-points {
-  font-size: 11px;
-  margin-top: 3px;
-}
+    .player:hover {
+      background: #30394a;
+      transform: translateY(-1px);
+    }
 
-.players {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px;
-  min-height: 58px;
-  align-items: center;
-}
+    .player-points {
+      margin-left: 6px;
+      color: #8f98a8;
+      font-size: 11px;
+    }
 
-.player {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 9px 12px;
-  background: #242424;
-  border: 1px solid #333;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .empty {
+      padding: 8px;
+      color: #687181;
+    }
 
-.player:hover {
-  border-color: #ff2020;
-  background: #301414;
-}
+    .profile {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      background: #0f131b;
+      border: 1px solid #2a303d;
+      border-radius: 14px;
+    }
 
-.points {
-  color: #ff5050;
-  font-size: 11px;
-}
+    .profile.active {
+      display: block;
+    }
 
-.empty {
-  color: #777;
-}
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
 
-.profile {
-  display: none;
-  margin-top: 25px;
-  background: #101010;
-  border: 2px solid #ff2020;
-  border-radius: 14px;
-  overflow: hidden;
-}
+    .profile-name {
+      font-size: 27px;
+      font-weight: 800;
+    }
 
-.profile.active {
-  display: block;
-}
+    .close-button {
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #252b37;
+      color: white;
+      cursor: pointer;
+    }
 
-.profile-header {
-  padding: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #333;
-}
+    .rank-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      margin-bottom: 8px;
+      background: #171c25;
+      border: 1px solid #252b36;
+      border-radius: 10px;
+    }
 
-.profile-name {
-  font-size: 28px;
-  font-weight: 900;
-}
+    .rank {
+      padding: 6px 10px;
+      background: #252d3b;
+      border-radius: 7px;
+      font-weight: 800;
+    }
 
-.profile-body {
-  padding: 20px;
-}
+    .rank-points {
+      margin-left: 8px;
+      color: #8f98a8;
+      font-size: 12px;
+    }
 
-.profile-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px;
-  margin-bottom: 8px;
-  background: #181818;
-  border: 1px solid #292929;
-  border-radius: 10px;
-}
+    .unranked {
+      color: #737c8c;
+    }
 
-.rank {
-  color: #ff5050;
-  font-weight: 900;
-}
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      color: #7f8795;
+      font-size: 13px;
+      border-radius: 8px;
+    }
 
-.unranked {
-  color: #777;
-}
+    .connected {
+      color: #70e08a !important;
+    }
 
-.leaderboard {
-  display: none;
-}
+    .warning {
+      color: #f0c674 !important;
+    }
 
-.leaderboard.active {
-  display: block;
-}
+    .error {
+      color: #ff6b6b !important;
+    }
 
-.leader-row {
-  display: grid;
-  grid-template-columns: 50px 1fr 100px;
-  gap: 10px;
-  padding: 14px;
-  margin-bottom: 8px;
-  background: #111;
-  border: 1px solid #292929;
-  border-radius: 10px;
-  cursor: pointer;
-}
+    .updated {
+      margin-top: 5px;
+      text-align: center;
+      color: #596171;
+      font-size: 11px;
+    }
 
-.leader-row:hover {
-  border-color: #ff2020;
-}
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 24px;
+      }
 
-.total-points {
-  color: #ff5050;
-  font-weight: 900;
-}
+      .tier {
+        grid-template-columns: 70px 1fr;
+      }
 
-#status {
-  margin-top: 20px;
-  padding: 12px;
-  text-align: center;
-  border-radius: 10px;
-  color: #aaa;
-}
+      .tier-name {
+        font-size: 15px;
+      }
 
-.status-ok {
-  color: #86efac !important;
-  background: #102016;
-}
+      .profile-header {
+        align-items: flex-start;
+      }
 
-.status-error {
-  color: #fca5a5 !important;
-  background: #251010;
-}
-
-.last-updated {
-  text-align: center;
-  color: #666;
-  font-size: 11px;
-  margin-top: 8px;
-}
-
-@media(max-width:650px) {
-  .controls {
-    grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  .tier {
-    grid-template-columns: 70px 1fr;
-  }
-
-  .leader-row {
-    grid-template-columns: 40px 1fr 80px;
-  }
-}
-</style>
+      .rank-card {
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <h1>HAVOC STYX</h1>
-  <div class="subtitle">
-    FFA • OFFICIAL PLAYER TIER LIST
-  </div>
+  <h1>HAVOC STYX FFA TIER LIST</h1>
+
+  <p>
+    Official HAVOC STYX player rankings
+  </p>
 </header>
 
 <div class="container">
 
-  <div class="controls">
-
-    <input
-      id="search"
-      type="text"
-      placeholder="Search player..."
-      autocomplete="off"
-    >
-
-    <select id="kitSelect">
-      <option>Connecting...</option>
-    </select>
-
-  </div>
-
-  <div class="view-buttons">
-
-    <button
-      id="tierButton"
-      class="active"
-      onclick="showTierView()"
-    >
-      TIER LIST
-    </button>
-
-    <button
-      id="leaderButton"
-      onclick="showLeaderboard()"
-    >
-      🏆 LEADERBOARD
-    </button>
-
-  </div>
-
-  <div id="tierList">
-    <div class="empty">
-      Connecting to HAVOC STYX...
-    </div>
-  </div>
-
-  <div
-    id="leaderboard"
-    class="leaderboard"
-  ></div>
-
-  <div
-    id="profile"
-    class="profile"
+  <input
+    id="search"
+    type="text"
+    placeholder="Search player..."
+    autocomplete="off"
   >
+
+  <select id="kitSelect">
+    <option value="">Connecting to API...</option>
+  </select>
+
+  <div id="tierList"></div>
+
+  <div id="profile" class="profile">
 
     <div class="profile-header">
 
@@ -337,7 +271,7 @@ select {
       ></div>
 
       <button
-        class="close"
+        class="close-button"
         onclick="closeProfile()"
       >
         Close
@@ -345,53 +279,72 @@ select {
 
     </div>
 
-    <div
-      id="profileBody"
-      class="profile-body"
-    ></div>
+    <div id="profileRanks"></div>
 
   </div>
 
   <div id="status">
-    Connecting...
+    Connecting to HAVOC STYX API...
   </div>
 
   <div
-    id="lastUpdated"
-    class="last-updated"
+    id="updated"
+    class="updated"
   ></div>
 
 </div>
 
 <script>
-
-/* =========================================
-   API
-========================================= */
+/*
+==================================================
+HAVOC STYX API
+==================================================
+*/
 
 const API_URL =
-  "https://havoc-bot-production-82b2.up.railway.app";
+  "https://havoc-bot-production-82b2.up.railway.app/api/tiers";
 
-const REFRESH_TIME =
+const REFRESH_INTERVAL =
   10000;
 
 
-/* =========================================
-   DATA
-========================================= */
+/*
+==================================================
+TIER POINTS
+==================================================
+*/
+
+const DEFAULT_POINTS = {
+  HT1: 61,
+  LT1: 52,
+  HT2: 41,
+  LT2: 30,
+  HT3: 21,
+  LT3: 14,
+  HT4: 9,
+  LT4: 6,
+  HT5: 3,
+  LT5: 1
+};
+
+
+/*
+==================================================
+STATE
+==================================================
+*/
 
 let tierData = null;
-
-let selectedPlayer = null;
-
 let lastGoodData = null;
 
 
-/* =========================================
-   ELEMENTS
-========================================= */
+/*
+==================================================
+ELEMENTS
+==================================================
+*/
 
-const search =
+const searchInput =
   document.getElementById("search");
 
 const kitSelect =
@@ -400,89 +353,134 @@ const kitSelect =
 const tierList =
   document.getElementById("tierList");
 
-const leaderboard =
-  document.getElementById("leaderboard");
-
 const profile =
   document.getElementById("profile");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileRanks =
+  document.getElementById("profileRanks");
 
 const status =
   document.getElementById("status");
 
-const lastUpdated =
-  document.getElementById("lastUpdated");
+const updated =
+  document.getElementById("updated");
 
 
-/* =========================================
-   LOAD DATA
-========================================= */
+/*
+==================================================
+GET POINTS
+==================================================
+*/
 
-async function loadData() {
+function getPoints(tier) {
+
+  if (
+    tierData &&
+    tierData.pointsByTier &&
+    typeof tierData.pointsByTier[tier] === "number"
+  ) {
+    return tierData.pointsByTier[tier];
+  }
+
+  return DEFAULT_POINTS[tier] || 0;
+}
+
+
+/*
+==================================================
+LOAD API
+==================================================
+*/
+
+async function loadTierData() {
 
   try {
 
     const response =
       await fetch(
         API_URL +
-        "/api/tiers?t=" +
+        "?t=" +
         Date.now(),
         {
           method: "GET",
-          mode: "cors",
-          cache: "no-store"
+          cache: "no-store",
+          mode: "cors"
         }
       );
 
 
     if (!response.ok) {
-
       throw new Error(
         "HTTP " +
         response.status
       );
-
     }
 
 
-    const data =
+    const result =
       await response.json();
 
 
+    /*
+      Verify the exact API structure.
+    */
+
     if (
-      !Array.isArray(data.kits) ||
-      !Array.isArray(data.tiers) ||
-      !data.data
+      !result ||
+      !Array.isArray(result.kits) ||
+      !Array.isArray(result.tiers) ||
+      !result.data ||
+      typeof result.data !== "object"
     ) {
-
       throw new Error(
-        "Invalid API response"
+        "Invalid tier API response"
       );
-
     }
 
 
+    /*
+      Save the newest successful data.
+    */
+
     tierData =
-      data;
+      result;
 
     lastGoodData =
-      data;
+      result;
 
 
     buildKitSelector();
 
     renderTierList();
 
-    renderLeaderboard();
+
+    /*
+      If a profile is open,
+      refresh it too.
+    */
+
+    const openProfile =
+      profile.dataset.player;
+
+    if (openProfile) {
+      showProfile(
+        openProfile,
+        false
+      );
+    }
 
 
     status.textContent =
-      "🟢 Connected • Auto-updating every 10 seconds";
+      "🟢 Connected • Live";
 
     status.className =
-      "status-ok";
+      "connected";
 
 
-    lastUpdated.textContent =
+    updated.textContent =
       "Last updated: " +
       new Date().toLocaleTimeString();
 
@@ -490,15 +488,15 @@ async function loadData() {
   } catch (error) {
 
     console.error(
-      "HAVOC STYX API ERROR:",
+      "HAVOC STYX API:",
       error
     );
 
 
     /*
-       IMPORTANT:
-       Do NOT destroy the current list
-       when one refresh fails.
+      IMPORTANT:
+      Do not erase working data
+      if one refresh fails.
     */
 
     if (lastGoodData) {
@@ -507,10 +505,12 @@ async function loadData() {
         lastGoodData;
 
       status.textContent =
-        "🟡 Connection temporarily unavailable • showing last saved data";
+        "🟡 Temporary connection problem • Showing last data";
 
       status.className =
-        "status-ok";
+        "warning";
+
+      renderTierList();
 
     } else {
 
@@ -518,7 +518,17 @@ async function loadData() {
         "🔴 Unable to connect to HAVOC STYX API";
 
       status.className =
-        "status-error";
+        "error";
+
+
+      tierList.innerHTML =
+        `
+          <div class="empty">
+            Unable to load tier data.
+            <br><br>
+            Please refresh the page.
+          </div>
+        `;
 
     }
 
@@ -527,13 +537,15 @@ async function loadData() {
 }
 
 
-/* =========================================
-   KIT SELECTOR
-========================================= */
+/*
+==================================================
+KIT DROPDOWN
+==================================================
+*/
 
 function buildKitSelector() {
 
-  const previous =
+  const previousKit =
     kitSelect.value;
 
 
@@ -549,11 +561,14 @@ function buildKitSelector() {
           "option"
         );
 
+
       option.value =
         kit.id;
 
+
       option.textContent =
         kit.name;
+
 
       kitSelect.appendChild(
         option
@@ -563,17 +578,25 @@ function buildKitSelector() {
   );
 
 
-  if (
+  /*
+    Keep selected kit after refresh.
+  */
+
+  const exists =
     tierData.kits.some(
       kit =>
-        kit.id === previous
-    )
-  ) {
+        kit.id === previousKit
+    );
+
+
+  if (exists) {
 
     kitSelect.value =
-      previous;
+      previousKit;
 
-  } else {
+  } else if (
+    tierData.kits.length > 0
+  ) {
 
     kitSelect.value =
       tierData.kits[0].id;
@@ -583,44 +606,11 @@ function buildKitSelector() {
 }
 
 
-/* =========================================
-   GET POINTS
-========================================= */
-
-function getPoints(tier) {
-
-  if (
-    tierData.pointsByTier &&
-    tierData.pointsByTier[tier]
-  ) {
-
-    return tierData.pointsByTier[tier];
-
-  }
-
-
-  const fallback = {
-    HT1: 61,
-    LT1: 52,
-    HT2: 41,
-    LT2: 30,
-    HT3: 21,
-    LT3: 14,
-    HT4: 9,
-    LT4: 6,
-    HT5: 3,
-    LT5: 1
-  };
-
-
-  return fallback[tier] || 0;
-
-}
-
-
-/* =========================================
-   TIER LIST
-========================================= */
+/*
+==================================================
+RENDER TIER LIST
+==================================================
+*/
 
 function renderTierList() {
 
@@ -633,18 +623,18 @@ function renderTierList() {
     "";
 
 
-  const kit =
+  const kitId =
     kitSelect.value;
 
 
-  const searchText =
-    search.value
+  const players =
+    tierData.data[kitId] || {};
+
+
+  const search =
+    searchInput.value
       .trim()
       .toLowerCase();
-
-
-  const players =
-    tierData.data[kit] || {};
 
 
   tierData.tiers.forEach(
@@ -667,47 +657,60 @@ function renderTierList() {
       tierName.className =
         "tier-name";
 
+
+      const points =
+        getPoints(tier);
+
+
       tierName.innerHTML =
         `
-          <div>${tier}</div>
-          <div class="tier-points">
-            ${getPoints(tier)} pts
+          <div>${escapeHTML(tier)}</div>
+          <div class="points">
+            ${points} pts
           </div>
         `;
 
 
-      const playerBox =
+      const playerContainer =
         document.createElement(
           "div"
         );
 
-      playerBox.className =
+      playerContainer.className =
         "players";
 
 
-      const names =
-        Object.entries(
-          players
-        )
-        .filter(
-          ([name, rank]) => {
+      const matchingPlayers =
+        Object.entries(players)
+          .filter(
+            ([player, playerTier]) => {
 
-            return (
-              rank === tier &&
-              (
-                !searchText ||
-                name
-                  .toLowerCase()
-                  .includes(searchText)
-              )
-            );
+              if (
+                playerTier !== tier
+              ) {
+                return false;
+              }
 
-          }
-        );
+
+              if (!search) {
+                return true;
+              }
+
+
+              return player
+                .toLowerCase()
+                .includes(search);
+
+            }
+          )
+          .sort(
+            ([a], [b]) =>
+              a.localeCompare(b)
+          );
 
 
       if (
-        names.length === 0
+        matchingPlayers.length === 0
       ) {
 
         const empty =
@@ -721,40 +724,44 @@ function renderTierList() {
         empty.textContent =
           "No players";
 
-        playerBox.appendChild(
+        playerContainer.appendChild(
           empty
         );
 
       } else {
 
-        names.forEach(
-          ([name]) => {
+        matchingPlayers.forEach(
+          ([player, playerTier]) => {
 
-            const player =
+            const button =
               document.createElement(
                 "div"
               );
 
-            player.className =
+
+            button.className =
               "player";
 
 
-            player.innerHTML =
+            button.innerHTML =
               `
-                <span>${escapeHtml(name)}</span>
-                <span class="points">
-                  +${getPoints(tier)}
+                <span>
+                  ${escapeHTML(player)}
+                </span>
+
+                <span class="player-points">
+                  +${getPoints(playerTier)}
                 </span>
               `;
 
 
-            player.onclick =
+            button.onclick =
               () =>
-                showProfile(name);
+                showProfile(player);
 
 
-            playerBox.appendChild(
-              player
+            playerContainer.appendChild(
+              button
             );
 
           }
@@ -768,7 +775,7 @@ function renderTierList() {
       );
 
       row.appendChild(
-        playerBox
+        playerContainer
       );
 
       tierList.appendChild(
@@ -781,31 +788,31 @@ function renderTierList() {
 }
 
 
-/* =========================================
-   PLAYER PROFILE
-========================================= */
+/*
+==================================================
+PLAYER PROFILE
+==================================================
+*/
 
 function showProfile(
-  playerName
+  player,
+  scroll = true
 ) {
 
-  selectedPlayer =
-    playerName;
+  if (!tierData) {
+    return;
+  }
 
 
-  document.getElementById(
-    "profileName"
-  ).textContent =
-    playerName;
+  profile.dataset.player =
+    player;
 
 
-  const body =
-    document.getElementById(
-      "profileBody"
-    );
+  profileName.textContent =
+    player;
 
 
-  body.innerHTML =
+  profileRanks.innerHTML =
     "";
 
 
@@ -819,11 +826,14 @@ function showProfile(
   tierData.kits.forEach(
     kit => {
 
+      const kitData =
+        tierData.data[
+          kit.id
+        ] || {};
+
+
       const rank =
-        tierData
-          .data[kit.id]?.[
-            playerName
-          ];
+        kitData[player];
 
 
       const card =
@@ -832,21 +842,21 @@ function showProfile(
         );
 
       card.className =
-        "profile-card";
+        "rank-card";
 
 
-      const left =
+      const kitName =
         document.createElement(
-          "span"
+          "div"
         );
 
-      left.textContent =
+      kitName.textContent =
         kit.name;
 
 
-      const right =
+      const rankDisplay =
         document.createElement(
-          "span"
+          "div"
         );
 
 
@@ -862,32 +872,37 @@ function showProfile(
         rankedKits++;
 
 
-        right.className =
-          "rank";
+        rankDisplay.innerHTML =
+          `
+            <span class="rank">
+              ${escapeHTML(rank)}
+            </span>
 
-        right.textContent =
-          `${rank} • ${points} pts`;
+            <span class="rank-points">
+              ${points} pts
+            </span>
+          `;
 
       } else {
 
-        right.className =
+        rankDisplay.className =
           "unranked";
 
-        right.textContent =
+        rankDisplay.textContent =
           "Unranked";
 
       }
 
 
       card.appendChild(
-        left
+        kitName
       );
 
       card.appendChild(
-        right
+        rankDisplay
       );
 
-      body.appendChild(
+      profileRanks.appendChild(
         card
       );
 
@@ -895,26 +910,39 @@ function showProfile(
   );
 
 
-  const total =
+  const summary =
     document.createElement(
       "div"
     );
 
-  total.style.marginBottom =
+
+  summary.style.marginBottom =
     "15px";
 
-  total.style.fontWeight =
-    "bold";
 
-  total.style.color =
-    "#ff5050";
-
-  total.textContent =
-    `⭐ Total Points: ${totalPoints} • Ranked Kits: ${rankedKits}`;
+  summary.style.color =
+    "#8f98a8";
 
 
-  body.prepend(
-    total
+  summary.innerHTML =
+    `
+      <strong style="color:white">
+        ${escapeHTML(player)}
+      </strong>
+      <br>
+      ⭐ Total Points:
+      <strong style="color:white">
+        ${totalPoints}
+      </strong>
+      • Ranked Kits:
+      <strong style="color:white">
+        ${rankedKits}
+      </strong>
+    `;
+
+
+  profileRanks.prepend(
+    summary
   );
 
 
@@ -923,210 +951,52 @@ function showProfile(
   );
 
 
-  profile.scrollIntoView({
-    behavior: "smooth"
-  });
+  if (scroll) {
+
+    profile.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
 
 }
 
 
-/* =========================================
-   CLOSE PROFILE
-========================================= */
+/*
+==================================================
+CLOSE PROFILE
+==================================================
+*/
 
 function closeProfile() {
-
-  selectedPlayer =
-    null;
 
   profile.classList.remove(
     "active"
   );
 
-}
-
-
-/* =========================================
-   LEADERBOARD
-========================================= */
-
-function renderLeaderboard() {
-
-  if (!tierData) {
-    return;
-  }
-
-
-  const totals = {};
-
-
-  tierData.kits.forEach(
-    kit => {
-
-      const players =
-        tierData.data[
-          kit.id
-        ] || {};
-
-
-      Object.entries(
-        players
-      ).forEach(
-        ([name, tier]) => {
-
-          if (!totals[name]) {
-
-            totals[name] = {
-              points: 0,
-              kits: 0
-            };
-
-          }
-
-
-          totals[name].points +=
-            getPoints(tier);
-
-          totals[name].kits++;
-
-        }
-      );
-
-    }
-  );
-
-
-  const sorted =
-    Object.entries(
-      totals
-    )
-    .sort(
-      (a, b) =>
-        b[1].points -
-        a[1].points
-    );
-
-
-  leaderboard.innerHTML =
-    "";
-
-
-  if (
-    sorted.length === 0
-  ) {
-
-    leaderboard.innerHTML =
-      `<div class="empty">
-        No ranked players yet.
-      </div>`;
-
-    return;
-  }
-
-
-  sorted.forEach(
-    ([name, info], index) => {
-
-      const row =
-        document.createElement(
-          "div"
-        );
-
-      row.className =
-        "leader-row";
-
-
-      row.innerHTML =
-        `
-          <strong>#${index + 1}</strong>
-          <span>${escapeHtml(name)}</span>
-          <span class="total-points">
-            ${info.points} pts
-          </span>
-        `;
-
-
-      row.onclick =
-        () =>
-          showProfile(name);
-
-
-      leaderboard.appendChild(
-        row
-      );
-
-    }
-  );
+  delete profile.dataset.player;
 
 }
 
 
-/* =========================================
-   VIEW
-========================================= */
+/*
+==================================================
+SEARCH
+==================================================
+*/
 
-function showTierView() {
-
-  tierList.style.display =
-    "";
-
-  leaderboard.style.display =
-    "none";
-
-
-  document.getElementById(
-    "tierButton"
-  ).classList.add(
-    "active"
-  );
-
-
-  document.getElementById(
-    "leaderButton"
-  ).classList.remove(
-    "active"
-  );
-
-}
-
-
-function showLeaderboard() {
-
-  tierList.style.display =
-    "none";
-
-  leaderboard.style.display =
-    "block";
-
-
-  document.getElementById(
-    "tierButton"
-  ).classList.remove(
-    "active"
-  );
-
-
-  document.getElementById(
-    "leaderButton"
-  ).classList.add(
-    "active"
-  );
-
-
-  renderLeaderboard();
-
-}
-
-
-/* =========================================
-   SEARCH / KIT
-========================================= */
-
-search.addEventListener(
+searchInput.addEventListener(
   "input",
   renderTierList
 );
 
+
+/*
+==================================================
+KIT CHANGE
+==================================================
+*/
 
 kitSelect.addEventListener(
   "change",
@@ -1134,13 +1004,13 @@ kitSelect.addEventListener(
 );
 
 
-/* =========================================
-   HTML ESCAPE
-========================================= */
+/*
+==================================================
+HTML ESCAPE
+==================================================
+*/
 
-function escapeHtml(
-  value
-) {
+function escapeHTML(value) {
 
   return String(value)
     .replace(
@@ -1167,20 +1037,24 @@ function escapeHtml(
 }
 
 
-/* =========================================
-   START
-========================================= */
+/*
+==================================================
+INITIAL LOAD
+==================================================
+*/
 
-loadData();
+loadTierData();
 
 
-/* =========================================
-   UPDATE EVERY 10 SECONDS
-========================================= */
+/*
+==================================================
+LIVE UPDATE EVERY 10 SECONDS
+==================================================
+*/
 
 setInterval(
-  loadData,
-  REFRESH_TIME
+  loadTierData,
+  REFRESH_INTERVAL
 );
 
 </script>
