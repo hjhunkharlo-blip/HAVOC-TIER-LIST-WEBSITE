@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>HAVOC STYX FFA</title>
 
 <style>
-:root {
+:root{
   --bg:#060608;
   --panel:#0d0d11;
   --panel2:#141419;
@@ -19,46 +18,35 @@
   --green:#4ade80;
   --yellow:#facc15;
   --blue:#5865f2;
+  --gold:#ffd700;
+  --silver:#c0c0c0;
+  --bronze:#cd7f32;
 }
 
-* {
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html {
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
-body {
+body{
   margin:0;
   min-height:100vh;
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(225,29,46,.18),
-      transparent 35%
-    ),
+    radial-gradient(circle at 50% -10%,rgba(225,29,46,.18),transparent 35%),
     var(--bg);
   color:var(--text);
 }
 
-/* HEADER */
-
-header {
+header{
   padding:45px 18px;
   text-align:center;
   background:
-    linear-gradient(
-      180deg,
-      rgba(225,29,46,.12),
-      transparent
-    ),
+    linear-gradient(180deg,rgba(225,29,46,.12),transparent),
     #09090c;
   border-bottom:1px solid var(--border);
 }
 
-.brand {
+.brand{
   display:inline-flex;
   align-items:center;
   gap:8px;
@@ -73,7 +61,7 @@ header {
   text-transform:uppercase;
 }
 
-.brand-dot {
+.brand-dot{
   width:7px;
   height:7px;
   border-radius:50%;
@@ -81,35 +69,29 @@ header {
   box-shadow:0 0 12px rgba(225,29,46,.8);
 }
 
-header h1 {
+header h1{
   margin:13px 0 7px;
   font-size:clamp(32px,7vw,52px);
   font-weight:900;
   letter-spacing:-1.5px;
 }
 
-header h1 span {
-  color:var(--red);
-}
+header h1 span{color:var(--red)}
 
-header p {
+header p{
   margin:0;
   color:var(--muted);
   font-size:14px;
 }
 
-/* MAIN */
-
-.container {
+.container{
   width:100%;
   max-width:1100px;
   margin:auto;
   padding:20px 15px 60px;
 }
 
-/* NAV */
-
-.nav {
+.nav{
   display:flex;
   gap:8px;
   margin-bottom:20px;
@@ -117,11 +99,9 @@ header p {
   scrollbar-width:none;
 }
 
-.nav::-webkit-scrollbar {
-  display:none;
-}
+.nav::-webkit-scrollbar{display:none}
 
-.nav button {
+.nav button{
   flex:0 0 auto;
   padding:10px 15px;
   border:1px solid var(--border);
@@ -133,33 +113,23 @@ header p {
 }
 
 .nav button:hover,
-.nav button.active {
+.nav button.active{
   border-color:var(--red);
   background:rgba(225,29,46,.1);
   color:white;
 }
 
-/* SECTIONS */
+.section{display:none}
+.section.active{display:block}
 
-.section {
-  display:none;
-}
-
-.section.active {
-  display:block;
-}
-
-/* CONTROLS */
-
-.controls {
+.controls{
   display:grid;
   grid-template-columns:1fr 250px;
   gap:10px;
   margin-bottom:18px;
 }
 
-input,
-select {
+input,select{
   width:100%;
   height:50px;
   padding:0 14px;
@@ -171,20 +141,15 @@ select {
   font-size:15px;
 }
 
-input:focus,
-select:focus {
-  border-color:var(--red);
-}
+input:focus,select:focus{border-color:var(--red)}
 
-/* TITLES */
-
-.section-title {
+.section-title{
   margin:0 0 5px;
   font-size:23px;
   font-weight:900;
 }
 
-.section-subtitle {
+.section-subtitle{
   margin:0 0 17px;
   color:var(--muted);
   font-size:12px;
@@ -192,7 +157,7 @@ select:focus {
 
 /* TIER LIST */
 
-.tier {
+.tier{
   display:grid;
   grid-template-columns:95px 1fr;
   margin-bottom:8px;
@@ -202,30 +167,26 @@ select:focus {
   background:var(--panel);
 }
 
-.tier-name {
+.tier-name{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   min-height:72px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(225,29,46,.18),
-      rgba(225,29,46,.02)
-    ),
+    linear-gradient(135deg,rgba(225,29,46,.18),rgba(225,29,46,.02)),
     var(--panel2);
   border-right:1px solid var(--border);
   font-weight:900;
 }
 
-.tier-points {
+.tier-points{
   margin-top:4px;
   color:#777783;
   font-size:10px;
 }
 
-.players {
+.players{
   display:flex;
   flex-wrap:wrap;
   align-content:center;
@@ -234,7 +195,7 @@ select:focus {
   padding:10px;
 }
 
-.player {
+.player{
   padding:9px 11px;
   border:1px solid #30303a;
   border-radius:8px;
@@ -245,19 +206,19 @@ select:focus {
   font-weight:700;
 }
 
-.player:hover {
+.player:hover{
   transform:translateY(-2px);
   border-color:var(--red);
   background:#241317;
 }
 
-.player-points {
+.player-points{
   margin-left:5px;
   color:#73737e;
   font-size:10px;
 }
 
-.empty {
+.empty{
   padding:8px;
   color:#5e5e68;
   font-size:12px;
@@ -265,18 +226,18 @@ select:focus {
 
 /* RANKINGS */
 
-.ranking-list {
+.ranking-list{
   display:flex;
   flex-direction:column;
   gap:7px;
 }
 
-.ranking-card {
+.ranking-card{
   display:grid;
   grid-template-columns:60px 1fr auto;
   align-items:center;
   gap:12px;
-  min-height:65px;
+  min-height:70px;
   padding:10px 13px;
   border:1px solid var(--border);
   border-radius:10px;
@@ -285,42 +246,61 @@ select:focus {
   transition:.15s;
 }
 
-.ranking-card:hover {
+.ranking-card:hover{
   border-color:var(--red);
   transform:translateX(2px);
 }
 
-.ranking-number {
+.ranking-number{
   font-size:20px;
   font-weight:900;
   color:#777783;
   text-align:center;
 }
 
-.ranking-card:nth-child(1) .ranking-number {
-  color:#ffd700;
+.ranking-card.rank-1{
+  border-color:rgba(255,215,0,.45);
+  background:linear-gradient(90deg,rgba(255,215,0,.08),var(--panel));
 }
 
-.ranking-card:nth-child(2) .ranking-number {
-  color:#c0c0c0;
+.ranking-card.rank-2{
+  border-color:rgba(192,192,192,.35);
+  background:linear-gradient(90deg,rgba(192,192,192,.06),var(--panel));
 }
 
-.ranking-card:nth-child(3) .ranking-number {
-  color:#cd7f32;
+.ranking-card.rank-3{
+  border-color:rgba(205,127,50,.4);
+  background:linear-gradient(90deg,rgba(205,127,50,.07),var(--panel));
 }
 
-.ranking-player {
+.rank-1 .ranking-number{color:var(--gold)}
+.rank-2 .ranking-number{color:var(--silver)}
+.rank-3 .ranking-number{color:var(--bronze)}
+
+.ranking-player{
   font-size:15px;
   font-weight:900;
 }
 
-.ranking-kits {
-  margin-top:4px;
-  color:#666672;
-  font-size:10px;
+.ranking-kits{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:5px;
 }
 
-.ranking-points {
+.kit-badge{
+  display:inline-block;
+  padding:4px 7px;
+  border:1px solid #30303a;
+  border-radius:5px;
+  background:#18181e;
+  color:#aaaab4;
+  font-size:9px;
+  font-weight:800;
+}
+
+.ranking-points{
   padding:7px 10px;
   border:1px solid rgba(225,29,46,.25);
   border-radius:7px;
@@ -328,30 +308,25 @@ select:focus {
   color:var(--red2);
   font-size:12px;
   font-weight:900;
+  white-space:nowrap;
 }
 
 /* PROFILE */
 
-.profile {
+.profile{
   display:none;
   margin-top:20px;
   padding:20px;
   border:1px solid var(--border);
   border-radius:12px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(225,29,46,.06),
-      transparent
-    ),
+    linear-gradient(135deg,rgba(225,29,46,.06),transparent),
     var(--panel);
 }
 
-.profile.active {
-  display:block;
-}
+.profile.active{display:block}
 
-.profile-header {
+.profile-header{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
@@ -359,7 +334,7 @@ select:focus {
   margin-bottom:16px;
 }
 
-.profile-label {
+.profile-label{
   margin-bottom:4px;
   color:#666672;
   font-size:9px;
@@ -368,12 +343,12 @@ select:focus {
   text-transform:uppercase;
 }
 
-.profile-name {
+.profile-name{
   font-size:27px;
   font-weight:900;
 }
 
-.close-button {
+.close-button{
   padding:9px 13px;
   border:1px solid var(--border);
   border-radius:8px;
@@ -383,18 +358,18 @@ select:focus {
   font-weight:700;
 }
 
-.close-button:hover {
+.close-button:hover{
   border-color:var(--red);
   color:var(--red2);
 }
 
-.summary {
+.summary{
   display:flex;
   gap:8px;
   margin-bottom:14px;
 }
 
-.summary-box {
+.summary-box{
   flex:1;
   padding:12px;
   border:1px solid var(--border);
@@ -402,20 +377,20 @@ select:focus {
   background:var(--panel2);
 }
 
-.summary-label {
+.summary-label{
   color:#666672;
   font-size:9px;
   font-weight:900;
   text-transform:uppercase;
 }
 
-.summary-value {
+.summary-value{
   margin-top:4px;
   font-size:20px;
   font-weight:900;
 }
 
-.rank-card {
+.rank-card{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -427,7 +402,7 @@ select:focus {
   background:var(--panel2);
 }
 
-.rank {
+.rank{
   display:inline-block;
   min-width:45px;
   padding:6px 9px;
@@ -438,44 +413,38 @@ select:focus {
   font-weight:900;
 }
 
-.rank-points {
+.rank-points{
   margin-left:5px;
   color:#777783;
   font-size:10px;
 }
 
-.unranked {
+.unranked{
   color:#666672;
   font-size:11px;
 }
 
 /* DISCORD */
 
-.discord-card {
+.discord-card{
   padding:28px;
   border:1px solid rgba(88,101,242,.3);
   border-radius:13px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(88,101,242,.13),
-      transparent
-    ),
+    linear-gradient(135deg,rgba(88,101,242,.13),transparent),
     var(--panel);
   text-align:center;
 }
 
-.discord-card h2 {
-  margin:0 0 8px;
-}
+.discord-card h2{margin:0 0 8px}
 
-.discord-card p {
+.discord-card p{
   margin:0 0 18px;
   color:var(--muted);
   font-size:13px;
 }
 
-.discord-button {
+.discord-button{
   display:inline-block;
   padding:12px 20px;
   border-radius:9px;
@@ -487,7 +456,7 @@ select:focus {
 
 /* STATUS */
 
-#status {
+#status{
   margin-top:18px;
   padding:10px;
   border:1px solid var(--border);
@@ -497,26 +466,18 @@ select:focus {
   font-size:11px;
 }
 
-.connected {
-  color:var(--green) !important;
-}
+.connected{color:var(--green)!important}
+.warning{color:var(--yellow)!important}
+.error{color:#ff5c6c!important}
 
-.warning {
-  color:var(--yellow) !important;
-}
-
-.error {
-  color:#ff5c6c !important;
-}
-
-.updated {
+.updated{
   margin-top:6px;
   text-align:center;
   color:#50505a;
   font-size:10px;
 }
 
-.footer {
+.footer{
   margin-top:35px;
   padding-top:18px;
   border-top:1px solid var(--border);
@@ -526,37 +487,21 @@ select:focus {
   letter-spacing:1px;
 }
 
-/* MOBILE */
+@media(max-width:700px){
+  .controls{grid-template-columns:1fr}
 
-@media(max-width:700px) {
+  .tier{grid-template-columns:70px 1fr}
 
-  .controls {
-    grid-template-columns:1fr;
+  .ranking-card{
+    grid-template-columns:45px 1fr;
   }
 
-  .tier {
-    grid-template-columns:70px 1fr;
+  .ranking-points{
+    grid-column:2;
+    justify-self:start;
   }
 
-  .ranking-card {
-    grid-template-columns:45px 1fr auto;
-  }
-
-  .ranking-number {
-    font-size:16px;
-  }
-
-  .ranking-player {
-    font-size:13px;
-  }
-
-  .ranking-points {
-    font-size:10px;
-  }
-
-  .summary {
-    flex-direction:column;
-  }
+  .summary{flex-direction:column}
 }
 </style>
 </head>
@@ -564,56 +509,35 @@ select:focus {
 <body>
 
 <header>
-
   <div class="brand">
     <span class="brand-dot"></span>
     Official PvP Rankings
   </div>
 
-  <h1>
-    HAVOC <span>STYX</span>
-  </h1>
+  <h1>HAVOC <span>STYX</span></h1>
 
-  <p>
-    FFA Tier List • Top 50 Rankings • Live API
-  </p>
-
+  <p>FFA Tier List • Top 50 Rankings • Live API</p>
 </header>
 
 <div class="container">
 
-  <!-- NAV -->
-
   <div class="nav">
-
-    <button
-      class="active"
-      onclick="switchSection('tiers', this)"
-    >
+    <button class="active" onclick="switchSection('tiers',this)">
       Tier List
     </button>
 
-    <button
-      onclick="switchSection('rankings', this)"
-    >
+    <button onclick="switchSection('rankings',this)">
       Rankings 1–50
     </button>
 
-    <button
-      onclick="switchSection('discord', this)"
-    >
+    <button onclick="switchSection('discord',this)">
       Discord
     </button>
-
   </div>
-
 
   <!-- TIER LIST -->
 
-  <section
-    id="tiers"
-    class="section active"
-  >
+  <section id="tiers" class="section active">
 
     <div class="controls">
 
@@ -625,9 +549,7 @@ select:focus {
       >
 
       <select id="kitSelect">
-        <option value="">
-          Connecting...
-        </option>
+        <option value="">Connecting...</option>
       </select>
 
     </div>
@@ -636,20 +558,16 @@ select:focus {
 
   </section>
 
-
   <!-- RANKINGS -->
 
-  <section
-    id="rankings"
-    class="section"
-  >
+  <section id="rankings" class="section">
 
     <h2 class="section-title">
       Overall Rankings
     </h2>
 
     <p class="section-subtitle">
-      Top 50 players ranked by total tier points.
+      Top 50 players ranked by total accumulated tier points.
     </p>
 
     <div class="controls">
@@ -663,26 +581,17 @@ select:focus {
 
     </div>
 
-    <div
-      id="rankingList"
-      class="ranking-list"
-    ></div>
+    <div id="rankingList" class="ranking-list"></div>
 
   </section>
 
-
   <!-- DISCORD -->
 
-  <section
-    id="discord"
-    class="section"
-  >
+  <section id="discord" class="section">
 
     <div class="discord-card">
 
-      <h2>
-        Join HAVOC STYX
-      </h2>
+      <h2>Join HAVOC STYX</h2>
 
       <p>
         Join our Discord for announcements,
@@ -702,54 +611,34 @@ select:focus {
 
   </section>
 
-
   <!-- PROFILE -->
 
-  <div
-    id="profile"
-    class="profile"
-  >
+  <div id="profile" class="profile">
 
     <div class="profile-header">
 
       <div>
-
         <div class="profile-label">
           Player Profile
         </div>
 
-        <div
-          id="profileName"
-          class="profile-name"
-        ></div>
-
+        <div id="profileName" class="profile-name"></div>
       </div>
 
-      <button
-        class="close-button"
-        onclick="closeProfile()"
-      >
+      <button class="close-button" onclick="closeProfile()">
         Close
       </button>
-
     </div>
 
     <div id="profileRanks"></div>
 
   </div>
 
-
-  <!-- STATUS -->
-
   <div id="status">
     ● Connecting to HAVOC STYX API...
   </div>
 
-  <div
-    id="updated"
-    class="updated"
-  ></div>
-
+  <div id="updated" class="updated"></div>
 
   <div class="footer">
     HAVOC STYX FFA • Official Tier Rankings
@@ -757,14 +646,11 @@ select:focus {
 
 </div>
 
-
 <script>
 
-/*
-================================================
-API
-================================================
-*/
+/* ================================================
+   API
+================================================ */
 
 const API_URL =
   "https://havoc-bot-production-82b2.up.railway.app/api/tiers";
@@ -772,28 +658,32 @@ const API_URL =
 const REFRESH_INTERVAL = 10000;
 
 
-/*
-================================================
-HAVOC STYX POINT SYSTEM
-================================================
+/* ================================================
+   HAVOC STYX POINT SYSTEM
 
-HT:
-HT1 = 10
-HT2 = 8
-HT3 = 5
-HT4 = 3
-HT5 = 1
+   IMPORTANT:
+   We DO NOT use pointsByTier from the API.
 
-LT:
-LT1 = 8
-LT2 = 6
-LT3 = 4
-LT4 = 2
-LT5 = 1
-*/
+   Every tier gives ADDITIONAL points.
+
+   HT:
+   HT1 +10
+   HT2 +8
+   HT3 +5
+   HT4 +3
+   HT5 +1
+
+   LT:
+   LT1 +8
+   LT2 +6
+   LT3 +4
+   LT4 +2
+   LT5 +1
+
+   There is NO maximum total score.
+================================================ */
 
 const POINTS = {
-
   HT1:10,
   HT2:8,
   HT3:5,
@@ -805,25 +695,20 @@ const POINTS = {
   LT3:4,
   LT4:2,
   LT5:1
-
 };
 
 
-/*
-================================================
-STATE
-================================================
-*/
+/* ================================================
+   STATE
+================================================ */
 
 let tierData = null;
 let lastGoodData = null;
 
 
-/*
-================================================
-ELEMENTS
-================================================
-*/
+/* ================================================
+   ELEMENTS
+================================================ */
 
 const searchInput =
   document.getElementById("search");
@@ -856,76 +741,64 @@ const updated =
   document.getElementById("updated");
 
 
-/*
-================================================
-SECTION SWITCH
-================================================
-*/
+/* ================================================
+   SECTION SWITCH
+================================================ */
 
-function switchSection(
-  sectionId,
-  button
-) {
+function switchSection(sectionId, button) {
 
   document
     .querySelectorAll(".section")
     .forEach(section => {
-
-      section.classList.remove(
-        "active"
-      );
-
+      section.classList.remove("active");
     });
-
 
   document
     .getElementById(sectionId)
     .classList.add("active");
 
-
   document
     .querySelectorAll(".nav button")
     .forEach(btn => {
-
-      btn.classList.remove(
-        "active"
-      );
-
+      btn.classList.remove("active");
     });
-
 
   button.classList.add("active");
 
-
-  if (
-    sectionId === "rankings"
-  ) {
-
+  if (sectionId === "rankings") {
     renderRankings();
-
   }
-
 }
 
 
-/*
-================================================
-POINTS
-================================================
-*/
+/* ================================================
+   POINTS
+================================================ */
 
 function getPoints(tier) {
-
-  return POINTS[tier] || 0;
-
+  return POINTS[String(tier).toUpperCase()] || 0;
 }
 
 
-/*
-================================================
-LOAD API
-================================================
-*/
+/* ================================================
+   NORMALIZE PLAYER NAME
+================================================ */
+
+function findExistingPlayer(totals, player) {
+
+  const lower =
+    player.toLowerCase();
+
+  return Object.keys(totals).find(
+    name =>
+      name.toLowerCase() === lower
+  ) || null;
+}
+
+
+/* ================================================
+   LOAD API
+================================================ */
 
 async function loadTierData() {
 
@@ -939,23 +812,19 @@ async function loadTierData() {
 
     const response =
       await fetch(
-        API_URL +
-        "?t=" +
-        Date.now(),
+        API_URL + "?t=" + Date.now(),
         {
           method:"GET",
-          cache:"no-store"
+          cache:"no-store",
+          mode:"cors"
         }
       );
 
 
     if (!response.ok) {
-
       throw new Error(
-        "HTTP " +
-        response.status
+        "HTTP " + response.status
       );
-
     }
 
 
@@ -970,47 +839,29 @@ async function loadTierData() {
       !result.data ||
       typeof result.data !== "object"
     ) {
-
       throw new Error(
         "Invalid API response"
       );
-
     }
 
 
-    /*
-    Save successful data.
-    */
-
-    tierData =
-      result;
-
-    lastGoodData =
-      result;
+    tierData = result;
+    lastGoodData = result;
 
 
     buildKitSelector();
-
     renderTierList();
-
     renderRankings();
 
-
-    /*
-    Refresh open profile.
-    */
 
     const openProfile =
       profile.dataset.player;
 
-
     if (openProfile) {
-
       showProfile(
         openProfile,
         false
       );
-
     }
 
 
@@ -1023,8 +874,7 @@ async function loadTierData() {
 
     updated.textContent =
       "Last updated: " +
-      new Date()
-        .toLocaleTimeString();
+      new Date().toLocaleTimeString();
 
 
   } catch (error) {
@@ -1035,19 +885,12 @@ async function loadTierData() {
     );
 
 
-    /*
-    Keep old working data
-    if a refresh temporarily fails.
-    */
-
     if (lastGoodData) {
 
       tierData =
         lastGoodData;
 
-
       renderTierList();
-
       renderRankings();
 
 
@@ -1056,7 +899,6 @@ async function loadTierData() {
 
       status.className =
         "warning";
-
 
     } else {
 
@@ -1071,61 +913,45 @@ async function loadTierData() {
         <div class="empty">
           API connection failed.
           <br><br>
-          Please refresh the page.
+          Check that your Railway API is online and
+          that CORS allows your website.
         </div>
       `;
-
     }
-
   }
-
 }
 
 
-/*
-================================================
-KIT SELECTOR
-================================================
-*/
+/* ================================================
+   KIT SELECTOR
+================================================ */
 
 function buildKitSelector() {
 
   const previousKit =
     kitSelect.value;
 
-
   kitSelect.innerHTML = "";
 
 
-  tierData.kits.forEach(
-    kit => {
+  tierData.kits.forEach(kit => {
 
-      const option =
-        document.createElement(
-          "option"
-        );
+    const option =
+      document.createElement("option");
 
+    option.value =
+      kit.id;
 
-      option.value =
-        kit.id;
+    option.textContent =
+      kit.name;
 
-
-      option.textContent =
-        kit.name;
-
-
-      kitSelect.appendChild(
-        option
-      );
-
-    }
-  );
+    kitSelect.appendChild(option);
+  });
 
 
   const exists =
     tierData.kits.some(
-      kit =>
-        kit.id === previousKit
+      kit => kit.id === previousKit
     );
 
 
@@ -1140,31 +966,23 @@ function buildKitSelector() {
 
     kitSelect.value =
       tierData.kits[0].id;
-
   }
-
 }
 
 
-/*
-================================================
-RENDER TIER LIST
-================================================
-*/
+/* ================================================
+   RENDER TIER LIST
+================================================ */
 
 function renderTierList() {
 
-  if (!tierData) {
-    return;
-  }
-
+  if (!tierData) return;
 
   tierList.innerHTML = "";
 
 
   const kitId =
     kitSelect.value;
-
 
   const players =
     tierData.data[kitId] || {};
@@ -1176,243 +994,210 @@ function renderTierList() {
       .toLowerCase();
 
 
-  tierData.tiers.forEach(
-    tier => {
+  tierData.tiers.forEach(tier => {
 
-      const row =
-        document.createElement(
-          "div"
-        );
+    const row =
+      document.createElement("div");
 
-      row.className =
-        "tier";
+    row.className =
+      "tier";
 
 
-      const tierName =
-        document.createElement(
-          "div"
-        );
+    const tierName =
+      document.createElement("div");
 
-      tierName.className =
-        "tier-name";
+    tierName.className =
+      "tier-name";
 
 
-      tierName.innerHTML = `
-        <div>
-          ${escapeHTML(tier)}
-        </div>
-
-        <div class="tier-points">
-          ${getPoints(tier)} pts
-        </div>
-      `;
+    tierName.innerHTML = `
+      <div>${escapeHTML(tier)}</div>
+      <div class="tier-points">
+        +${getPoints(tier)} pts
+      </div>
+    `;
 
 
-      const playersBox =
-        document.createElement(
-          "div"
-        );
+    const playersBox =
+      document.createElement("div");
 
-      playersBox.className =
-        "players";
+    playersBox.className =
+      "players";
 
 
-      const matching =
-        Object.entries(players)
-          .filter(
-            ([player, playerTier]) => {
+    const matching =
+      Object.entries(players)
+        .filter(([player, playerTier]) => {
 
-              if (
-                playerTier !== tier
-              ) {
-
-                return false;
-
-              }
-
-
-              if (!search) {
-
-                return true;
-
-              }
-
-
-              return player
-                .toLowerCase()
-                .includes(search);
-
-            }
-          )
-          .sort(
-            ([a], [b]) =>
-              a.localeCompare(b)
-          );
-
-
-      if (
-        matching.length === 0
-      ) {
-
-        const empty =
-          document.createElement(
-            "div"
-          );
-
-
-        empty.className =
-          "empty";
-
-
-        empty.textContent =
-          "No players";
-
-
-        playersBox.appendChild(
-          empty
-        );
-
-
-      } else {
-
-        matching.forEach(
-          ([player, playerTier]) => {
-
-            const button =
-              document.createElement(
-                "div"
-              );
-
-
-            button.className =
-              "player";
-
-
-            button.innerHTML = `
-              ${escapeHTML(player)}
-
-              <span class="player-points">
-                +${getPoints(playerTier)}
-              </span>
-            `;
-
-
-            button.onclick =
-              () =>
-                showProfile(player);
-
-
-            playersBox.appendChild(
-              button
-            );
-
+          if (
+            String(playerTier).toUpperCase() !==
+            String(tier).toUpperCase()
+          ) {
+            return false;
           }
+
+          if (!search) return true;
+
+          return player
+            .toLowerCase()
+            .includes(search);
+        })
+        .sort(([a],[b]) =>
+          a.localeCompare(b)
         );
 
-      }
 
+    if (matching.length === 0) {
 
-      row.appendChild(
-        tierName
+      const empty =
+        document.createElement("div");
+
+      empty.className =
+        "empty";
+
+      empty.textContent =
+        "No players";
+
+      playersBox.appendChild(empty);
+
+    } else {
+
+      matching.forEach(
+        ([player, playerTier]) => {
+
+          const button =
+            document.createElement("div");
+
+          button.className =
+            "player";
+
+          button.innerHTML = `
+            ${escapeHTML(player)}
+            <span class="player-points">
+              +${getPoints(playerTier)}
+            </span>
+          `;
+
+          button.onclick =
+            () => showProfile(player);
+
+          playersBox.appendChild(button);
+        }
       );
-
-
-      row.appendChild(
-        playersBox
-      );
-
-
-      tierList.appendChild(
-        row
-      );
-
     }
-  );
 
+
+    row.appendChild(tierName);
+    row.appendChild(playersBox);
+
+    tierList.appendChild(row);
+  });
 }
 
 
-/*
-================================================
-CALCULATE OVERALL RANKINGS
-================================================
-*/
+/* ================================================
+   CALCULATE OVERALL RANKINGS
+
+   EVERY KIT COUNTS.
+
+   Example:
+   Sword LT5 = +1
+   SMP HT3   = +5
+   Mace LT5  = +1
+
+   TOTAL = 7
+
+   No maximum.
+================================================ */
 
 function calculateRankings() {
 
-  if (!tierData) {
-    return [];
-  }
+  if (!tierData) return [];
 
 
   const totals = {};
 
 
-  tierData.kits.forEach(
-    kit => {
+  tierData.kits.forEach(kit => {
 
-      const players =
-        tierData.data[
-          kit.id
-        ] || {};
+    const players =
+      tierData.data[kit.id] || {};
 
 
-      Object.entries(players)
-        .forEach(
-          ([player, tier]) => {
+    Object.entries(players)
+      .forEach(([player, tier]) => {
 
-            /*
-            Make player names case-insensitive.
-            This prevents Yunglah and yunglah
-            from becoming two different players.
-            */
-
-            const existing =
-              Object.keys(totals)
-                .find(
-                  name =>
-                    name.toLowerCase() ===
-                    player.toLowerCase()
-                );
+        const existing =
+          findExistingPlayer(
+            totals,
+            player
+          );
 
 
-            const key =
-              existing || player;
+        const key =
+          existing || player;
 
 
-            if (!totals[key]) {
+        if (!totals[key]) {
 
-              totals[key] = {
-                points:0,
-                kits:0
-              };
+          totals[key] = {
+            points:0,
+            kits:0,
+            tiers:[]
+          };
+        }
 
-            }
+
+        const points =
+          getPoints(tier);
 
 
-            totals[key].points +=
-              getPoints(tier);
+        totals[key].points += points;
+        totals[key].kits++;
 
-            totals[key].kits++;
 
-          }
-        );
+        totals[key].tiers.push({
+          kitId:kit.id,
+          kitName:kit.name,
+          tier:tier,
+          points:points
+        });
 
-    }
-  );
+      });
+  });
 
 
   return Object.entries(totals)
-    .map(
-      ([player, info]) => ({
+    .map(([player, info]) => ({
+      player,
+      points:info.points,
+      kits:info.kits,
+      tiers:info.tiers
+    }))
+    .sort((a,b) => {
 
-        player:player,
+      if (b.points !== a.points) {
+        return b.points - a.points;
+      }
 
-        points:info.points,
+      if (b.kits !== a.kits) {
+        return b.kits - a.kits;
+      }
 
-        kits:info.kits
+      return a.player.localeCompare(
+        b.player
+      );
+    });
+}
 
-      })
-    )
-    .sort(
-      (a  
+
+/* ================================================
+   RENDER TOP 50
+================================================ */
+
+function renderRankings() {
+
+  rankingList.innerHTML = "";
+
+
+  co
