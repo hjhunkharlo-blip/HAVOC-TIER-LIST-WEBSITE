@@ -1,82 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>HAVOC STYX FFA Tier List</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: #080a0f;
-      color: white;
+      color: #ffffff;
     }
 
     header {
+      padding: 35px 20px;
       text-align: center;
-      padding: 35px 15px;
       background: #0e1118;
       border-bottom: 1px solid #252a35;
     }
 
-    h1 {
+    header h1 {
       margin: 0;
       font-size: 30px;
+      font-weight: 800;
     }
 
     header p {
-      color: #8e96a5;
-      margin-top: 8px;
+      margin: 8px 0 0;
+      color: #8f98a8;
     }
 
     .container {
+      width: 100%;
       max-width: 1000px;
       margin: auto;
       padding: 20px;
     }
 
-    .search,
-    .kit-select {
+    input,
+    select {
       width: 100%;
       padding: 14px;
+      margin-bottom: 14px;
+
+      border: 1px solid #303744;
       border-radius: 10px;
-      border: 1px solid #303644;
+
       background: #11151d;
-      color: white;
+      color: #ffffff;
+
       font-size: 16px;
-      margin-bottom: 15px;
       outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #5865f2;
     }
 
     .tier {
       display: grid;
-      grid-template-columns: 90px 1fr;
+      grid-template-columns: 85px 1fr;
+
       margin-bottom: 8px;
+
       background: #11151d;
       border: 1px solid #252a35;
       border-radius: 10px;
+
       overflow: hidden;
     }
 
     .tier-name {
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-weight: bold;
-      font-size: 18px;
+      justify-content: center;
+
       background: #171c26;
-      padding: 18px 5px;
+
+      font-size: 18px;
+      font-weight: 800;
     }
 
     .players {
@@ -84,26 +93,42 @@
       flex-wrap: wrap;
       gap: 8px;
       padding: 12px;
+      min-height: 55px;
     }
 
     .player {
+      padding: 9px 13px;
+
       background: #202632;
+      border: 1px solid #303847;
+
       border-radius: 8px;
-      padding: 9px 12px;
+
       cursor: pointer;
+
+      transition: 0.15s;
     }
 
     .player:hover {
       background: #30394a;
+      transform: translateY(-1px);
+    }
+
+    .empty {
+      padding: 8px;
+      color: #687181;
     }
 
     .profile {
       display: none;
+
       margin-top: 25px;
+      padding: 22px;
+
       background: #0f131b;
       border: 1px solid #2a303d;
+
       border-radius: 14px;
-      padding: 22px;
     }
 
     .profile.active {
@@ -114,20 +139,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      gap: 15px;
+
       margin-bottom: 20px;
     }
 
     .profile-name {
       font-size: 27px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    .close {
+    .close-button {
+      padding: 9px 14px;
+
       border: 0;
+      border-radius: 8px;
+
       background: #252b37;
       color: white;
-      padding: 9px 14px;
-      border-radius: 8px;
+
       cursor: pointer;
     }
 
@@ -135,31 +166,62 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      padding: 14px;
+      margin-bottom: 8px;
+
       background: #171c25;
       border: 1px solid #252b36;
-      padding: 14px;
+
       border-radius: 10px;
-      margin-bottom: 8px;
     }
 
     .rank {
-      font-weight: bold;
-      background: #252d3b;
       padding: 6px 10px;
+
+      background: #252d3b;
+
       border-radius: 7px;
+
+      font-weight: 800;
     }
 
     .unranked {
       color: #737c8c;
     }
 
-    .status {
+    #status {
+      margin-top: 20px;
+
       text-align: center;
+
       color: #7f8795;
       font-size: 13px;
-      margin-top: 20px;
     }
 
+    .error {
+      color: #ff6b6b !important;
+    }
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      .tier {
+        grid-template-columns: 70px 1fr;
+      }
+
+      .tier-name {
+        font-size: 15px;
+      }
+
+      .profile-header {
+        align-items: flex-start;
+      }
+
+    }
   </style>
 </head>
 
@@ -167,9 +229,7 @@
 
 <header>
 
-  <h1>
-    HAVOC STYX FFA TIER LIST
-  </h1>
+  <h1>HAVOC STYX FFA TIER LIST</h1>
 
   <p>
     Official HAVOC STYX player rankings
@@ -181,32 +241,29 @@
 
   <input
     id="search"
-    class="search"
     type="text"
     placeholder="Search player..."
+    autocomplete="off"
   >
 
-  <select
-    id="kitSelect"
-    class="kit-select"
-  ></select>
+  <select id="kitSelect">
+    <option>Loading kits...</option>
+  </select>
 
   <div id="tierList"></div>
 
-  <div
-    id="profile"
-    class="profile"
-  >
+  <div id="profile" class="profile">
 
     <div class="profile-header">
 
       <div
         id="profileName"
         class="profile-name"
-      ></div>
+      >
+      </div>
 
       <button
-        class="close"
+        class="close-button"
         onclick="closeProfile()"
       >
         Close
@@ -218,86 +275,219 @@
 
   </div>
 
-  <div
-    id="status"
-    class="status"
-  >
-    Loading...
+  <div id="status">
+    Connecting to HAVOC STYX...
   </div>
 
 </div>
 
 <script>
 
-/*
-  IMPORTANT:
-  This is your Railway BOT/API URL.
-*/
-const API_URL =
-  "https://havoc-bot-production-82b2.up.railway.app";
+  /*
+   * YOUR RAILWAY BOT API
+   */
 
-const TIERS = [
-  "HT1",
-  "LT1",
-  "HT2",
-  "LT2",
-  "HT3",
-  "LT3",
-  "HT4",
-  "LT4",
-  "HT5",
-  "LT5"
-];
+  const API_URL =
+    "https://havoc-bot-production-82b2.up.railway.app";
 
-let tierData = null;
 
-async function loadData() {
+  const TIERS = [
+    "HT1",
+    "LT1",
+    "HT2",
+    "LT2",
+    "HT3",
+    "LT3",
+    "HT4",
+    "LT4",
+    "HT5",
+    "LT5"
+  ];
 
-  try {
 
-    const response = await fetch(
-      API_URL +
-      "/api/tiers?time=" +
-      Date.now()
-    );
+  let tierData = null;
 
-    if (!response.ok) {
-      throw new Error(
-        "API returned " + response.status
+
+  /*
+   * LOAD DATA FROM RAILWAY
+   */
+
+  async function loadData() {
+
+    try {
+
+      const url =
+        API_URL +
+        "/api/tiers?time=" +
+        Date.now();
+
+      const response =
+        await fetch(url, {
+          method: "GET",
+          cache: "no-store"
+        });
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "API returned HTTP " +
+          response.status
+        );
+
+      }
+
+
+      const result =
+        await response.json();
+
+
+      if (!result.kits ||
+          !result.tiers ||
+          !result.data) {
+
+        throw new Error(
+          "Invalid API response"
+        );
+
+      }
+
+
+      tierData = result;
+
+
+      createKitSelector();
+
+      renderTierList();
+
+
+      const status =
+        document.getElementById("status");
+
+
+      status.textContent =
+        "🟢 Live • Automatically updating";
+
+
+      status.classList.remove(
+        "error"
       );
+
+
+    } catch (error) {
+
+      console.error(
+        "HAVOC STYX API ERROR:",
+        error
+      );
+
+
+      const status =
+        document.getElementById("status");
+
+
+      status.textContent =
+        "🔴 Cannot connect to HAVOC STYX API";
+
+
+      status.classList.add(
+        "error"
+      );
+
     }
-
-    tierData = await response.json();
-
-    createKitSelector();
-
-    renderTierList();
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "🟢 Live • Updates automatically";
-
-  } catch (error) {
-
-    console.error(error);
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "🔴 Unable to connect to HAVOC STYX API";
 
   }
 
-}
 
-function createKitSelector() {
+  /*
+   * CREATE KIT DROPDOWN
+   */
 
-  const select =
-    document.getElementById(
-      "kitSelect"
+  function createKitSelector() {
+
+    const select =
+      document.getElementById(
+        "kitSelect"
+      );
+
+
+    const current =
+      select.value;
+
+
+    select.innerHTML = "";
+
+
+    tierData.kits.forEach(
+      kit => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          kit.id;
+
+
+        option.textContent =
+          kit.name;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
     );
 
-  select.innerHTML =
-    tierData.kits
-     
+
+    if (current &&
+        tierData.kits.some(
+          kit => kit.id === current
+        )) {
+
+      select.value = current;
+
+    }
+
+  }
+
+
+  /*
+   * DISPLAY TIER LIST
+   */
+
+  function renderTierList() {
+
+    if (!tierData) {
+      return;
+    }
+
+
+    const select =
+      document.getElementById(
+        "kitSelect"
+      );
+
+
+    const kit =
+      select.value;
+
+
+    const search =
+      document.getElementById(
+        "search"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+
+
+    const players =
+      tierData.data[kit] || {};
+
+
+    const container =
+      document.getElement
