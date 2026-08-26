@@ -1,50 +1,108 @@
 {
   "kits": [
     {
-      "id": "default",
-      "name": "Default Kit"
+      "id": "sword",
+      "name": "⚔️ Sword",
+      "aliases": ["sword"]
+    },
+    {
+      "id": "axe",
+      "name": "🪓 Axe",
+      "aliases": ["axe"]
+    },
+    {
+      "id": "crystal",
+      "name": "💎 Crystal",
+      "aliases": ["crystal"]
+    },
+    {
+      "id": "pot",
+      "name": "🧪 Pot",
+      "aliases": ["pot"]
+    },
+    {
+      "id": "smp",
+      "name": "🥊 SMP",
+      "aliases": ["smp"]
+    },
+    {
+      "id": "dia-smp",
+      "name": "💠 Dia SMP",
+      "aliases": ["dia-smp", "diasmp", "dia"]
+    },
+    {
+      "id": "uhc",
+      "name": "❤️ UHC",
+      "aliases": ["uhc"]
+    },
+    {
+      "id": "mace",
+      "name": "🔨 Mace",
+      "aliases": ["mace"]
+    },
+    {
+      "id": "spear-mace",
+      "name": "🔱⚒️ Spear Mace",
+      "aliases": ["spear-mace", "spearmace", "spear"]
+    },
+    {
+      "id": "nethsmp",
+      "name": "🌍 Neth SMP",
+      "aliases": ["nethsmp", "neth-smp", "neth"]
     }
   ],
   "tiers": [
     {
-      "name": "S",
-      "points": 100
+      "name": "HT1",
+      "points": 10
     },
     {
-      "name": "A",
-      "points": 80
+      "name": "LT1",
+      "points": 8
     },
     {
-      "name": "B",
-      "points": 60
+      "name": "HT2",
+      "points": 8
     },
     {
-      "name": "C",
-      "points": 40
-n    },
+      "name": "LT2",
+      "points": 6
+    },
     {
-      "name": "D",
-      "points": 20
+      "name": "HT3",
+      "points": 5
+    },
+    {
+      "name": "LT3",
+      "points": 4
+    },
+    {
+      "name": "HT4",
+      "points": 3
+    },
+    {
+      "name": "LT4",
+      "points": 2
+    },
+    {
+      "name": "HT5",
+      "points": 1
+    },
+    {
+      "name": "LT5",
+      "points": 1
     }
   ],
   "data": {
-    "default": {
-      "HAVOCplayer1": {
-        "tier": "S",
-        "points": 100
-      },
-      "HAVOCplayer2": {
-        "tier": "A",
-        "points": 80
-      },
-      "HAVOCplayer3": {
-        "tier": "B",
-        "points": 60
-      },
-      "HAVOCplayer4": {
-        "tier": "C",
-        "points": 40
-      }
-    }
+    "sword": {},
+    "axe": {},
+    "crystal": {},
+    "pot": {},
+    "smp": {},
+    "dia-smp": {},
+    "uhc": {},
+    "mace": {},
+    "spear-mace": {},
+    "nethsmp": {}
   }
 }
