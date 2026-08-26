@@ -3,136 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAVOC STYX FFA</title>
-  <link rel="stylesheet" href="style.css">
-</head>
 
-<body>
+  <title>HAVOC STYX FFA Tier List</title>
 
-<header>
-  <div class="logo">HAVOC <span>STYX</span></div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#server">Server</a>
-    <a href="#tiers">Tier List</a>
-    <a href="#rules">Rules</a>
-    <a href="#discord">Discord</a>
-  </nav>
-</header>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080a0f;
+      color: white;
+    }
 
-<section id="home" class="hero">
-  <div>
-    <p class="tag">⚔️ MINECRAFT FFA SERVER</p>
-    <h1>HAVOC <span>STYX</span></h1>
-    <p class="subtitle">
-      Fight. Survive. Dominate.
-    </p>
+    header {
+      text-align: center;
+      padding: 35px 15px;
+      background: #0e1118;
+      border-bottom: 1px solid #252a35;
+    }
 
-    <div class="buttons">
-      <a class="btn primary" href="#server">SERVER INFO</a>
-      <a class="btn discord" href="https://discord.gg/RaJMvHaXB" target="_blank">
-        JOIN DISCORD
-      </a>
-    </div>
-  </div>
-</section>
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
 
-<section id="server" class="section">
-  <h2>SERVER INFO</h2>
+    header p {
+      color: #8e96a5;
+      margin-top: 8px;
+    }
 
-  <div class="cards">
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
 
-    <div class="card">
-      <div class="icon">🌐</div>
-      <h3>SERVER IP</h3>
-      <p id="server-ip">havocffa.playwithbao.com:41367</p>
-      <button onclick="copyIP()">COPY IP</button>
-    </div>
+    .search {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #303644;
+      background: #11151d;
+      color: white;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 15px;
+    }
 
-    <div class="card">
-      <div class="icon">🎮</div>
-      <h3>VERSION</h3>
-      <p id="server-version">YOUR VERSION</p>
-    </div>
+    .kit-select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #303644;
+      background: #11151d;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
-    <div class="card">
-      <div class="icon">⚔️</div>
-      <h3>GAME MODE</h3>
-      <p>FFA / PVP</p>
-    </div>
+    .tier {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      margin-bottom: 8px;
+      background: #11151d;
+      border: 1px solid #252a35;
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
-  </div>
-</section>
+    .tier-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      background: #171c26;
+      padding: 18px 5px;
+    }
 
-<section id="tiers" class="section dark">
-  <h2>🏆 TIER LIST</h2>
-  <p class="description">
-    Official HAVOC STYX player rankings.
-  </p>
+    .players {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+    }
 
-  <div id="tier-list"></div>
-</section>
+    .player {
+      background: #202632;
+      border-radius: 8px;
+      padding: 9px 12px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
 
-<section id="rules" class="section">
-  <h2>📜 SERVER RULES</h2>
+    .player:hover {
+      background: #30394a;
+      transform: translateY(-1px);
+    }
 
-  <div class="rules">
+    .profile {
+      display: none;
+      background: #0f131b;
+      border: 1px solid #2a303d;
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 20px;
+    }
 
-    <div class="rule">
-      <b>⚔️ No Cheating</b>
-      <p>No hacks, cheats, unfair clients or exploits.</p>
-    </div>
+    .profile.active {
+      display: block;
+    }
 
-    <div class="rule">
-      <b>🚫 No Duping</b>
-      <p>Duplication glitches and item duplication are not allowed.</p>
-    </div>
-
-    <div class="rule">
-      <b>🔍 No X-Ray</b>
-      <p>Using X-Ray or similar resource packs is prohibited.</p>
-    </div>
-
-    <div class="rule">
-      <b>🤝 Respect Players</b>
-      <p>Keep the server fun and don't harass other players.</p>
-    </div>
-
-    <div class="rule">
-      <b>🐛 No Exploiting</b>
-      <p>Do not abuse bugs or server glitches.</p>
-    </div>
-
-    <div class="rule">
-      <b>👑 Staff Decisions</b>
-      <p>Respect staff decisions and follow instructions.</p>
-    </div>
-
-  </div>
-</section>
-
-<section id="discord" class="discord-section">
-  <h2>JOIN THE COMMUNITY</h2>
-
-  <p>
-    Join the HAVOC STYX Discord for announcements, tickets,
-    clips, tier lists and server information.
-  </p>
-
-  <a class="btn discord big"
-     href="https://discord.gg/RaJMvHaXB"
-     target="_blank">
-    💬 JOIN DISCORD
-  </a>
-</section>
-
-<footer>
-  <p>© 2026 HAVOC STYX FFA</p>
-  <p>Fight hard. Stay respectful. Have fun.</p>
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+    .profile-header {
+      display: flex;
+      justify
