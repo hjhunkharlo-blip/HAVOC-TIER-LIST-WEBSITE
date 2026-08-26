@@ -1,281 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>HAVOC STYX FFA Tier List</title>
+<title>HAVOC STYX — Tier List</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #080a0f;
-      color: #ffffff;
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #07090d;
+  color: white;
+}
 
-    header {
-      padding: 35px 20px;
-      text-align: center;
-      background: #0e1118;
-      border-bottom: 1px solid #252a35;
-    }
+header {
+  padding: 35px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #111722, #080a0f);
+  border-bottom: 1px solid #293140;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-      font-weight: 800;
-    }
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
 
-    header p {
-      margin: 8px 0 0;
-      color: #8f98a8;
-    }
+.subtitle {
+  margin-top: 8px;
+  color: #8993a5;
+  font-size: 13px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+.container {
+  width: min(1050px, 100%);
+  margin: auto;
+  padding: 22px;
+}
 
-    input,
-    select {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 14px;
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 12px;
+  margin-bottom: 22px;
+}
 
-      border: 1px solid #303744;
-      border-radius: 10px;
+input,
+select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 11px;
+  border: 1px solid #293241;
+  background: #11151d;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
 
-      background: #11151d;
-      color: #ffffff;
+input:focus,
+select:focus {
+  border-color: #6674ff;
+}
 
-      font-size: 16px;
-      outline: none;
-    }
+.section-title {
+  margin-bottom: 12px;
+  color: #8c97a8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
-    input:focus,
-    select:focus {
-      border-color: #5865f2;
-    }
+.tier {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  margin-bottom: 8px;
+  background: #11151d;
+  border: 1px solid #252d3a;
+  border-radius: 11px;
+  overflow: hidden;
+}
 
-    .tier {
-      display: grid;
-      grid-template-columns: 85px 1fr;
+.tier-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #181e28;
+  font-size: 17px;
+  font-weight: 900;
+}
 
-      margin-bottom: 8px;
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  min-height: 55px;
+}
 
-      background: #11151d;
-      border: 1px solid #252a35;
-      border-radius: 10px;
+.player {
+  padding: 9px 13px;
+  border-radius: 8px;
+  border: 1px solid #303a4b;
+  background: #1b222d;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .15s;
+}
 
-      overflow: hidden;
-    }
+.player:hover {
+  background: #2b3546;
+  transform: translateY(-1px);
+}
 
-    .tier-name {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+.empty {
+  padding: 8px;
+  color: #687385;
+}
 
-      background: #171c26;
+/* PROFILE */
 
-      font-size: 18px;
-      font-weight: 800;
-    }
+.profile {
+  display: none;
+  margin-top: 25px;
+  border: 1px solid #2b3545;
+  border-radius: 17px;
+  overflow: hidden;
+  background: #0d1118;
+}
 
-    .players {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 12px;
-      min-height: 55px;
-    }
+.profile.active {
+  display: block;
+}
 
-    .player {
-      padding: 9px 13px;
+.profile-banner {
+  padding: 28px 24px;
+  background: linear-gradient(135deg, #171f2e, #0d1118);
+  border-bottom: 1px solid #293241;
+}
 
-      background: #202632;
-      border: 1px solid #303847;
+.profile-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
 
-      border-radius: 8px;
+.profile-name {
+  font-size: 30px;
+  font-weight: 900;
+}
 
-      cursor: pointer;
+.profile-label {
+  margin-top: 5px;
+  color: #7f8999;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
 
-      transition: 0.15s;
-    }
+.close {
+  padding: 9px 14px;
+  border: 1px solid #303a49;
+  border-radius: 8px;
+  background: #1a202b;
+  color: white;
+  cursor: pointer;
+}
 
-    .player:hover {
-      background: #30394a;
-      transform: translateY(-1px);
-    }
+.profile-body {
+  padding: 20px;
+}
 
-    .empty {
-      padding: 8px;
-      color: #687181;
-    }
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
 
-    .profile {
-      display: none;
+.kit-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #141a23;
+  border: 1px solid #283240;
+  border-radius: 11px;
+}
 
-      margin-top: 25px;
-      padding: 22px;
+.kit-name {
+  font-weight: 700;
+}
 
-      background: #0f131b;
-      border: 1px solid #2a303d;
+.rank {
+  padding: 6px 10px;
+  border-radius: 7px;
+  background: #252f3e;
+  font-weight: 900;
+}
 
-      border-radius: 14px;
-    }
+.unranked {
+  color: #6d7788;
+  font-weight: 600;
+}
 
-    .profile.active {
-      display: block;
-    }
+.status {
+  margin-top: 20px;
+  text-align: center;
+  color: #7e899a;
+  font-size: 13px;
+}
 
-    .profile-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+.error {
+  color: #ff6d6d;
+}
 
-      gap: 15px;
+@media (max-width: 700px) {
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
 
-      margin-bottom: 20px;
-    }
+  .kit-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .profile-name {
-      font-size: 27px;
-      font-weight: 800;
-    }
-
-    .close-button {
-      padding: 9px 14px;
-
-      border: 0;
-      border-radius: 8px;
-
-      background: #252b37;
-      color: white;
-
-      cursor: pointer;
-    }
-
-    .rank-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 14px;
-      margin-bottom: 8px;
-
-      background: #171c25;
-      border: 1px solid #252b36;
-
-      border-radius: 10px;
-    }
-
-    .rank {
-      padding: 6px 10px;
-
-      background: #252d3b;
-
-      border-radius: 7px;
-
-      font-weight: 800;
-    }
-
-    .unranked {
-      color: #737c8c;
-    }
-
-    #status {
-      margin-top: 20px;
-
-      text-align: center;
-
-      color: #7f8795;
-      font-size: 13px;
-    }
-
-    .error {
-      color: #ff6b6b !important;
-    }
-
-    @media (max-width: 600px) {
-
-      header h1 {
-        font-size: 24px;
-      }
-
-      .tier {
-        grid-template-columns: 70px 1fr;
-      }
-
-      .tier-name {
-        font-size: 15px;
-      }
-
-      .profile-header {
-        align-items: flex-start;
-      }
-
-    }
-  </style>
+  .profile-name {
+    font-size: 25px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-
-  <h1>HAVOC STYX FFA TIER LIST</h1>
-
-  <p>
-    Official HAVOC STYX player rankings
-  </p>
-
+  <div class="logo">HAVOC STYX</div>
+  <div class="subtitle">FFA • OFFICIAL PLAYER TIER LIST</div>
 </header>
 
 <div class="container">
 
-  <input
-    id="search"
-    type="text"
-    placeholder="Search player..."
-    autocomplete="off"
-  >
+  <div class="toolbar">
 
-  <select id="kitSelect">
-    <option>Loading kits...</option>
-  </select>
+    <input
+      id="search"
+      type="text"
+      placeholder="Search player..."
+      autocomplete="off"
+    >
+
+    <select id="kitSelect">
+      <option value="">Loading kits...</option>
+    </select>
+
+  </div>
+
+  <div class="section-title">
+    Tier List
+  </div>
 
   <div id="tierList"></div>
 
   <div id="profile" class="profile">
 
-    <div class="profile-header">
+    <div class="profile-banner">
 
-      <div
-        id="profileName"
-        class="profile-name"
-      >
+      <div class="profile-title">
+
+        <div>
+          <div id="profileName" class="profile-name"></div>
+
+          <div class="profile-label">
+            HAVOC STYX PLAYER PROFILE
+          </div>
+        </div>
+
+        <button
+          class="close"
+          onclick="closeProfile()"
+        >
+          Close
+        </button>
+
       </div>
-
-      <button
-        class="close-button"
-        onclick="closeProfile()"
-      >
-        Close
-      </button>
 
     </div>
 
-    <div id="profileRanks"></div>
+    <div class="profile-body">
+
+      <div id="kitGrid" class="kit-grid"></div>
+
+    </div>
 
   </div>
 
-  <div id="status">
+  <div id="status" class="status">
     Connecting to HAVOC STYX...
   </div>
 
@@ -283,211 +307,453 @@
 
 <script>
 
-  /*
-   * YOUR RAILWAY BOT API
-   */
+/* =====================================
+   HAVOC STYX API
+===================================== */
 
-  const API_URL =
-    "https://havoc-bot-production-82b2.up.railway.app";
-
-
-  const TIERS = [
-    "HT1",
-    "LT1",
-    "HT2",
-    "LT2",
-    "HT3",
-    "LT3",
-    "HT4",
-    "LT4",
-    "HT5",
-    "LT5"
-  ];
+const API_URL =
+  "https://havoc-bot-production-82b2.up.railway.app";
 
 
-  let tierData = null;
+/* =====================================
+   TIERS
+===================================== */
+
+const TIERS = [
+  "HT1",
+  "LT1",
+  "HT2",
+  "LT2",
+  "HT3",
+  "LT3",
+  "HT4",
+  "LT4",
+  "HT5",
+  "LT5"
+];
 
 
-  /*
-   * LOAD DATA FROM RAILWAY
-   */
-
-  async function loadData() {
-
-    try {
-
-      const url =
-        API_URL +
-        "/api/tiers?time=" +
-        Date.now();
-
-      const response =
-        await fetch(url, {
-          method: "GET",
-          cache: "no-store"
-        });
+let tierData = null;
 
 
-      if (!response.ok) {
+/* =====================================
+   LOAD API
+===================================== */
 
-        throw new Error(
-          "API returned HTTP " +
-          response.status
-        );
+async function loadData() {
 
-      }
+  const status =
+    document.getElementById("status");
 
+  try {
 
-      const result =
-        await response.json();
+    status.textContent =
+      "Connecting to HAVOC STYX...";
 
-
-      if (!result.kits ||
-          !result.tiers ||
-          !result.data) {
-
-        throw new Error(
-          "Invalid API response"
-        );
-
-      }
-
-
-      tierData = result;
-
-
-      createKitSelector();
-
-      renderTierList();
-
-
-      const status =
-        document.getElementById("status");
-
-
-      status.textContent =
-        "🟢 Live • Automatically updating";
-
-
-      status.classList.remove(
-        "error"
-      );
-
-
-    } catch (error) {
-
-      console.error(
-        "HAVOC STYX API ERROR:",
-        error
-      );
-
-
-      const status =
-        document.getElementById("status");
-
-
-      status.textContent =
-        "🔴 Cannot connect to HAVOC STYX API";
-
-
-      status.classList.add(
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /*
-   * CREATE KIT DROPDOWN
-   */
-
-  function createKitSelector() {
-
-    const select =
-      document.getElementById(
-        "kitSelect"
-      );
-
-
-    const current =
-      select.value;
-
-
-    select.innerHTML = "";
-
-
-    tierData.kits.forEach(
-      kit => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
-
-
-        option.value =
-          kit.id;
-
-
-        option.textContent =
-          kit.name;
-
-
-        select.appendChild(
-          option
-        );
-
+    const response = await fetch(
+      API_URL +
+      "/api/tiers?time=" +
+      Date.now(),
+      {
+        method: "GET",
+        cache: "no-store"
       }
     );
 
-
-    if (current &&
-        tierData.kits.some(
-          kit => kit.id === current
-        )) {
-
-      select.value = current;
-
+    if (!response.ok) {
+      throw new Error(
+        "HTTP " + response.status
+      );
     }
+
+    const result =
+      await response.json();
+
+    if (
+      !result ||
+      !Array.isArray(result.kits) ||
+      !Array.isArray(result.tiers) ||
+      !result.data
+    ) {
+      throw new Error(
+        "Invalid API response"
+      );
+    }
+
+    tierData = result;
+
+    createKitSelector();
+
+    renderTierList();
+
+    status.textContent =
+      "🟢 Live • Auto-updating";
+
+    status.classList.remove("error");
+
+  } catch (error) {
+
+    console.error(
+      "HAVOC STYX API ERROR:",
+      error
+    );
+
+    status.textContent =
+      "🔴 API connection failed";
+
+    status.classList.add("error");
+  }
+}
+
+
+/* =====================================
+   KIT DROPDOWN
+===================================== */
+
+function createKitSelector() {
+
+  const select =
+    document.getElementById(
+      "kitSelect"
+    );
+
+  const previous =
+    select.value;
+
+  select.innerHTML = "";
+
+  tierData.kits.forEach(kit => {
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+    option.value =
+      kit.id;
+
+    option.textContent =
+      kit.name;
+
+    select.appendChild(
+      option
+    );
+
+  });
+
+  if (
+    previous &&
+    tierData.kits.some(
+      kit => kit.id === previous
+    )
+  ) {
+
+    select.value =
+      previous;
 
   }
 
-
-  /*
-   * DISPLAY TIER LIST
-   */
-
-  function renderTierList() {
-
-    if (!tierData) {
-      return;
-    }
+}
 
 
-    const select =
-      document.getElementById(
-        "kitSelect"
-      );
+/* =====================================
+   RENDER TIER LIST
+===================================== */
 
+function renderTierList() {
 
-    const kit =
-      select.value;
+  if (!tierData) return;
 
+  const select =
+    document.getElementById(
+      "kitSelect"
+    );
 
-    const search =
-      document.getElementById(
-        "search"
-      )
-      .value
+  const kit =
+    select.value;
+
+  const search =
+    document.getElementById(
+      "search"
+    ).value
       .trim()
       .toLowerCase();
 
+  const players =
+    tierData.data[kit] || {};
 
-    const players =
-      tierData.data[kit] || {};
+  const container =
+    document.getElementById(
+      "tierList"
+    );
+
+  container.innerHTML = "";
+
+  TIERS.forEach(tier => {
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+    row.className =
+      "tier";
+
+    const label =
+      document.createElement(
+        "div"
+      );
+
+    label.className =
+      "tier-name";
+
+    label.textContent =
+      tier;
+
+    const playersBox =
+      document.createElement(
+        "div"
+      );
+
+    playersBox.className =
+      "players";
+
+    const names =
+      Object.entries(players)
+        .filter(([name, rank]) => {
+
+          return (
+            rank === tier &&
+            (
+              !search ||
+              name
+                .toLowerCase()
+                .includes(search)
+            )
+          );
+
+        })
+        .map(([name]) => name);
+
+    if (names.length === 0) {
+
+      const empty =
+        document.createElement(
+          "div"
+        );
+
+      empty.className =
+        "empty";
+
+      empty.textContent =
+        "No players";
+
+      playersBox.appendChild(
+        empty
+      );
+
+    } else {
+
+      names.forEach(name => {
+
+        const player =
+          document.createElement(
+            "div"
+          );
+
+        player.className =
+          "player";
+
+        player.textContent =
+          name;
+
+        player.onclick =
+          () => showProfile(name);
+
+        playersBox.appendChild(
+          player
+        );
+
+      });
+
+    }
+
+    row.appendChild(label);
+
+    row.appendChild(
+      playersBox
+    );
+
+    container.appendChild(
+      row
+    );
+
+  });
+}
 
 
-    const container =
-      document.getElement
+/* =====================================
+   PLAYER PROFILE
+===================================== */
+
+function showProfile(
+  playerName
+) {
+
+  if (!tierData) return;
+
+  const profile =
+    document.getElementById(
+      "profile"
+    );
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+  const grid =
+    document.getElementById(
+      "kitGrid"
+    );
+
+  name.textContent =
+    playerName;
+
+  grid.innerHTML = "";
+
+  tierData.kits.forEach(kit => {
+
+    const rank =
+      tierData.data[
+        kit.id
+      ]?.[playerName];
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+    card.className =
+      "kit-card";
+
+    const kitName =
+      document.createElement(
+        "div"
+      );
+
+    kitName.className =
+      "kit-name";
+
+    kitName.textContent =
+      kit.name;
+
+    const rankElement =
+      document.createElement(
+        "div"
+      );
+
+    rankElement.className =
+      "rank";
+
+    if (rank) {
+
+      rankElement.textContent =
+        rank;
+
+    } else {
+
+      rankElement.textContent =
+        "Unranked";
+
+      rankElement.classList.add(
+        "unranked"
+      );
+
+    }
+
+    card.appendChild(
+      kitName
+    );
+
+    card.appendChild(
+      rankElement
+    );
+
+    grid.appendChild(
+      card
+    );
+
+  });
+
+  profile.classList.add(
+    "active"
+  );
+
+  profile.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+}
+
+
+/* =====================================
+   CLOSE PROFILE
+===================================== */
+
+function closeProfile() {
+
+  document
+    .getElementById("profile")
+    .classList.remove(
+      "active"
+    );
+
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    renderTierList
+  );
+
+
+/* =====================================
+   KIT CHANGE
+===================================== */
+
+document
+  .getElementById("kitSelect")
+  .addEventListener(
+    "change",
+    renderTierList
+  );
+
+
+/* =====================================
+   START
+===================================== */
+
+loadData();
+
+
+/* =====================================
+   AUTO UPDATE EVERY 10 SECONDS
+===================================== */
+
+setInterval(
+  loadData,
+  10000
+);
+
+</script>
+
+</body>
+  </html>
