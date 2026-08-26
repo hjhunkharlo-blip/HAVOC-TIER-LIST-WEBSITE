@@ -5,13 +5,46 @@
       "name": "Default Kit"
     }
   ],
-  "tiers": ["S", "A", "B", "C", "D"],
+  "tiers": [
+    {
+      "name": "S",
+      "points": 100
+    },
+    {
+      "name": "A",
+      "points": 80
+    },
+    {
+      "name": "B",
+      "points": 60
+    },
+    {
+      "name": "C",
+      "points": 40
+n    },
+    {
+      "name": "D",
+      "points": 20
+    }
+  ],
   "data": {
     "default": {
-      "HAVOCplayer1": "S",
-      "HAVOCplayer2": "A",
-      "HAVOCplayer3": "B",
-      "HAVOCplayer4": "C"
+      "HAVOCplayer1": {
+        "tier": "S",
+        "points": 100
+      },
+      "HAVOCplayer2": {
+        "tier": "A",
+        "points": 80
+      },
+      "HAVOCplayer3": {
+        "tier": "B",
+        "points": 60
+      },
+      "HAVOCplayer4": {
+        "tier": "C",
+        "points": 40
+      }
     }
   }
 }
