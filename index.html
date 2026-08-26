@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>HAVOC STYX FFA Tier List</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -25,7 +30,7 @@
       border-bottom: 1px solid #252a35;
     }
 
-    header h1 {
+    h1 {
       margin: 0;
       font-size: 30px;
     }
@@ -41,18 +46,7 @@
       padding: 20px;
     }
 
-    .search {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #303644;
-      background: #11151d;
-      color: white;
-      font-size: 16px;
-      outline: none;
-      margin-bottom: 15px;
-    }
-
+    .search,
     .kit-select {
       width: 100%;
       padding: 14px;
@@ -61,7 +55,8 @@
       background: #11151d;
       color: white;
       font-size: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      outline: none;
     }
 
     .tier {
@@ -76,8 +71,8 @@
 
     .tier-name {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       font-weight: bold;
       font-size: 18px;
       background: #171c26;
@@ -96,21 +91,19 @@
       border-radius: 8px;
       padding: 9px 12px;
       cursor: pointer;
-      transition: 0.15s;
     }
 
     .player:hover {
       background: #30394a;
-      transform: translateY(-1px);
     }
 
     .profile {
       display: none;
+      margin-top: 25px;
       background: #0f131b;
       border: 1px solid #2a303d;
       border-radius: 14px;
       padding: 22px;
-      margin-top: 20px;
     }
 
     .profile.active {
@@ -119,4 +112,192 @@
 
     .profile-header {
       display: flex;
-      justify
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .close {
+      border: 0;
+      background: #252b37;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .rank-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #171c25;
+      border: 1px solid #252b36;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .rank {
+      font-weight: bold;
+      background: #252d3b;
+      padding: 6px 10px;
+      border-radius: 7px;
+    }
+
+    .unranked {
+      color: #737c8c;
+    }
+
+    .status {
+      text-align: center;
+      color: #7f8795;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    HAVOC STYX FFA TIER LIST
+  </h1>
+
+  <p>
+    Official HAVOC STYX player rankings
+  </p>
+
+</header>
+
+<div class="container">
+
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="Search player..."
+  >
+
+  <select
+    id="kitSelect"
+    class="kit-select"
+  ></select>
+
+  <div id="tierList"></div>
+
+  <div
+    id="profile"
+    class="profile"
+  >
+
+    <div class="profile-header">
+
+      <div
+        id="profileName"
+        class="profile-name"
+      ></div>
+
+      <button
+        class="close"
+        onclick="closeProfile()"
+      >
+        Close
+      </button>
+
+    </div>
+
+    <div id="profileRanks"></div>
+
+  </div>
+
+  <div
+    id="status"
+    class="status"
+  >
+    Loading...
+  </div>
+
+</div>
+
+<script>
+
+/*
+  IMPORTANT:
+  This is your Railway BOT/API URL.
+*/
+const API_URL =
+  "https://havoc-bot-production-82b2.up.railway.app";
+
+const TIERS = [
+  "HT1",
+  "LT1",
+  "HT2",
+  "LT2",
+  "HT3",
+  "LT3",
+  "HT4",
+  "LT4",
+  "HT5",
+  "LT5"
+];
+
+let tierData = null;
+
+async function loadData() {
+
+  try {
+
+    const response = await fetch(
+      API_URL +
+      "/api/tiers?time=" +
+      Date.now()
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        "API returned " + response.status
+      );
+    }
+
+    tierData = await response.json();
+
+    createKitSelector();
+
+    renderTierList();
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "🟢 Live • Updates automatically";
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "🔴 Unable to connect to HAVOC STYX API";
+
+  }
+
+}
+
+function createKitSelector() {
+
+  const select =
+    document.getElementById(
+      "kitSelect"
+    );
+
+  select.innerHTML =
+    tierData.kits
+     
