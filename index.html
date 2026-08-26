@@ -155,8 +155,6 @@ input:focus,select:focus{border-color:var(--red)}
   font-size:12px;
 }
 
-/* TIER LIST */
-
 .tier{
   display:grid;
   grid-template-columns:95px 1fr;
@@ -223,8 +221,6 @@ input:focus,select:focus{border-color:var(--red)}
   color:#5e5e68;
   font-size:12px;
 }
-
-/* RANKINGS */
 
 .ranking-list{
   display:flex;
@@ -311,8 +307,6 @@ input:focus,select:focus{border-color:var(--red)}
   white-space:nowrap;
 }
 
-/* PROFILE */
-
 .profile{
   display:none;
   margin-top:20px;
@@ -356,11 +350,6 @@ input:focus,select:focus{border-color:var(--red)}
   color:white;
   cursor:pointer;
   font-weight:700;
-}
-
-.close-button:hover{
-  border-color:var(--red);
-  color:var(--red2);
 }
 
 .summary{
@@ -419,13 +408,6 @@ input:focus,select:focus{border-color:var(--red)}
   font-size:10px;
 }
 
-.unranked{
-  color:#666672;
-  font-size:11px;
-}
-
-/* DISCORD */
-
 .discord-card{
   padding:28px;
   border:1px solid rgba(88,101,242,.3);
@@ -453,8 +435,6 @@ input:focus,select:focus{border-color:var(--red)}
   text-decoration:none;
   font-weight:900;
 }
-
-/* STATUS */
 
 #status{
   margin-top:18px;
@@ -489,18 +469,12 @@ input:focus,select:focus{border-color:var(--red)}
 
 @media(max-width:700px){
   .controls{grid-template-columns:1fr}
-
   .tier{grid-template-columns:70px 1fr}
-
-  .ranking-card{
-    grid-template-columns:45px 1fr;
-  }
-
+  .ranking-card{grid-template-columns:45px 1fr}
   .ranking-points{
     grid-column:2;
     justify-self:start;
   }
-
   .summary{flex-direction:column}
 }
 </style>
@@ -515,7 +489,6 @@ input:focus,select:focus{border-color:var(--red)}
   </div>
 
   <h1>HAVOC <span>STYX</span></h1>
-
   <p>FFA Tier List • Top 50 Rankings • Live API</p>
 </header>
 
@@ -535,12 +508,9 @@ input:focus,select:focus{border-color:var(--red)}
     </button>
   </div>
 
-  <!-- TIER LIST -->
-
   <section id="tiers" class="section active">
 
     <div class="controls">
-
       <input
         id="search"
         type="text"
@@ -551,14 +521,11 @@ input:focus,select:focus{border-color:var(--red)}
       <select id="kitSelect">
         <option value="">Connecting...</option>
       </select>
-
     </div>
 
     <div id="tierList"></div>
 
   </section>
-
-  <!-- RANKINGS -->
 
   <section id="rankings" class="section">
 
@@ -571,21 +538,17 @@ input:focus,select:focus{border-color:var(--red)}
     </p>
 
     <div class="controls">
-
       <input
         id="rankingSearch"
         type="text"
         placeholder="Search ranked player..."
         autocomplete="off"
       >
-
     </div>
 
     <div id="rankingList" class="ranking-list"></div>
 
   </section>
-
-  <!-- DISCORD -->
 
   <section id="discord" class="section">
 
@@ -611,8 +574,6 @@ input:focus,select:focus{border-color:var(--red)}
 
   </section>
 
-  <!-- PROFILE -->
-
   <div id="profile" class="profile">
 
     <div class="profile-header">
@@ -628,8 +589,10 @@ input:focus,select:focus{border-color:var(--red)}
       <button class="close-button" onclick="closeProfile()">
         Close
       </button>
+
     </div>
 
+    <div id="profileSummary"></div>
     <div id="profileRanks"></div>
 
   </div>
@@ -648,9 +611,9 @@ input:focus,select:focus{border-color:var(--red)}
 
 <script>
 
-/* ================================================
-   API
-================================================ */
+/* =====================================================
+   RAILWAY API
+===================================================== */
 
 const API_URL =
   "https://havoc-bot-production-82b2.up.railway.app/api/tiers";
@@ -658,57 +621,35 @@ const API_URL =
 const REFRESH_INTERVAL = 10000;
 
 
-/* ================================================
-   HAVOC STYX POINT SYSTEM
-
-   IMPORTANT:
-   We DO NOT use pointsByTier from the API.
-
-   Every tier gives ADDITIONAL points.
-
-   HT:
-   HT1 +10
-   HT2 +8
-   HT3 +5
-   HT4 +3
-   HT5 +1
-
-   LT:
-   LT1 +8
-   LT2 +6
-   LT3 +4
-   LT4 +2
-   LT5 +1
-
-   There is NO maximum total score.
-================================================ */
+/* =====================================================
+   POINT SYSTEM
+===================================================== */
 
 const POINTS = {
   HT1:10,
-  HT2:8,
-  HT3:5,
-  HT4:3,
-  HT5:1,
-
   LT1:8,
+  HT2:8,
   LT2:6,
+  HT3:5,
   LT3:4,
+  HT4:3,
   LT4:2,
+  HT5:1,
   LT5:1
 };
 
 
-/* ================================================
+/* =====================================================
    STATE
-================================================ */
+===================================================== */
 
 let tierData = null;
 let lastGoodData = null;
 
 
-/* ================================================
+/* =====================================================
    ELEMENTS
-================================================ */
+===================================================== */
 
 const searchInput =
   document.getElementById("search");
@@ -731,6 +672,9 @@ const profile =
 const profileName =
   document.getElementById("profileName");
 
+const profileSummary =
+  document.getElementById("profileSummary");
+
 const profileRanks =
   document.getElementById("profileRanks");
 
@@ -741,53 +685,78 @@ const updated =
   document.getElementById("updated");
 
 
-/* ================================================
+/* =====================================================
    SECTION SWITCH
-================================================ */
+===================================================== */
 
-function switchSection(sectionId, button) {
+function switchSection(sectionId, button){
 
   document
     .querySelectorAll(".section")
-    .forEach(section => {
-      section.classList.remove("active");
-    });
+    .forEach(section =>
+      section.classList.remove("active")
+    );
 
-  document
-    .getElementById(sectionId)
-    .classList.add("active");
+  const section =
+    document.getElementById(sectionId);
+
+  if(section){
+    section.classList.add("active");
+  }
 
   document
     .querySelectorAll(".nav button")
-    .forEach(btn => {
-      btn.classList.remove("active");
-    });
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
 
-  button.classList.add("active");
+  if(button){
+    button.classList.add("active");
+  }
 
-  if (sectionId === "rankings") {
+  if(sectionId === "rankings"){
     renderRankings();
   }
 }
 
 
-/* ================================================
+/* =====================================================
    POINTS
-================================================ */
+===================================================== */
 
-function getPoints(tier) {
-  return POINTS[String(tier).toUpperCase()] || 0;
+function getPoints(tier){
+
+  if(!tier) return 0;
+
+  return POINTS[
+    String(tier).toUpperCase()
+  ] || 0;
 }
 
 
-/* ================================================
-   NORMALIZE PLAYER NAME
-================================================ */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-function findExistingPlayer(totals, player) {
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================================
+   FIND CASE-INSENSITIVE PLAYER
+===================================================== */
+
+function findExistingPlayer(totals, player){
 
   const lower =
-    player.toLowerCase();
+    String(player).toLowerCase();
 
   return Object.keys(totals).find(
     name =>
@@ -796,16 +765,16 @@ function findExistingPlayer(totals, player) {
 }
 
 
-/* ================================================
+/* =====================================================
    LOAD API
-================================================ */
+===================================================== */
 
-async function loadTierData() {
+async function loadTierData(){
 
-  try {
+  try{
 
     status.textContent =
-      "● Connecting...";
+      "● Connecting to HAVOC STYX API...";
 
     status.className = "";
 
@@ -816,12 +785,15 @@ async function loadTierData() {
         {
           method:"GET",
           cache:"no-store",
-          mode:"cors"
+          mode:"cors",
+          headers:{
+            "Accept":"application/json"
+          }
         }
       );
 
 
-    if (!response.ok) {
+    if(!response.ok){
       throw new Error(
         "HTTP " + response.status
       );
@@ -832,13 +804,13 @@ async function loadTierData() {
       await response.json();
 
 
-    if (
+    if(
       !result ||
       !Array.isArray(result.kits) ||
       !Array.isArray(result.tiers) ||
       !result.data ||
       typeof result.data !== "object"
-    ) {
+    ){
       throw new Error(
         "Invalid API response"
       );
@@ -854,12 +826,12 @@ async function loadTierData() {
     renderRankings();
 
 
-    const openProfile =
+    const openPlayer =
       profile.dataset.player;
 
-    if (openProfile) {
+    if(openPlayer){
       showProfile(
-        openProfile,
+        openPlayer,
         false
       );
     }
@@ -877,7 +849,7 @@ async function loadTierData() {
       new Date().toLocaleTimeString();
 
 
-  } catch (error) {
+  }catch(error){
 
     console.error(
       "HAVOC STYX API ERROR:",
@@ -885,11 +857,12 @@ async function loadTierData() {
     );
 
 
-    if (lastGoodData) {
+    if(lastGoodData){
 
       tierData =
         lastGoodData;
 
+      buildKitSelector();
       renderTierList();
       renderRankings();
 
@@ -900,7 +873,7 @@ async function loadTierData() {
       status.className =
         "warning";
 
-    } else {
+    }else{
 
       status.textContent =
         "● Unable to connect to HAVOC STYX API";
@@ -913,8 +886,11 @@ async function loadTierData() {
         <div class="empty">
           API connection failed.
           <br><br>
-          Check that your Railway API is online and
-          that CORS allows your website.
+          Railway API:
+          <br>
+          ${escapeHTML(API_URL)}
+          <br><br>
+          Make sure the Railway service is running.
         </div>
       `;
     }
@@ -922,11 +898,13 @@ async function loadTierData() {
 }
 
 
-/* ================================================
+/* =====================================================
    KIT SELECTOR
-================================================ */
+===================================================== */
 
-function buildKitSelector() {
+function buildKitSelector(){
+
+  if(!tierData) return;
 
   const previousKit =
     kitSelect.value;
@@ -951,18 +929,17 @@ function buildKitSelector() {
 
   const exists =
     tierData.kits.some(
-      kit => kit.id === previousKit
+      kit =>
+        kit.id === previousKit
     );
 
 
-  if (exists) {
+  if(exists){
 
     kitSelect.value =
       previousKit;
 
-  } else if (
-    tierData.kits.length > 0
-  ) {
+  }else if(tierData.kits.length > 0){
 
     kitSelect.value =
       tierData.kits[0].id;
@@ -970,19 +947,32 @@ function buildKitSelector() {
 }
 
 
-/* ================================================
+/* =====================================================
    RENDER TIER LIST
-================================================ */
+===================================================== */
 
-function renderTierList() {
+function renderTierList(){
 
-  if (!tierData) return;
+  if(!tierData) return;
 
   tierList.innerHTML = "";
 
 
   const kitId =
     kitSelect.value;
+
+
+  if(!kitId){
+
+    tierList.innerHTML = `
+      <div class="empty">
+        No kit available.
+      </div>
+    `;
+
+    return;
+  }
+
 
   const players =
     tierData.data[kitId] || {};
@@ -1029,25 +1019,28 @@ function renderTierList() {
       Object.entries(players)
         .filter(([player, playerTier]) => {
 
-          if (
+          if(
             String(playerTier).toUpperCase() !==
             String(tier).toUpperCase()
-          ) {
+          ){
             return false;
           }
 
-          if (!search) return true;
+          if(!search){
+            return true;
+          }
 
           return player
             .toLowerCase()
             .includes(search);
+
         })
         .sort(([a],[b]) =>
           a.localeCompare(b)
         );
 
 
-    if (matching.length === 0) {
+    if(matching.length === 0){
 
       const empty =
         document.createElement("div");
@@ -1060,7 +1053,7 @@ function renderTierList() {
 
       playersBox.appendChild(empty);
 
-    } else {
+    }else{
 
       matching.forEach(
         ([player, playerTier]) => {
@@ -1091,28 +1084,18 @@ function renderTierList() {
     row.appendChild(playersBox);
 
     tierList.appendChild(row);
+
   });
 }
 
 
-/* ================================================
+/* =====================================================
    CALCULATE OVERALL RANKINGS
+===================================================== */
 
-   EVERY KIT COUNTS.
+function calculateRankings(){
 
-   Example:
-   Sword LT5 = +1
-   SMP HT3   = +5
-   Mace LT5  = +1
-
-   TOTAL = 7
-
-   No maximum.
-================================================ */
-
-function calculateRankings() {
-
-  if (!tierData) return [];
+  if(!tierData) return [];
 
 
   const totals = {};
@@ -1125,7 +1108,7 @@ function calculateRankings() {
 
 
     Object.entries(players)
-      .forEach(([player, tier]) => {
+      .forEach(([player,tier]) => {
 
         const existing =
           findExistingPlayer(
@@ -1138,13 +1121,14 @@ function calculateRankings() {
           existing || player;
 
 
-        if (!totals[key]) {
+        if(!totals[key]){
 
           totals[key] = {
             points:0,
             kits:0,
             tiers:[]
           };
+
         }
 
 
@@ -1152,8 +1136,11 @@ function calculateRankings() {
           getPoints(tier);
 
 
-        totals[key].points += points;
-        totals[key].kits++;
+        totals[key].points +=
+          points;
+
+        totals[key].kits +=
+          1;
 
 
         totals[key].tiers.push({
@@ -1164,40 +1151,23 @@ function calculateRankings() {
         });
 
       });
+
   });
 
 
   return Object.entries(totals)
-    .map(([player, info]) => ({
-      player,
+
+    .map(([player,info]) => ({
+      player:player,
       points:info.points,
       kits:info.kits,
       tiers:info.tiers
     }))
+
     .sort((a,b) => {
 
-      if (b.points !== a.points) {
+      if(b.points !== a.points){
         return b.points - a.points;
       }
 
-      if (b.kits !== a.kits) {
-        return b.kits - a.kits;
-      }
-
-      return a.player.localeCompare(
-        b.player
-      );
-    });
-}
-
-
-/* ================================================
-   RENDER TOP 50
-================================================ */
-
-function renderRankings() {
-
-  rankingList.innerHTML = "";
-
-
-  co
+ 
