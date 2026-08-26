@@ -1,118 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAVOC STYX | FFA</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAVOC STYX FFA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-    <div class="logo">HAVOC <span>STYX</span></div>
+  <div class="logo">HAVOC <span>STYX</span></div>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#rules">Rules</a>
-        <a href="#server">Server</a>
-        <a href="#discord">Discord</a>
-    </nav>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#server">Server</a>
+    <a href="#tiers">Tier List</a>
+    <a href="#rules">Rules</a>
+    <a href="#discord">Discord</a>
+  </nav>
 </header>
 
 <section id="home" class="hero">
-    <div>
-        <p class="tag">⚔️ MINECRAFT FFA SERVER</p>
-        <h1>HAVOC <span>STYX</span></h1>
-        <p class="subtitle">
-            Fight. Survive. Dominate.
-        </p>
+  <div>
+    <p class="tag">⚔️ MINECRAFT FFA SERVER</p>
+    <h1>HAVOC <span>STYX</span></h1>
+    <p class="subtitle">
+      Fight. Survive. Dominate.
+    </p>
 
-        <div class="buttons">
-            <a href="#server" class="btn">JOIN SERVER</a>
-            <a href="#discord" class="btn secondary">DISCORD</a>
-        </div>
+    <div class="buttons">
+      <a class="btn primary" href="#server">SERVER INFO</a>
+      <a class="btn discord" href="https://discord.gg/RaJMvHaXB" target="_blank">
+        JOIN DISCORD
+      </a>
     </div>
+  </div>
 </section>
 
 <section id="server" class="section">
-    <h2>⚔️ SERVER INFO</h2>
+  <h2>SERVER INFO</h2>
 
-    <div class="cards">
-        <div class="card">
-            <h3>🌐 IP</h3>
-            <p>play.havocstyx.net</p>
-            <button onclick="copyIP()">COPY IP</button>
-        </div>
+  <div class="cards">
 
-        <div class="card">
-            <h3>🎮 MODE</h3>
-            <p>FFA PvP</p>
-        </div>
-
-        <div class="card">
-            <h3>🔥 VERSION</h3>
-            <p>1.21+</p>
-        </div>
+    <div class="card">
+      <div class="icon">🌐</div>
+      <h3>SERVER IP</h3>
+      <p id="server-ip">havocffa.playwithbao.com:41367</p>
+      <button onclick="copyIP()">COPY IP</button>
     </div>
+
+    <div class="card">
+      <div class="icon">🎮</div>
+      <h3>VERSION</h3>
+      <p id="server-version">YOUR VERSION</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚔️</div>
+      <h3>GAME MODE</h3>
+      <p>FFA / PVP</p>
+    </div>
+
+  </div>
 </section>
 
-<section id="rules" class="section dark">
-    <h2>📜 SERVER RULES</h2>
+<section id="tiers" class="section dark">
+  <h2>🏆 TIER LIST</h2>
+  <p class="description">
+    Official HAVOC STYX player rankings.
+  </p>
 
-    <div class="rules">
-        <p>✅ Respect everyone.</p>
-        <p>❌ No cheating or hacking.</p>
-        <p>❌ No exploiting bugs.</p>
-        <p>❌ No duping.</p>
-        <p>❌ No X-Ray.</p>
-        <p>❌ No harassment or toxicity.</p>
-        <p>⚔️ Keep FFA fights fair.</p>
-        <p>👑 Staff decisions must be respected.</p>
-    </div>
+  <div id="tier-list"></div>
 </section>
 
-<section class="section">
-    <h2>🏆 FEATURES</h2>
+<section id="rules" class="section">
+  <h2>📜 SERVER RULES</h2>
 
-    <div class="cards">
-        <div class="card">
-            <h3>⚔️ FFA</h3>
-            <p>Fight other players and become the strongest.</p>
-        </div>
+  <div class="rules">
 
-        <div class="card">
-            <h3>🎥 CLIPS</h3>
-            <p>Share your best PvP moments with the community.</p>
-        </div>
-
-        <div class="card">
-            <h3>🏅 TIER LIST</h3>
-            <p>Show everyone how good you really are.</p>
-        </div>
-
-        <div class="card">
-            <h3>🎫 TICKETS</h3>
-            <p>Need help? Contact the staff team.</p>
-        </div>
+    <div class="rule">
+      <b>⚔️ No Cheating</b>
+      <p>No hacks, cheats, unfair clients or exploits.</p>
     </div>
+
+    <div class="rule">
+      <b>🚫 No Duping</b>
+      <p>Duplication glitches and item duplication are not allowed.</p>
+    </div>
+
+    <div class="rule">
+      <b>🔍 No X-Ray</b>
+      <p>Using X-Ray or similar resource packs is prohibited.</p>
+    </div>
+
+    <div class="rule">
+      <b>🤝 Respect Players</b>
+      <p>Keep the server fun and don't harass other players.</p>
+    </div>
+
+    <div class="rule">
+      <b>🐛 No Exploiting</b>
+      <p>Do not abuse bugs or server glitches.</p>
+    </div>
+
+    <div class="rule">
+      <b>👑 Staff Decisions</b>
+      <p>Respect staff decisions and follow instructions.</p>
+    </div>
+
+  </div>
 </section>
 
-<section id="discord" class="section discord">
-    <h2>💬 JOIN THE DISCORD</h2>
-    <p>Join the HAVOC STYX community.</p>
+<section id="discord" class="discord-section">
+  <h2>JOIN THE COMMUNITY</h2>
 
-    <a href="https://discord.com" target="_blank" class="btn">
-        JOIN DISCORD
-    </a>
+  <p>
+    Join the HAVOC STYX Discord for announcements, tickets,
+    clips, tier lists and server information.
+  </p>
+
+  <a class="btn discord big"
+     href="https://discord.gg/RaJMvHaXB"
+     target="_blank">
+    💬 JOIN DISCORD
+  </a>
 </section>
 
 <footer>
-    <p>© 2026 HAVOC STYX</p>
-    <p>Made for the PvP community ⚔️</p>
+  <p>© 2026 HAVOC STYX FFA</p>
+  <p>Fight hard. Stay respectful. Have fun.</p>
 </footer>
 
 <script src="script.js"></script>
 
 </body>
-              </html>
+</html>
