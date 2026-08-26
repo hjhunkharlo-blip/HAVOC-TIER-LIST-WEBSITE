@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAVOC STYX — FFA Tier List</title>
+<title>HAVOC STYX — Tier List</title>
 
 <style>
 * {
@@ -13,66 +13,51 @@
 body {
   margin: 0;
   background: #07090d;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-family: Arial, sans-serif;
 }
 
 header {
-  padding: 36px 20px;
+  padding: 35px 20px;
   text-align: center;
-  background: linear-gradient(135deg, #111722, #080a0f);
-  border-bottom: 1px solid #293140;
+  background: #0e1118;
+  border-bottom: 1px solid #252a35;
 }
 
-.logo {
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: 2px;
+h1 {
+  margin: 0;
+  font-size: 30px;
 }
 
 .subtitle {
   margin-top: 8px;
-  color: #8993a5;
-  font-size: 13px;
+  color: #8f98a8;
 }
 
 .container {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1000px;
   margin: auto;
-  padding: 22px;
+  padding: 20px;
 }
 
 .controls {
   display: grid;
   grid-template-columns: 1fr 240px;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 input,
 select {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #293241;
-  border-radius: 11px;
+  padding: 14px;
+  border: 1px solid #303744;
+  border-radius: 10px;
   background: #11151d;
-  color: #fff;
+  color: white;
   font-size: 16px;
   outline: none;
-}
-
-input:focus,
-select:focus {
-  border-color: #6875ff;
-}
-
-.section-title {
-  margin-bottom: 12px;
-  color: #8993a5;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .tier {
@@ -81,16 +66,15 @@ select:focus {
   margin-bottom: 8px;
   overflow: hidden;
   background: #11151d;
-  border: 1px solid #252d3a;
-  border-radius: 11px;
+  border: 1px solid #252a35;
+  border-radius: 10px;
 }
 
 .tier-name {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #181e28;
-  font-size: 17px;
+  background: #171c26;
   font-weight: 900;
 }
 
@@ -98,148 +82,109 @@ select:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  min-height: 55px;
   padding: 12px;
+  min-height: 55px;
 }
 
 .player {
   padding: 9px 13px;
-  background: #1b222d;
-  border: 1px solid #303a4b;
+  background: #202632;
+  border: 1px solid #303847;
   border-radius: 8px;
-  color: white;
-  font-weight: 700;
   cursor: pointer;
-  transition: .15s;
+  font-weight: 700;
 }
 
 .player:hover {
-  background: #2b3546;
-  transform: translateY(-1px);
+  background: #30394a;
 }
 
 .empty {
   padding: 8px;
-  color: #687385;
+  color: #687181;
 }
-
-/* PROFILE */
 
 .profile {
   display: none;
   margin-top: 25px;
   overflow: hidden;
-  background: #0d1118;
-  border: 1px solid #2b3545;
-  border-radius: 17px;
+  background: #0f131b;
+  border: 1px solid #2a303d;
+  border-radius: 14px;
 }
 
 .profile.active {
   display: block;
 }
 
-.profile-banner {
-  padding: 28px 22px;
-  background: linear-gradient(135deg, #171f2e, #0d1118);
-  border-bottom: 1px solid #293241;
-}
-
 .profile-header {
+  padding: 25px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  align-items: center;
+  background: #141a23;
 }
 
 .profile-name {
-  font-size: 29px;
+  font-size: 28px;
   font-weight: 900;
-}
-
-.profile-label {
-  margin-top: 5px;
-  color: #7f8999;
-  font-size: 11px;
-  letter-spacing: 1px;
 }
 
 .close {
   padding: 9px 14px;
-  border: 1px solid #303a49;
+  border: 0;
   border-radius: 8px;
-  background: #1a202b;
+  background: #252b37;
   color: white;
-  cursor: pointer;
 }
 
 .profile-body {
   padding: 20px;
 }
 
-.kit-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
 .kit-card {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 15px;
-  background: #141a23;
-  border: 1px solid #283240;
-  border-radius: 11px;
-}
-
-.kit-name {
-  font-weight: 700;
+  padding: 14px;
+  margin-bottom: 8px;
+  background: #171c25;
+  border: 1px solid #252b36;
+  border-radius: 10px;
 }
 
 .rank {
-  padding: 6px 10px;
-  background: #252f3e;
-  border-radius: 7px;
   font-weight: 900;
 }
 
 .unranked {
-  color: #6d7788;
+  color: #737c8c;
 }
 
-.status {
+#status {
   margin-top: 20px;
   text-align: center;
-  color: #7e899a;
+  color: #7f8795;
   font-size: 13px;
 }
 
 .error {
-  color: #ff6d6d;
+  color: #ff6b6b !important;
 }
 
-.loading {
-  padding: 25px;
-  text-align: center;
-  color: #7e899a;
+.debug {
+  margin-top: 12px;
+  padding: 12px;
+  background: #11151d;
+  border: 1px solid #252a35;
+  border-radius: 10px;
+  color: #8f98a8;
+  font-size: 12px;
+  word-break: break-word;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
   .controls {
     grid-template-columns: 1fr;
-  }
-
-  .kit-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .logo {
-    font-size: 27px;
-  }
-
-  .profile-name {
-    font-size: 24px;
   }
 }
 </style>
@@ -248,8 +193,10 @@ select:focus {
 <body>
 
 <header>
-  <div class="logo">HAVOC STYX</div>
-  <div class="subtitle">FFA • OFFICIAL PLAYER TIER LIST</div>
+  <h1>HAVOC STYX</h1>
+  <div class="subtitle">
+    FFA • OFFICIAL PLAYER TIER LIST
+  </div>
 </header>
 
 <div class="container">
@@ -260,7 +207,6 @@ select:focus {
       id="search"
       type="text"
       placeholder="Search player..."
-      autocomplete="off"
     >
 
     <select id="kitSelect">
@@ -269,180 +215,191 @@ select:focus {
 
   </div>
 
-  <div class="section-title">
-    TIER LIST
-  </div>
-
   <div id="tierList">
-    <div class="loading">
+    <div class="empty">
       Loading HAVOC STYX...
     </div>
   </div>
 
   <div id="profile" class="profile">
 
-    <div class="profile-banner">
+    <div class="profile-header">
 
-      <div class="profile-header">
+      <div id="profileName" class="profile-name"></div>
 
-        <div>
-          <div id="profileName" class="profile-name"></div>
-
-          <div class="profile-label">
-            HAVOC STYX PLAYER PROFILE
-          </div>
-        </div>
-
-        <button
-          class="close"
-          onclick="closeProfile()"
-        >
-          Close
-        </button>
-
-      </div>
+      <button
+        class="close"
+        onclick="closeProfile()"
+      >
+        Close
+      </button>
 
     </div>
 
-    <div class="profile-body">
-      <div id="kitGrid" class="kit-grid"></div>
-    </div>
+    <div
+      id="profileBody"
+      class="profile-body"
+    ></div>
 
   </div>
 
-  <div id="status" class="status">
-    Connecting to HAVOC STYX...
+  <div id="status">
+    Starting website...
+  </div>
+
+  <div id="debug" class="debug">
+    Waiting for JavaScript...
   </div>
 
 </div>
 
 <script>
 
-/* =====================================================
+/* =========================================
    RAILWAY API
-===================================================== */
+========================================= */
 
 const API_URL =
   "https://havoc-bot-production-82b2.up.railway.app";
 
 
-/* =====================================================
-   TIERS
-===================================================== */
+/* =========================================
+   DEBUG
+========================================= */
 
-const TIERS = [
-  "HT1",
-  "LT1",
-  "HT2",
-  "LT2",
-  "HT3",
-  "LT3",
-  "HT4",
-  "LT4",
-  "HT5",
-  "LT5"
-];
+const debug =
+  document.getElementById("debug");
 
+const status =
+  document.getElementById("status");
+
+debug.textContent =
+  "✅ New index.html JavaScript is running.";
+
+
+/* =========================================
+   DATA
+========================================= */
 
 let tierData = null;
 
 
-/* =====================================================
-   LOAD DATA
-===================================================== */
+/* =========================================
+   LOAD API
+========================================= */
 
 async function loadData() {
 
-  const status =
-    document.getElementById("status");
+  status.textContent =
+    "Connecting to HAVOC STYX API...";
+
+  debug.textContent =
+    "Testing: " +
+    API_URL +
+    "/api/tiers";
+
 
   try {
 
-    status.classList.remove("error");
-
-    status.textContent =
-      "Connecting to HAVOC STYX...";
-
     const response =
       await fetch(
-        API_URL + "/api/tiers?t=" + Date.now(),
+        API_URL +
+        "/api/tiers?t=" +
+        Date.now(),
         {
           method: "GET",
           mode: "cors",
           cache: "no-store",
           headers: {
-            "Accept": "application/json"
+            "Accept":
+              "application/json"
           }
         }
       );
 
+
     if (!response.ok) {
 
       throw new Error(
-        "HTTP " + response.status
+        "HTTP " +
+        response.status
       );
 
     }
 
+
     const result =
       await response.json();
+
 
     console.log(
       "HAVOC STYX API:",
       result
     );
 
+
     if (
-      !result ||
-      !Array.isArray(result.kits) ||
+      !result.kits ||
+      !result.tiers ||
       !result.data
     ) {
 
       throw new Error(
-        "Invalid API response"
+        "API response format is invalid"
       );
 
     }
 
-    tierData = result;
+
+    tierData =
+      result;
+
 
     createKitSelector();
 
     renderTierList();
 
+
     status.textContent =
       "🟢 Connected to HAVOC STYX";
+
+
+    debug.textContent =
+      "✅ API connected successfully • " +
+      result.kits.length +
+      " kits loaded";
+
 
   } catch (error) {
 
     console.error(
-      "HAVOC STYX CONNECTION ERROR:",
+      "API ERROR:",
       error
     );
 
-    document.getElementById(
-      "kitSelect"
-    ).innerHTML =
-      "<option>Connection failed</option>";
-
-    document.getElementById(
-      "tierList"
-    ).innerHTML =
-      '<div class="loading">Unable to load tier data.</div>';
 
     status.textContent =
       "🔴 API connection failed";
 
-    status.classList.add("error");
+    status.classList.add(
+      "error"
+    );
+
+
+    debug.textContent =
+      "❌ " +
+      error.name +
+      ": " +
+      error.message;
 
   }
 
 }
 
 
-/* =====================================================
-   CREATE KIT SELECTOR
-===================================================== */
+/* =========================================
+   KIT SELECTOR
+========================================= */
 
 function createKitSelector() {
 
@@ -452,6 +409,7 @@ function createKitSelector() {
     );
 
   select.innerHTML = "";
+
 
   tierData.kits.forEach(
     kit => {
@@ -477,23 +435,20 @@ function createKitSelector() {
 }
 
 
-/* =====================================================
-   RENDER TIER LIST
-===================================================== */
+/* =========================================
+   TIER LIST
+========================================= */
 
 function renderTierList() {
 
-  if (!tierData) {
-    return;
-  }
+  if (!tierData) return;
 
-  const select =
-    document.getElementById(
-      "kitSelect"
-    );
 
   const kit =
-    select.value;
+    document.getElementById(
+      "kitSelect"
+    ).value;
+
 
   const search =
     document.getElementById(
@@ -502,17 +457,21 @@ function renderTierList() {
       .trim()
       .toLowerCase();
 
+
   const players =
     tierData.data[kit] || {};
+
 
   const container =
     document.getElementById(
       "tierList"
     );
 
+
   container.innerHTML = "";
 
-  TIERS.forEach(
+
+  tierData.tiers.forEach(
     tier => {
 
       const row =
@@ -522,6 +481,7 @@ function renderTierList() {
 
       row.className =
         "tier";
+
 
       const tierName =
         document.createElement(
@@ -534,30 +494,35 @@ function renderTierList() {
       tierName.textContent =
         tier;
 
-      const playersBox =
+
+      const playerBox =
         document.createElement(
           "div"
         );
 
-      playersBox.className =
+      playerBox.className =
         "players";
 
+
       const names =
-        Object.entries(players)
-          .filter(
-            ([player, rank]) =>
-              rank === tier &&
-              (
-                !search ||
-                player
-                  .toLowerCase()
-                  .includes(search)
-              )
-          )
-          .map(
-            ([player]) =>
-              player
-          );
+        Object.entries(
+          players
+        )
+        .filter(
+          ([name, rank]) =>
+            rank === tier &&
+            (
+              !search ||
+              name
+                .toLowerCase()
+                .includes(search)
+            )
+        )
+        .map(
+          ([name]) =>
+            name
+        );
+
 
       if (
         names.length === 0
@@ -574,14 +539,14 @@ function renderTierList() {
         empty.textContent =
           "No players";
 
-        playersBox.appendChild(
+        playerBox.appendChild(
           empty
         );
 
       } else {
 
         names.forEach(
-          playerName => {
+          name => {
 
             const player =
               document.createElement(
@@ -592,16 +557,12 @@ function renderTierList() {
               "player";
 
             player.textContent =
-              playerName;
+              name;
 
             player.onclick =
-              function() {
-                showProfile(
-                  playerName
-                );
-              };
+              () => showProfile(name);
 
-            playersBox.appendChild(
+            playerBox.appendChild(
               player
             );
 
@@ -610,12 +571,13 @@ function renderTierList() {
 
       }
 
+
       row.appendChild(
         tierName
       );
 
       row.appendChild(
-        playersBox
+        playerBox
       );
 
       container.appendChild(
@@ -628,17 +590,13 @@ function renderTierList() {
 }
 
 
-/* =====================================================
-   SHOW PLAYER PROFILE
-===================================================== */
+/* =========================================
+   PLAYER PROFILE
+========================================= */
 
 function showProfile(
   playerName
 ) {
-
-  if (!tierData) {
-    return;
-  }
 
   const profile =
     document.getElementById(
@@ -650,15 +608,17 @@ function showProfile(
       "profileName"
     );
 
-  const grid =
+  const body =
     document.getElementById(
-      "kitGrid"
+      "profileBody"
     );
+
 
   profileName.textContent =
     playerName;
 
-  grid.innerHTML = "";
+  body.innerHTML = "";
+
 
   tierData.kits.forEach(
     kit => {
@@ -671,29 +631,27 @@ function showProfile(
       card.className =
         "kit-card";
 
-      const kitName =
+
+      const name =
         document.createElement(
-          "div"
+          "span"
         );
 
-      kitName.className =
-        "kit-name";
-
-      kitName.textContent =
+      name.textContent =
         kit.name;
+
 
       const rank =
         document.createElement(
-          "div"
+          "span"
         );
 
-      rank.className =
-        "rank";
-
       const playerRank =
-        tierData.data[kit.id]
-          ? tierData.data[kit.id][playerName]
-          : null;
+        (
+          tierData.data[kit.id] ||
+          {}
+        )[playerName];
+
 
       if (playerRank) {
 
@@ -705,42 +663,43 @@ function showProfile(
         rank.textContent =
           "Unranked";
 
-        rank.classList.add(
-          "unranked"
-        );
+        rank.className =
+          "rank unranked";
 
       }
 
+
       card.appendChild(
-        kitName
+        name
       );
 
       card.appendChild(
         rank
       );
 
-      grid.appendChild(
+      body.appendChild(
         card
       );
 
     }
   );
 
+
   profile.classList.add(
     "active"
   );
 
+
   profile.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
+    behavior: "smooth"
   });
 
 }
 
 
-/* =====================================================
+/* =========================================
    CLOSE PROFILE
-===================================================== */
+========================================= */
 
 function closeProfile() {
 
@@ -755,9 +714,9 @@ function closeProfile() {
 }
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
+/* =========================================
+   EVENTS
+========================================= */
 
 document
   .getElementById("search")
@@ -767,10 +726,6 @@ document
   );
 
 
-/* =====================================================
-   KIT SELECT
-===================================================== */
-
 document
   .getElementById("kitSelect")
   .addEventListener(
@@ -779,16 +734,16 @@ document
   );
 
 
-/* =====================================================
-   INITIAL LOAD
-===================================================== */
+/* =========================================
+   START
+========================================= */
 
 loadData();
 
 
-/* =====================================================
+/* =========================================
    AUTO UPDATE
-===================================================== */
+========================================= */
 
 setInterval(
   loadData,
