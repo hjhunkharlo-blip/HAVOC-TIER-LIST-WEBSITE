@@ -1,0 +1,17 @@
+{
+  "kits": [
+    {
+      "id": "default",
+      "name": "Default Kit"
+    }
+  ],
+  "tiers": ["S", "A", "B", "C", "D"],
+  "data": {
+    "default": {
+      "HAVOCplayer1": "S",
+      "HAVOCplayer2": "A",
+      "HAVOCplayer3": "B",
+      "HAVOCplayer4": "C"
+    }
+  }
+}
