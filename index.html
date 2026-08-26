@@ -31,14 +31,8 @@ header {
 }
 
 @keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 h1 {
@@ -75,11 +69,10 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 240px;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
-input,
-select {
+input, select {
   width: 100%;
   padding: 14px;
   border: 2px solid #292929;
@@ -92,14 +85,44 @@ select {
   backdrop-filter: blur(5px);
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   border-color: #ff2020;
   box-shadow: 0 0 20px rgba(255, 32, 32, 0.3);
 }
 
-input::placeholder {
-  color: #666;
+input::placeholder { color: #666; }
+
+/* View toggle tabs */
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #292929;
+  border-radius: 10px;
+  background: rgba(17, 17, 17, 0.8);
+  color: #aaa;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.toggle-btn:hover {
+  border-color: #ff2020;
+  color: white;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #ff2020 0%, #ff5050 100%);
+  border-color: #ff2020;
+  color: white;
+  box-shadow: 0 4px 14px rgba(255, 32, 32, 0.3);
 }
 
 .tier {
@@ -122,6 +145,7 @@ input::placeholder {
 
 .tier-name {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #ff2020 0%, #ff5050 100%);
@@ -129,6 +153,16 @@ input::placeholder {
   font-size: 18px;
   color: white;
   transition: all 0.3s ease;
+  padding: 6px;
+  text-align: center;
+}
+
+.tier-name .tier-pts {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.85;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
 }
 
 .tier:hover .tier-name {
@@ -145,6 +179,9 @@ input::placeholder {
 }
 
 .player {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   padding: 9px 13px;
   background: rgba(36, 36, 36, 0.8);
   border: 2px solid #292929;
@@ -161,10 +198,17 @@ input::placeholder {
   box-shadow: 0 4px 12px rgba(255, 32, 32, 0.2);
 }
 
-.empty {
-  padding: 8px;
-  color: #888;
+.points-badge {
+  font-size: 11px;
+  font-weight: 900;
+  color: #ff2020;
+  background: rgba(255, 32, 32, 0.12);
+  border: 1px solid rgba(255, 32, 32, 0.4);
+  border-radius: 6px;
+  padding: 2px 6px;
 }
+
+.empty { padding: 8px; color: #888; }
 
 .profile {
   display: none;
@@ -178,19 +222,11 @@ input::placeholder {
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.profile.active {
-  display: block;
-}
+.profile.active { display: block; }
 
 .profile-header {
   padding: 25px;
@@ -210,6 +246,31 @@ input::placeholder {
   background-clip: text;
 }
 
+.profile-stats {
+  padding: 14px 25px 0;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ff5050;
+}
+
 .close {
   padding: 10px 16px;
   border: 2px solid #ff2020;
@@ -227,13 +288,12 @@ input::placeholder {
   box-shadow: 0 6px 20px rgba(255, 32, 32, 0.4);
 }
 
-.profile-body {
-  padding: 20px;
-}
+.profile-body { padding: 20px; }
 
 .kit-card {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 14px;
   margin-bottom: 8px;
   background: rgba(23, 28, 37, 0.8);
@@ -248,13 +308,64 @@ input::placeholder {
   transform: translateX(4px);
 }
 
-.rank {
-  font-weight: 900;
-  color: #ff2020;
+.kit-card-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.unranked {
-  color: #737c8c;
+.rank { font-weight: 900; color: #ff2020; }
+.unranked { color: #737c8c; }
+
+/* Leaderboard */
+.leaderboard { display: flex; flex-direction: column; gap: 8px; }
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 46px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(17, 17, 17, 0.8);
+  border: 2px solid #292929;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lb-row:hover {
+  border-color: #ff2020;
+  transform: translateX(4px);
+  box-shadow: 0 6px 18px rgba(255, 32, 32, 0.15);
+}
+
+.lb-row.top1 { border-color: #ffd700; box-shadow: 0 0 16px rgba(255, 215, 0, 0.15); }
+.lb-row.top2 { border-color: #c0c0c0; }
+.lb-row.top3 { border-color: #cd7f32; }
+
+.lb-rank {
+  font-weight: 900;
+  font-size: 18px;
+  color: #ff5050;
+  text-align: center;
+}
+
+.lb-name { font-weight: 700; font-size: 16px; }
+
+.lb-points {
+  font-weight: 900;
+  color: white;
+  background: linear-gradient(135deg, #ff2020 0%, #ff5050 100%);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.lb-slots {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
 }
 
 #status {
@@ -268,27 +379,10 @@ input::placeholder {
   animation: slideUp 0.4s ease-out;
 }
 
-#status.show {
-  display: block;
-}
-
-#status.success {
-  background: rgba(34, 197, 94, 0.15);
-  border: 2px solid #22c55e;
-  color: #86efac;
-}
-
-#status.error {
-  background: rgba(239, 68, 68, 0.15);
-  border: 2px solid #ef4444;
-  color: #fca5a5;
-}
-
-#status.loading {
-  background: rgba(59, 130, 246, 0.15);
-  border: 2px solid #3b82f6;
-  color: #93c5fd;
-}
+#status.show { display: block; }
+#status.success { background: rgba(34, 197, 94, 0.15); border: 2px solid #22c55e; color: #86efac; }
+#status.error { background: rgba(239, 68, 68, 0.15); border: 2px solid #ef4444; color: #fca5a5; }
+#status.loading { background: rgba(59, 130, 246, 0.15); border: 2px solid #3b82f6; color: #93c5fd; }
 
 .debug {
   display: none;
@@ -303,22 +397,22 @@ input::placeholder {
   backdrop-filter: blur(5px);
 }
 
-.debug.show {
-  display: block;
+.debug.show { display: block; }
+
+.last-updated {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 650px) {
-  .controls {
-    grid-template-columns: 1fr;
-  }
-  
-  h1 {
-    font-size: 24px;
-  }
-  
-  header {
-    padding: 20px 15px;
-  }
+  .controls { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+  header { padding: 20px 15px; }
+  .lb-row { grid-template-columns: 34px 1fr auto; }
+  .lb-slots { display: none; }
 }
 </style>
 </head>
@@ -327,58 +421,54 @@ input::placeholder {
 
 <header>
   <h1>HAVOC STYX</h1>
-  <div class="subtitle">
-    FFA • OFFICIAL PLAYER TIER LIST
-  </div>
+  <div class="subtitle">FFA • OFFICIAL PLAYER TIER LIST</div>
 </header>
 
 <div class="container">
 
   <div class="controls">
-
-    <input
-      id="search"
-      type="text"
-      placeholder="Search player..."
-    >
-
+    <input id="search" type="text" placeholder="Search player...">
     <select id="kitSelect" disabled>
       <option value="">Loading kits...</option>
     </select>
+  </div>
 
+  <div class="view-toggle">
+    <button id="tierViewBtn" class="toggle-btn active" onclick="setView('tier')">TIER LIST</button>
+    <button id="lbViewBtn" class="toggle-btn" onclick="setView('leaderboard')">🏆 OVERALL LEADERBOARD</button>
   </div>
 
   <div id="tierList">
-    <div class="empty">
-      Loading HAVOC STYX...
-    </div>
+    <div class="empty">Loading HAVOC STYX...</div>
+  </div>
+
+  <div id="leaderboardView" style="display:none;">
+    <div id="leaderboard" class="leaderboard"></div>
   </div>
 
   <div id="profile" class="profile">
-
     <div class="profile-header">
-
       <div id="profileName" class="profile-name"></div>
-
-      <button
-        class="close"
-        onclick="closeProfile()"
-      >
-        Close
-      </button>
-
+      <button class="close" onclick="closeProfile()">Close</button>
     </div>
 
-    <div
-      id="profileBody"
-      class="profile-body"
-    ></div>
+    <div class="profile-stats">
+      <div class="stat">
+        <div class="stat-label">Total Points</div>
+        <div id="profileTotalPoints" class="stat-value">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Kits Ranked (Slots)</div>
+        <div id="profileSlots" class="stat-value">0</div>
+      </div>
+    </div>
 
+    <div id="profileBody" class="profile-body"></div>
   </div>
 
   <div id="status"></div>
-
   <div id="debug" class="debug"></div>
+  <div id="lastUpdated" class="last-updated"></div>
 
 </div>
 
@@ -388,21 +478,16 @@ input::placeholder {
    RAILWAY API
 ========================================= */
 
-const API_URL =
-  "https://havoc-bot-production-82b2.up.railway.app";
-
+const API_URL = "https://havoc-bot-production-82b2.up.railway.app";
 
 /* =========================================
    DEBUG & STATUS HELPERS
 ========================================= */
 
-const debug =
-  document.getElementById("debug");
+const debug = document.getElementById("debug");
+const status = document.getElementById("status");
+const lastUpdatedEl = document.getElementById("lastUpdated");
 
-const status =
-  document.getElementById("status");
-
-// Flag for dev mode - set to true to see debug messages
 const DEV_MODE = false;
 
 function showDebug(message) {
@@ -414,18 +499,12 @@ function showDebug(message) {
 
 function showStatus(message, type = "loading") {
   if (!status) return;
-
   status.textContent = message;
-  // replace existing type class but keep 'show' state added below
   status.className = "";
   status.classList.add(type);
   status.classList.add("show");
-  
-  // Auto-hide success messages after 5 seconds
   if (type === "success") {
-    setTimeout(() => {
-      status.classList.remove("show");
-    }, 5000);
+    setTimeout(() => status.classList.remove("show"), 5000);
   }
 }
 
@@ -436,154 +515,178 @@ function hideStatus() {
 
 showDebug("✅ JavaScript running.");
 
+/* =========================================
+   POINT SYSTEM
+========================================= */
+
+// Points for known tier codes/names (case-insensitive, spaces ignored).
+// Anything not listed here falls back to a position-based scale.
+const TIER_POINTS = {
+  "HT1": 61, "LT1": 52,
+  "HT2": 41, "LT2": 30,
+  "HT3": 21, "LT3": 14,
+  "HT4": 9,  "LT4": 6,
+  "HT5": 3,  "LT5": 1,
+  "S": 50, "A": 40, "B": 30, "C": 20, "D": 10, "F": 5,
+  "TIER1": 50, "TIER2": 40, "TIER3": 30, "TIER4": 20, "TIER5": 10
+};
+
+// Cache of tier -> points for the currently loaded tier list, built once per load.
+let tierPointsCache = {};
+
+function buildTierPointsCache() {
+  tierPointsCache = {};
+  if (!tierData || !Array.isArray(tierData.tiers)) return;
+
+  const total = tierData.tiers.length;
+
+  tierData.tiers.forEach((tierName, index) => {
+    const key = String(tierName).toUpperCase().replace(/\s+/g, "");
+    if (TIER_POINTS[key] !== undefined) {
+      tierPointsCache[tierName] = TIER_POINTS[key];
+    } else {
+      // Position-based fallback: first tier in the list is worth the most.
+      tierPointsCache[tierName] = Math.max(1, Math.round(((total - index) / total) * 50));
+    }
+  });
+}
+
+function getTierPoints(tierName) {
+  return tierPointsCache[tierName] || 0;
+}
 
 /* =========================================
    DATA
 ========================================= */
 
 let tierData = null;
-
+let lastDataSnapshot = null; // JSON string of last rendered data, used to skip needless re-renders
+let currentView = "tier";     // "tier" | "leaderboard"
+let openProfileName = null;   // keeps the profile modal in sync across refreshes
 
 /* =========================================
    LOAD API (with local fallback)
 ========================================= */
 
-async function loadData() {
+async function loadData(isBackgroundRefresh = false) {
 
-  showStatus("Loading tier list...", "loading");
+  if (!isBackgroundRefresh) {
+    showStatus("Loading tier list...", "loading");
+  }
   showDebug("Testing: " + API_URL + "/api/tiers");
 
-  // first: try remote API
   try {
 
-    const response =
-      await fetch(
-        API_URL +
-        "/api/tiers?t=" +
-        Date.now(),
-        {
-          method: "GET",
-          mode: "cors",
-          cache: "no-store",
-          headers: {
-            "Accept":
-              "application/json"
-          }
-        }
-      );
+    const response = await fetch(
+      API_URL + "/api/tiers?t=" + Date.now(),
+      {
+        method: "GET",
+        mode: "cors",
+        cache: "no-store",
+        headers: { "Accept": "application/json" }
+      }
+    );
 
     if (!response.ok) {
       throw new Error(
-        response.status === 404 
-          ? "Server not found (404)"
-          : response.status === 500
-          ? "Server error (500)"
-          : "Server responded with error (" + response.status + ")"
+        response.status === 404 ? "Server not found (404)"
+        : response.status === 500 ? "Server error (500)"
+        : "Server responded with error (" + response.status + ")"
       );
     }
 
-    const result =
-      await response.json();
+    const result = await response.json();
 
-    console.log(
-      "HAVOC STYX API:",
-      result
-    );
+    console.log("HAVOC STYX API:", result);
 
-    // validate shape
     if (
       !result ||
       !Array.isArray(result.kits) ||
       !Array.isArray(result.tiers) ||
       typeof result.data !== "object"
     ) {
-
-      showStatus(
-        "⚠️ The server sent an invalid response. Trying local fallback...",
-        "error"
-      );
-
-      showDebug(
-        "❌ API returned unexpected format. Expected: { kits: [], tiers: [], data: {} }"
-      );
-
+      showStatus("⚠️ The server sent an invalid response. Trying local fallback...", "error");
+      showDebug("❌ API returned unexpected format. Expected: { kits: [], tiers: [], data: {} }");
       throw new Error("Invalid API format");
-
     }
 
-    tierData = result;
-
-    createKitSelector();
-
-    renderTierList();
-
-    hideStatus();
-
-    showDebug(
-      "✅ API connected • " +
-      result.kits.length +
-      " kits • " +
-      result.tiers.length +
-      " tiers"
-    );
+    applyNewData(result, "api");
 
   } catch (error) {
 
-    console.error(
-      "API ERROR:",
-      error
-    );
+    console.error("API ERROR:", error);
+    showDebug("❌ " + (error.message || "Unknown error occurred"));
 
-    showDebug(
-      "❌ " + (error.message || "Unknown error occurred")
-    );
-
-    // Try local fallback file tiers.json
     try {
       showDebug("Attempting to load local tiers.json fallback...");
       const localResp = await fetch('tiers.json?t=' + Date.now(), { cache: 'no-store' });
       if (!localResp.ok) throw new Error('Local tiers.json not found');
       const localData = await localResp.json();
 
-      // basic validation
       if (!localData || !Array.isArray(localData.kits) || !Array.isArray(localData.tiers) || typeof localData.data !== 'object') {
         throw new Error('Local tiers.json has invalid format');
       }
 
-      tierData = localData;
-      createKitSelector();
-      renderTierList();
-
-      showStatus('Offline: using local tier data', 'success');
-      showDebug('✅ Loaded local tiers.json fallback');
-      setTimeout(hideStatus, 5000);
-
-      return;
+      applyNewData(localData, "local");
 
     } catch (localError) {
       console.error('Local fallback failed:', localError);
-      showStatus(
-        "⚠️ Unable to load tier list. Please check your connection or try again.",
-        "error"
-      );
+      showStatus("⚠️ Unable to load tier list. Please check your connection or try again.", "error");
+      showDebug("❌ Local fallback error: " + (localError.message || 'none'));
 
-      showDebug(
-        "❌ Local fallback error: " + (localError.message || 'none')
-      );
-
-      // leave kit selector disabled so user can't interact with broken state
-      const select = document.getElementById("kitSelect");
-      if (select) {
-        select.innerHTML = "<option value=''>Error loading kits</option>";
-        select.disabled = true;
+      if (!isBackgroundRefresh) {
+        const select = document.getElementById("kitSelect");
+        if (select) {
+          select.innerHTML = "<option value=''>Error loading kits</option>";
+          select.disabled = true;
+        }
       }
-
     }
-
   }
-
 }
 
+// Applies freshly-fetched data, but only re-renders the DOM if something
+// actually changed — this is what lets us poll every 10s without the
+// search box, scroll position, or open profile getting reset out from
+// under the person using the page.
+function applyNewData(result, source) {
+
+  const snapshot = JSON.stringify(result);
+  const changed = snapshot !== lastDataSnapshot;
+
+  tierData = result;
+  buildTierPointsCache();
+
+  if (changed) {
+    lastDataSnapshot = snapshot;
+
+    createKitSelector();
+
+    if (currentView === "tier") {
+      renderTierList();
+    } else {
+      renderLeaderboard();
+    }
+
+    if (openProfileName) {
+      showProfile(openProfileName, false);
+    }
+  }
+
+  hideStatus();
+
+  if (source === "local") {
+    showStatus('Offline: using local tier data', 'success');
+    showDebug('✅ Loaded local tiers.json fallback');
+  } else {
+    showDebug("✅ API connected • " + result.kits.length + " kits • " + result.tiers.length + " tiers" + (changed ? " • updated" : " • no changes"));
+  }
+
+  if (lastUpdatedEl) {
+    const now = new Date();
+    lastUpdatedEl.textContent = "Last checked " + now.toLocaleTimeString() + (changed ? " • list updated" : "");
+  }
+}
 
 /* =========================================
    KIT SELECTOR
@@ -591,12 +694,10 @@ async function loadData() {
 
 function createKitSelector() {
 
-  const select =
-    document.getElementById(
-      "kitSelect"
-    );
-
+  const select = document.getElementById("kitSelect");
   if (!select) return;
+
+  const previousValue = select.value;
 
   select.innerHTML = "";
 
@@ -609,7 +710,6 @@ function createKitSelector() {
     return;
   }
 
-  // populate kits
   tierData.kits.forEach(kit => {
     const option = document.createElement("option");
     option.value = kit.id;
@@ -617,14 +717,35 @@ function createKitSelector() {
     select.appendChild(option);
   });
 
-  // enable selector and choose the first kit by default
   select.disabled = false;
-  if (!select.value && tierData.kits.length > 0) {
-    select.value = tierData.kits[0].id;
-  }
 
+  // Keep whatever kit was already selected if it still exists, otherwise default to the first kit.
+  const stillExists = tierData.kits.some(k => k.id === previousValue);
+  select.value = stillExists ? previousValue : tierData.kits[0].id;
 }
 
+/* =========================================
+   VIEW SWITCHING
+========================================= */
+
+function setView(view) {
+  currentView = view;
+
+  document.getElementById("tierViewBtn").classList.toggle("active", view === "tier");
+  document.getElementById("lbViewBtn").classList.toggle("active", view === "leaderboard");
+
+  document.getElementById("tierList").style.display = view === "tier" ? "" : "none";
+  document.getElementById("leaderboardView").style.display = view === "leaderboard" ? "" : "none";
+
+  const kitSelect = document.getElementById("kitSelect");
+  if (kitSelect) kitSelect.disabled = (view === "leaderboard") || !tierData || tierData.kits.length === 0;
+
+  if (view === "tier") {
+    renderTierList();
+  } else {
+    renderLeaderboard();
+  }
+}
 
 /* =========================================
    TIER LIST
@@ -640,15 +761,9 @@ function renderTierList() {
   const searchEl = document.getElementById("search");
   const search = searchEl ? searchEl.value.trim().toLowerCase() : '';
 
-  // ensure players object exists for the selected kit
-  const players =
-    (tierData.data && tierData.data[kit]) || {};
+  const players = (tierData.data && tierData.data[kit]) || {};
 
-  const container =
-    document.getElementById(
-      "tierList"
-    );
-
+  const container = document.getElementById("tierList");
   if (!container) return;
 
   container.innerHTML = "";
@@ -660,7 +775,15 @@ function renderTierList() {
 
     const tierName = document.createElement("div");
     tierName.className = "tier-name";
-    tierName.textContent = tier;
+
+    const tierLabel = document.createElement("div");
+    tierLabel.textContent = tier;
+    tierName.appendChild(tierLabel);
+
+    const tierPts = document.createElement("div");
+    tierPts.className = "tier-pts";
+    tierPts.textContent = getTierPoints(tier) + " pts";
+    tierName.appendChild(tierPts);
 
     const playerBox = document.createElement("div");
     playerBox.className = "players";
@@ -678,98 +801,15 @@ function renderTierList() {
       names.forEach(name => {
         const player = document.createElement("div");
         player.className = "player";
-        player.textContent = name;
+
+        const label = document.createElement("span");
+        label.textContent = name;
+        player.appendChild(label);
+
+        const badge = document.createElement("span");
+        badge.className = "points-badge";
+        badge.textContent = "+" + getTierPoints(tier);
+        player.appendChild(badge);
+
         player.onclick = () => showProfile(name);
-        playerBox.appendChild(player);
-      });
-    }
-
-    row.appendChild(tierName);
-    row.appendChild(playerBox);
-    container.appendChild(row);
-
-  });
-
-}
-
-
-/* =========================================
-   PLAYER PROFILE
-========================================= */
-
-function showProfile(playerName) {
-
-  if (!tierData) return;
-
-  const profile = document.getElementById("profile");
-  const profileName = document.getElementById("profileName");
-  const body = document.getElementById("profileBody");
-
-  if (!profile || !profileName || !body) return;
-
-  profileName.textContent = playerName;
-  body.innerHTML = "";
-
-  tierData.kits.forEach(kit => {
-    const card = document.createElement("div");
-    card.className = "kit-card";
-
-    const name = document.createElement("span");
-    name.textContent = kit.name;
-
-    const rank = document.createElement("span");
-    const playerRank = (tierData.data[kit.id] || {})[playerName];
-
-    if (playerRank) {
-      rank.textContent = playerRank;
-      rank.className = "rank";
-    } else {
-      rank.textContent = "Unranked";
-      rank.className = "rank unranked";
-    }
-
-    card.appendChild(name);
-    card.appendChild(rank);
-    body.appendChild(card);
-  });
-
-  profile.classList.add("active");
-  profile.scrollIntoView({ behavior: "smooth" });
-
-}
-
-/* =========================================
-   CLOSE PROFILE
-========================================= */
-
-function closeProfile() {
-  const profile = document.getElementById("profile");
-  if (profile) profile.classList.remove("active");
-}
-
-/* =========================================
-   EVENTS
-========================================= */
-
-const searchInput = document.getElementById("search");
-if (searchInput) searchInput.addEventListener("input", renderTierList);
-
-const kitSelect = document.getElementById("kitSelect");
-if (kitSelect) kitSelect.addEventListener("change", renderTierList);
-
-/* =========================================
-   START
-========================================= */
-
-loadData();
-
-/* =========================================
-   AUTO UPDATE
-========================================= */
-
-setInterval(loadData, 10000);
-
-</script>
-
-</body>
-</html>
+        playerBox
