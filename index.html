@@ -258,23 +258,40 @@ input::placeholder {
 }
 
 #status {
+  display: none;
   margin-top: 20px;
+  padding: 16px;
   text-align: center;
-  color: #aaa;
+  border-radius: 10px;
   font-size: 14px;
-  animation: pulse 2s infinite;
+  font-weight: 600;
+  animation: slideUp 0.4s ease-out;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+#status.show {
+  display: block;
 }
 
-.error {
-  color: #ff6b6b !important;
+#status.success {
+  background: rgba(34, 197, 94, 0.15);
+  border: 2px solid #22c55e;
+  color: #86efac;
+}
+
+#status.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid #ef4444;
+  color: #fca5a5;
+}
+
+#status.loading {
+  background: rgba(59, 130, 246, 0.15);
+  border: 2px solid #3b82f6;
+  color: #93c5fd;
 }
 
 .debug {
+  display: none;
   margin-top: 12px;
   padding: 12px;
   background: rgba(17, 17, 17, 0.8);
@@ -284,6 +301,10 @@ input::placeholder {
   font-size: 12px;
   word-break: break-word;
   backdrop-filter: blur(5px);
+}
+
+.debug.show {
+  display: block;
 }
 
 @media (max-width: 650px) {
@@ -355,13 +376,9 @@ input::placeholder {
 
   </div>
 
-  <div id="status">
-    Starting website...
-  </div>
+  <div id="status"></div>
 
-  <div id="debug" class="debug">
-    Waiting for JavaScript...
-  </div>
+  <div id="debug" class="debug"></div>
 
 </div>
 
@@ -376,7 +393,7 @@ const API_URL =
 
 
 /* =========================================
-   DEBUG
+   DEBUG & STATUS HELPERS
 ========================================= */
 
 const debug =
@@ -385,8 +402,34 @@ const debug =
 const status =
   document.getElementById("status");
 
-debug.textContent =
-  "✅ JavaScript running.";
+// Flag for dev mode - set to true to see debug messages
+const DEV_MODE = false;
+
+function showDebug(message) {
+  if (DEV_MODE) {
+    debug.textContent = message;
+    debug.classList.add("show");
+  }
+}
+
+function showStatus(message, type = "loading") {
+  status.textContent = message;
+  status.className = type;
+  status.classList.add("show");
+  
+  // Auto-hide success messages after 5 seconds
+  if (type === "success") {
+    setTimeout(() => {
+      status.classList.remove("show");
+    }, 5000);
+  }
+}
+
+function hideStatus() {
+  status.classList.remove("show");
+}
+
+showDebug("✅ JavaScript running.");
 
 
 /* =========================================
@@ -402,15 +445,8 @@ let tierData = null;
 
 async function loadData() {
 
-  // show friendly connecting status
-  status.textContent =
-    "🔄 Connecting to HAVOC STYX API...";
-
-  debug.textContent =
-    "Testing: " +
-    API_URL +
-    "/api/tiers";
-
+  showStatus("Loading tier list...", "loading");
+  showDebug("Testing: " + API_URL + "/api/tiers");
 
   try {
 
@@ -431,8 +467,13 @@ async function loadData() {
       );
 
     if (!response.ok) {
-      // friendly error for HTTP status problems
-      throw new Error("HTTP " + response.status);
+      throw new Error(
+        response.status === 404 
+          ? "Server not found (404)"
+          : response.status === 500
+          ? "Server error (500)"
+          : "Server responded with error (" + response.status + ")"
+      );
     }
 
     const result =
@@ -451,14 +492,14 @@ async function loadData() {
       typeof result.data !== "object"
     ) {
 
-      // don't show raw TypeError/etc. — provide a friendly message
-      status.textContent =
-        "⚠️ Unexpected API response";
+      showStatus(
+        "⚠️ The server sent an invalid response. Please try again.",
+        "error"
+      );
 
-      status.classList.add("error");
-
-      debug.textContent =
-        "❌ The API returned an unexpected response format. Please contact the server admin or try again later.";
+      showDebug(
+        "❌ API returned unexpected format. Expected: { kits: [], tiers: [], data: {} }"
+      );
 
       throw new Error("Invalid API format");
 
@@ -470,42 +511,31 @@ async function loadData() {
 
     renderTierList();
 
-    status.textContent =
-      "🟢 Connected to HAVOC STYX";
+    hideStatus();
 
-    debug.textContent =
-      "✅ API connected successfully • " +
+    showDebug(
+      "✅ API connected • " +
       result.kits.length +
-      " kits loaded • " +
+      " kits • " +
       result.tiers.length +
-      " tiers available";
+      " tiers"
+    );
 
   } catch (error) {
 
-    // log full error to console for debugging but show friendly message in UI
     console.error(
       "API ERROR:",
       error
     );
 
-    status.textContent =
-      "🔴 API connection failed";
-
-    status.classList.add(
+    showStatus(
+      "⚠️ Unable to load tier list. Please check your connection or try again.",
       "error"
     );
 
-    // Provide a friendly message and avoid showing raw error types like "TypeError"
-    let friendlyMessage =
-      "Could not connect to the HAVOC STYX API. Please check your internet connection or try again later.";
-
-    // Append the error message only when it's useful and not too technical
-    if (error && error.message && !/typeerror/i.test(error.message)) {
-      friendlyMessage += " (" + error.message + ")";
-    }
-
-    debug.textContent =
-      "❌ " + friendlyMessage;
+    showDebug(
+      "❌ " + (error.message || "Unknown error occurred")
+    );
 
     // leave kit selector disabled so user can't interact with broken state
     const select = document.getElementById("kitSelect");
