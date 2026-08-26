@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>HAVOC STYX — Tier List</title>
 
 <style>
@@ -209,8 +209,8 @@ select {
       placeholder="Search player..."
     >
 
-    <select id="kitSelect">
-      <option value="">Connecting...</option>
+    <select id="kitSelect" disabled>
+      <option value="">Loading kits...</option>
     </select>
 
   </div>
@@ -274,7 +274,7 @@ const status =
   document.getElementById("status");
 
 debug.textContent =
-  "✅ New index.html JavaScript is running.";
+  "✅ JavaScript running.";
 
 
 /* =========================================
@@ -290,6 +290,7 @@ let tierData = null;
 
 async function loadData() {
 
+  // show friendly connecting status
   status.textContent =
     "Connecting to HAVOC STYX API...";
 
@@ -317,66 +318,61 @@ async function loadData() {
         }
       );
 
-
     if (!response.ok) {
-
-      throw new Error(
-        "HTTP " +
-        response.status
-      );
-
+      // friendly error for HTTP status problems
+      throw new Error("HTTP " + response.status);
     }
-
 
     const result =
       await response.json();
-
 
     console.log(
       "HAVOC STYX API:",
       result
     );
 
-
+    // validate shape
     if (
-      !result.kits ||
-      !result.tiers ||
-      !result.data
+      !result ||
+      !Array.isArray(result.kits) ||
+      !Array.isArray(result.tiers) ||
+      typeof result.data !== "object"
     ) {
 
-      throw new Error(
-        "API response format is invalid"
-      );
+      // don't show raw TypeError/etc. — provide a friendly message
+      status.textContent =
+        "⚠️ Unexpected API response";
+
+      status.classList.add("error");
+
+      debug.textContent =
+        "❌ The API returned an unexpected response format. Please contact the server admin or try again later.";
+
+      throw new Error("Invalid API format");
 
     }
 
-
-    tierData =
-      result;
-
+    tierData = result;
 
     createKitSelector();
 
     renderTierList();
 
-
     status.textContent =
       "🟢 Connected to HAVOC STYX";
-
 
     debug.textContent =
       "✅ API connected successfully • " +
       result.kits.length +
       " kits loaded";
 
-
   } catch (error) {
 
+    // log full error to console for debugging but show friendly message in UI
     console.error(
       "API ERROR:",
       error
     );
-
 
     status.textContent =
       "🔴 API connection failed";
@@ -385,12 +381,24 @@ async function loadData() {
       "error"
     );
 
+    // Provide a friendly message and avoid showing raw error types like "TypeError"
+    let friendlyMessage =
+      "Could not connect to the HAVOC STYX API. Please check your internet connection or try again later.";
+
+    // Append the error message only when it's useful and not too technical
+    if (error && error.message && !/typeerror/i.test(error.message)) {
+      friendlyMessage += " (" + error.message + ")";
+    }
 
     debug.textContent =
-      "❌ " +
-      error.name +
-      ": " +
-      error.message;
+      "❌ " + friendlyMessage;
+
+    // leave kit selector disabled so user can't interact with broken state
+    const select = document.getElementById("kitSelect");
+    if (select) {
+      select.innerHTML = "<option value=''>Error loading kits</option>";
+      select.disabled = true;
+    }
 
   }
 
@@ -410,7 +418,16 @@ function createKitSelector() {
 
   select.innerHTML = "";
 
+  if (!tierData || !tierData.kits || tierData.kits.length === 0) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No kits found";
+    select.appendChild(option);
+    select.disabled = true;
+    return;
+  }
 
+  // populate kits
   tierData.kits.forEach(
     kit => {
 
@@ -432,6 +449,12 @@ function createKitSelector() {
     }
   );
 
+  // enable selector and choose the first kit by default
+  select.disabled = false;
+  if (!select.value && tierData.kits.length > 0) {
+    select.value = tierData.kits[0].id;
+  }
+
 }
 
 
@@ -443,12 +466,10 @@ function renderTierList() {
 
   if (!tierData) return;
 
-
   const kit =
     document.getElementById(
       "kitSelect"
     ).value;
-
 
   const search =
     document.getElementById(
@@ -457,19 +478,16 @@ function renderTierList() {
       .trim()
       .toLowerCase();
 
-
+  // ensure players object exists for the selected kit
   const players =
     tierData.data[kit] || {};
-
 
   const container =
     document.getElementById(
       "tierList"
     );
 
-
   container.innerHTML = "";
-
 
   tierData.tiers.forEach(
     tier => {
@@ -482,7 +500,6 @@ function renderTierList() {
       row.className =
         "tier";
 
-
       const tierName =
         document.createElement(
           "div"
@@ -494,7 +511,6 @@ function renderTierList() {
       tierName.textContent =
         tier;
 
-
       const playerBox =
         document.createElement(
           "div"
@@ -502,7 +518,6 @@ function renderTierList() {
 
       playerBox.className =
         "players";
-
 
       const names =
         Object.entries(
@@ -522,7 +537,6 @@ function renderTierList() {
           ([name]) =>
             name
         );
-
 
       if (
         names.length === 0
@@ -571,7 +585,6 @@ function renderTierList() {
 
       }
 
-
       row.appendChild(
         tierName
       );
@@ -598,6 +611,8 @@ function showProfile(
   playerName
 ) {
 
+  if (!tierData) return;
+
   const profile =
     document.getElementById(
       "profile"
@@ -613,12 +628,10 @@ function showProfile(
       "profileBody"
     );
 
-
   profileName.textContent =
     playerName;
 
   body.innerHTML = "";
-
 
   tierData.kits.forEach(
     kit => {
@@ -631,7 +644,6 @@ function showProfile(
       card.className =
         "kit-card";
 
-
       const name =
         document.createElement(
           "span"
@@ -639,7 +651,6 @@ function showProfile(
 
       name.textContent =
         kit.name;
-
 
       const rank =
         document.createElement(
@@ -651,7 +662,6 @@ function showProfile(
           tierData.data[kit.id] ||
           {}
         )[playerName];
-
 
       if (playerRank) {
 
@@ -668,7 +678,6 @@ function showProfile(
 
       }
 
-
       card.appendChild(
         name
       );
@@ -684,18 +693,15 @@ function showProfile(
     }
   );
 
-
   profile.classList.add(
     "active"
   );
-
 
   profile.scrollIntoView({
     behavior: "smooth"
   });
 
 }
-
 
 /* =========================================
    CLOSE PROFILE
@@ -704,6 +710,52 @@ function showProfile(
 function closeProfile() {
 
   document
+    .getElementById(
+      "profile"
+    )
+    .classList.remove(
+      "active"
+    );
+
+}
+
+/* =========================================
+   EVENTS
+========================================= */
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    renderTierList
+  );
+
+document
+  .getElementById("kitSelect")
+  .addEventListener(
+    "change",
+    renderTierList
+  );
+
+/* =========================================
+   START
+========================================= */
+
+loadData();
+
+/* =========================================
+   AUTO UPDATE
+========================================= */
+
+setInterval(
+  loadData,
+  10000
+);
+
+</script>
+
+</body>
+</html>document
     .getElementById(
       "profile"
     )
