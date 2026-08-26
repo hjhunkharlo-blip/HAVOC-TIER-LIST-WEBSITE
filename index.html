@@ -23,14 +23,20 @@
   --bronze:#cd7f32;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   min-height:100vh;
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at 50% -10%,rgba(225,29,46,.18),transparent 35%),
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(225,29,46,.18),
+      transparent 35%
+    ),
     var(--bg);
   color:var(--text);
 }
@@ -39,7 +45,11 @@ header{
   padding:45px 18px;
   text-align:center;
   background:
-    linear-gradient(180deg,rgba(225,29,46,.12),transparent),
+    linear-gradient(
+      180deg,
+      rgba(225,29,46,.12),
+      transparent
+    ),
     #09090c;
   border-bottom:1px solid var(--border);
 }
@@ -74,7 +84,9 @@ header h1{
   letter-spacing:-1.5px;
 }
 
-header h1 span{color:var(--red)}
+header h1 span{
+  color:var(--red);
+}
 
 header p{
   margin:0;
@@ -97,7 +109,9 @@ header p{
   scrollbar-width:none;
 }
 
-.nav::-webkit-scrollbar{display:none}
+.nav::-webkit-scrollbar{
+  display:none;
+}
 
 .nav button{
   flex:0 0 auto;
@@ -117,8 +131,13 @@ header p{
   color:#fff;
 }
 
-.section{display:none}
-.section.active{display:block}
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
 
 .controls{
   display:grid;
@@ -127,7 +146,8 @@ header p{
   margin-bottom:18px;
 }
 
-input,select{
+input,
+select{
   width:100%;
   height:50px;
   padding:0 14px;
@@ -139,8 +159,14 @@ input,select{
   font-size:15px;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
   border-color:var(--red);
+}
+
+select option{
+  background:#0d0d11;
+  color:#fff;
 }
 
 .section-title{
@@ -172,7 +198,11 @@ input:focus,select:focus{
   justify-content:center;
   min-height:72px;
   background:
-    linear-gradient(135deg,rgba(225,29,46,.18),rgba(225,29,46,.02)),
+    linear-gradient(
+      135deg,
+      rgba(225,29,46,.18),
+      rgba(225,29,46,.02)
+    ),
     var(--panel2);
   border-right:1px solid var(--border);
   font-weight:900;
@@ -249,17 +279,32 @@ input:focus,select:focus{
 
 .ranking-card.rank-1{
   border-color:rgba(255,215,0,.45);
-  background:linear-gradient(90deg,rgba(255,215,0,.08),var(--panel));
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,215,0,.08),
+      var(--panel)
+    );
 }
 
 .ranking-card.rank-2{
   border-color:rgba(192,192,192,.35);
-  background:linear-gradient(90deg,rgba(192,192,192,.06),var(--panel));
+  background:
+    linear-gradient(
+      90deg,
+      rgba(192,192,192,.06),
+      var(--panel)
+    );
 }
 
 .ranking-card.rank-3{
   border-color:rgba(205,127,50,.4);
-  background:linear-gradient(90deg,rgba(205,127,50,.07),var(--panel));
+  background:
+    linear-gradient(
+      90deg,
+      rgba(205,127,50,.07),
+      var(--panel)
+    );
 }
 
 .ranking-number{
@@ -269,9 +314,17 @@ input:focus,select:focus{
   color:#777783;
 }
 
-.rank-1 .ranking-number{color:var(--gold)}
-.rank-2 .ranking-number{color:var(--silver)}
-.rank-3 .ranking-number{color:var(--bronze)}
+.rank-1 .ranking-number{
+  color:var(--gold);
+}
+
+.rank-2 .ranking-number{
+  color:var(--silver);
+}
+
+.rank-3 .ranking-number{
+  color:var(--bronze);
+}
 
 .ranking-player{
   font-size:15px;
@@ -314,11 +367,17 @@ input:focus,select:focus{
   border:1px solid var(--border);
   border-radius:12px;
   background:
-    linear-gradient(135deg,rgba(225,29,46,.06),transparent),
+    linear-gradient(
+      135deg,
+      rgba(225,29,46,.06),
+      transparent
+    ),
     var(--panel);
 }
 
-.profile.active{display:block}
+.profile.active{
+  display:block;
+}
 
 .profile-header{
   display:flex;
@@ -412,7 +471,11 @@ input:focus,select:focus{
   border:1px solid rgba(88,101,242,.3);
   border-radius:13px;
   background:
-    linear-gradient(135deg,rgba(88,101,242,.13),transparent),
+    linear-gradient(
+      135deg,
+      rgba(88,101,242,.13),
+      transparent
+    ),
     var(--panel);
   text-align:center;
 }
@@ -447,9 +510,17 @@ input:focus,select:focus{
   font-size:11px;
 }
 
-.connected{color:var(--green)!important}
-.warning{color:var(--yellow)!important}
-.error{color:#ff5c6c!important}
+.connected{
+  color:var(--green)!important;
+}
+
+.warning{
+  color:var(--yellow)!important;
+}
+
+.error{
+  color:#ff5c6c!important;
+}
 
 .updated{
   margin-top:6px;
@@ -469,6 +540,7 @@ input:focus,select:focus{
 }
 
 @media(max-width:700px){
+
   .controls{
     grid-template-columns:1fr;
   }
@@ -496,32 +568,57 @@ input:focus,select:focus{
 <body>
 
 <header>
+
   <div class="brand">
     <span class="brand-dot"></span>
     Official PvP Rankings
   </div>
 
-  <h1>HAVOC <span>STYX</span></h1>
-  <p>FFA Tier List • Top 50 Rankings • Live API</p>
+  <h1>
+    HAVOC <span>STYX</span>
+  </h1>
+
+  <p>
+    FFA Tier List • Top 50 Rankings • Live API
+  </p>
+
 </header>
+
 
 <div class="container">
 
   <div class="nav">
-    <button class="active" onclick="switchSection('tiers',this)">
+
+    <button
+      class="active"
+      onclick="switchSection('tiers',this)"
+    >
       Tier List
     </button>
 
-    <button onclick="switchSection('rankings',this)">
+    <button
+      onclick="switchSection('rankings',this)"
+    >
       Rankings 1–50
     </button>
 
-    <button onclick="switchSection('discord',this)">
+    <button
+      onclick="switchSection('discord',this)"
+    >
       Discord
     </button>
+
   </div>
 
-  <section id="tiers" class="section active">
+
+  <!-- ==============================
+       TIER LIST
+  =============================== -->
+
+  <section
+    id="tiers"
+    class="section active"
+  >
 
     <div class="controls">
 
@@ -533,7 +630,9 @@ input:focus,select:focus{
       >
 
       <select id="kitSelect">
-        <option value="">Connecting...</option>
+        <option value="">
+          Connecting...
+        </option>
       </select>
 
     </div>
@@ -542,7 +641,15 @@ input:focus,select:focus{
 
   </section>
 
-  <section id="rankings" class="section">
+
+  <!-- ==============================
+       RANKINGS
+  =============================== -->
+
+  <section
+    id="rankings"
+    class="section"
+  >
 
     <h2 class="section-title">
       Overall Rankings
@@ -563,15 +670,28 @@ input:focus,select:focus{
 
     </div>
 
-    <div id="rankingList" class="ranking-list"></div>
+    <div
+      id="rankingList"
+      class="ranking-list"
+    ></div>
 
   </section>
 
-  <section id="discord" class="section">
+
+  <!-- ==============================
+       DISCORD
+  =============================== -->
+
+  <section
+    id="discord"
+    class="section"
+  >
 
     <div class="discord-card">
 
-      <h2>Join HAVOC STYX</h2>
+      <h2>
+        Join HAVOC STYX
+      </h2>
 
       <p>
         Join our Discord for announcements,
@@ -591,34 +711,60 @@ input:focus,select:focus{
 
   </section>
 
-  <div id="profile" class="profile">
+
+  <!-- ==============================
+       PROFILE
+  =============================== -->
+
+  <div
+    id="profile"
+    class="profile"
+  >
 
     <div class="profile-header">
 
       <div>
+
         <div class="profile-label">
           Player Profile
         </div>
 
-        <div id="profileName" class="profile-name"></div>
+        <div
+          id="profileName"
+          class="profile-name"
+        ></div>
+
       </div>
 
-      <button class="close-button" onclick="closeProfile()">
+      <button
+        class="close-button"
+        onclick="closeProfile()"
+      >
         Close
       </button>
 
     </div>
 
     <div id="profileSummary"></div>
+
     <div id="profileRanks"></div>
 
   </div>
+
+
+  <!-- ==============================
+       STATUS
+  =============================== -->
 
   <div id="status">
     ● Connecting to HAVOC STYX API...
   </div>
 
-  <div id="updated" class="updated"></div>
+  <div
+    id="updated"
+    class="updated"
+  ></div>
+
 
   <div class="footer">
     HAVOC STYX FFA • Official Tier Rankings
@@ -626,10 +772,11 @@ input:focus,select:focus{
 
 </div>
 
+
 <script>
 
 /* =====================================================
-   API
+   HAVOC STYX API
 ===================================================== */
 
 const API_URL =
@@ -639,20 +786,26 @@ const REFRESH_INTERVAL = 10000;
 
 
 /* =====================================================
-   FALLBACK POINTS
+   POINT SYSTEM
 ===================================================== */
 
 const POINTS = {
+
   HT1:10,
   LT1:8,
+
   HT2:8,
   LT2:6,
+
   HT3:5,
   LT3:4,
+
   HT4:3,
   LT4:2,
+
   HT5:1,
   LT5:1
+
 };
 
 
@@ -661,6 +814,7 @@ const POINTS = {
 ===================================================== */
 
 let tierData = null;
+
 let lastGoodData = null;
 
 
@@ -710,25 +864,44 @@ function switchSection(id,button){
 
   document
     .querySelectorAll(".section")
-    .forEach(section =>
-      section.classList.remove("active")
-    );
+    .forEach(section => {
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+      section.classList.remove("active");
+
+    });
+
+  const selected =
+    document.getElementById(id);
+
+  if(selected){
+
+    selected.classList.add("active");
+
+  }
+
 
   document
     .querySelectorAll(".nav button")
-    .forEach(btn =>
-      btn.classList.remove("active")
-    );
+    .forEach(btn => {
 
-  button.classList.add("active");
+      btn.classList.remove("active");
+
+    });
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }
+
 
   if(id === "rankings"){
+
     renderRankings();
+
   }
+
 }
 
 
@@ -738,12 +911,18 @@ function switchSection(id,button){
 
 function escapeHTML(value){
 
-  return String(value)
+  return String(value ?? "")
+
     .replace(/&/g,"&amp;")
+
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;")
+
     .replace(/"/g,"&quot;")
+
     .replace(/'/g,"&#039;");
+
 }
 
 
@@ -753,9 +932,37 @@ function escapeHTML(value){
 
 function getPoints(tier){
 
-  return POINTS[
-    String(tier || "").toUpperCase()
-  ] || 0;
+  const key =
+    String(tier || "")
+      .trim()
+      .toUpperCase();
+
+  return POINTS[key] || 0;
+
+}
+
+
+/* =====================================================
+   KIT NAME
+===================================================== */
+
+function getKitName(kitId){
+
+  if(!tierData || !Array.isArray(tierData.kits)){
+
+    return kitId;
+
+  }
+
+  const kit =
+    tierData.kits.find(
+      k => k.id === kitId
+    );
+
+  return kit
+    ? kit.name
+    : kitId;
+
 }
 
 
@@ -767,14 +974,11 @@ async function loadTierData(){
 
   try{
 
-    status.textContent =
-      "● Connecting to HAVOC STYX API...";
-
-    status.className = "";
-
     const response =
       await fetch(
-        API_URL + "?cache=" + Date.now(),
+        API_URL +
+        "?cache=" +
+        Date.now(),
         {
           method:"GET",
           mode:"cors",
@@ -785,32 +989,65 @@ async function loadTierData(){
         }
       );
 
+
     if(!response.ok){
+
       throw new Error(
-        "HTTP " + response.status
+        "HTTP " +
+        response.status
       );
+
     }
+
 
     const data =
       await response.json();
 
+
+    /*
+      Validate the API response.
+    */
+
     if(
+      !data ||
       data.status !== "online" ||
       !Array.isArray(data.kits) ||
       !Array.isArray(data.tiers) ||
       !data.data
     ){
+
       throw new Error(
-        "Invalid HAVOC STYX API response"
+        "Invalid API response"
       );
+
     }
 
-    tierData = data;
-    lastGoodData = data;
+
+    /*
+      Save working data.
+    */
+
+    tierData =
+      data;
+
+    lastGoodData =
+      data;
+
+
+    /*
+      Render everything.
+    */
 
     buildKitSelector();
+
     renderTierList();
+
     renderRankings();
+
+
+    /*
+      Connection status.
+    */
 
     status.textContent =
       "● LIVE • Connected";
@@ -818,9 +1055,11 @@ async function loadTierData(){
     status.className =
       "connected";
 
+
     updated.textContent =
       "Last updated: " +
       new Date().toLocaleTimeString();
+
 
   }catch(error){
 
@@ -829,14 +1068,23 @@ async function loadTierData(){
       error
     );
 
+
+    /*
+      If previous API data exists,
+      keep displaying it.
+    */
+
     if(lastGoodData){
 
       tierData =
         lastGoodData;
 
       buildKitSelector();
+
       renderTierList();
+
       renderRankings();
+
 
       status.textContent =
         "● API temporarily unavailable • Showing last data";
@@ -844,36 +1092,64 @@ async function loadTierData(){
       status.className =
         "warning";
 
-    }else{
+      return;
 
-      status.textContent =
-        "● API connection failed";
-
-      status.className =
-        "error";
-
-      tierList.innerHTML = `
-        <div class="empty">
-          <strong>Unable to connect.</strong>
-          <br><br>
-          Railway API:
-          <br>
-          ${escapeHTML(API_URL)}
-          <br><br>
-          Check the browser console if this persists.
-        </div>
-      `;
-
-      kitSelect.innerHTML =
-        `<option value="">API unavailable</option>`;
-
-      rankingList.innerHTML = `
-        <div class="empty">
-          Waiting for HAVOC STYX API...
-        </div>
-      `;
     }
+
+
+    /*
+      No previous data.
+    */
+
+    status.textContent =
+      "● API connection failed";
+
+    status.className =
+      "error";
+
+
+    kitSelect.innerHTML =
+      `
+      <option value="">
+        API unavailable
+      </option>
+      `;
+
+
+    tierList.innerHTML =
+      `
+      <div class="empty">
+
+        <strong>
+          Unable to connect to HAVOC STYX API.
+        </strong>
+
+        <br><br>
+
+        API:
+
+        <br>
+
+        ${escapeHTML(API_URL)}
+
+        <br><br>
+
+        Make sure your Railway API is online
+        and allows CORS requests.
+
+      </div>
+      `;
+
+
+    rankingList.innerHTML =
+      `
+      <div class="empty">
+        Waiting for HAVOC STYX API...
+      </div>
+      `;
+
   }
+
 }
 
 
@@ -883,42 +1159,60 @@ async function loadTierData(){
 
 function buildKitSelector(){
 
-  if(!tierData) return;
+  if(!tierData){
+
+    return;
+
+  }
+
 
   const oldValue =
     kitSelect.value;
 
+
   kitSelect.innerHTML = "";
+
 
   tierData.kits.forEach(kit => {
 
     const option =
       document.createElement("option");
 
+
     option.value =
       kit.id;
+
 
     option.textContent =
       kit.name;
 
+
     kitSelect.appendChild(option);
+
   });
+
 
   const exists =
     tierData.kits.some(
-      kit => kit.id === oldValue
+      kit =>
+        kit.id === oldValue
     );
+
 
   if(exists){
 
     kitSelect.value =
       oldValue;
 
-  }else if(tierData.kits.length){
+  }else if(
+    tierData.kits.length > 0
+  ){
 
     kitSelect.value =
       tierData.kits[0].id;
+
   }
+
 }
 
 
@@ -928,78 +1222,135 @@ function buildKitSelector(){
 
 function renderTierList(){
 
-  if(!tierData) return;
+  if(!tierData){
+
+    return;
+
+  }
+
 
   tierList.innerHTML = "";
+
 
   const kitId =
     kitSelect.value;
 
+
   if(!kitId){
 
     tierList.innerHTML =
-      `<div class="empty">No kit selected.</div>`;
+      `
+      <div class="empty">
+        No kit selected.
+      </div>
+      `;
 
     return;
+
   }
+
 
   const players =
     tierData.data[kitId] || {};
+
 
   const search =
     searchInput.value
       .trim()
       .toLowerCase();
 
+
   tierData.tiers.forEach(tier => {
 
     const row =
       document.createElement("div");
 
+
     row.className =
       "tier";
+
 
     const name =
       document.createElement("div");
 
+
     name.className =
       "tier-name";
 
-    name.innerHTML = `
-      <div>${escapeHTML(tier)}</div>
+
+    name.innerHTML =
+      `
+      <div>
+        ${escapeHTML(tier)}
+      </div>
+
       <div class="tier-points">
         +${getPoints(tier)} pts
       </div>
-    `;
+      `;
+
 
     const box =
       document.createElement("div");
 
+
     box.className =
       "players";
 
+
     const matches =
       Object.entries(players)
+
         .filter(([player,value]) => {
 
-          if(
-            String(value).toUpperCase() !==
-            String(tier).toUpperCase()
-          ){
+          const sameTier =
+            String(value)
+              .trim()
+              .toUpperCase() ===
+            String(tier)
+              .trim()
+              .toUpperCase();
+
+
+          if(!sameTier){
+
             return false;
+
           }
 
-          return !search ||
-            player.toLowerCase().includes(search);
+
+          if(!search){
+
+            return true;
+
+          }
+
+
+          return player
+            .toLowerCase()
+            .includes(search);
+
         })
+
         .sort(([a],[b]) =>
-          a.localeCompare(b)
+          a.localeCompare(
+            b,
+            undefined,
+            {
+              sensitivity:"base"
+            }
+          )
         );
 
-    if(!matches.length){
+
+    if(matches.length === 0){
 
       box.innerHTML =
-        `<div class="empty">No players</div>`;
+        `
+        <div class="empty">
+          No players
+        </div>
+        `;
 
     }else{
 
@@ -1009,18 +1360,21 @@ function renderTierList(){
           const item =
             document.createElement("div");
 
+
           item.className =
             "player";
 
-          item.innerHTML = `
-            ${escapeHTML(player)}
-            <span class="player-points">
-              +${getPoints(value)}
-            </span>
-          `;
 
-          item.onclick =
-            () => showProfile(player);
+          item.innerHTML =
+            `
+            ${escapeHTML(player)}
+
+            <span class="player-points">
+  +${getPoints(value)}
+</span>
+`;
+          
+          item.onclick = () => showProfile(player);
 
           box.appendChild(item);
         }
@@ -1036,17 +1390,12 @@ function renderTierList(){
 
 
 /* =====================================================
-   CALCULATE RANKINGS
+   CALCULATE OVERALL RANKINGS
 ===================================================== */
 
 function calculateRankings(){
 
   if(!tierData) return [];
-
-  /*
-    If Railway already calculated rankings,
-    use those values directly.
-  */
 
   if(
     Array.isArray(tierData.overallRankings) &&
@@ -1057,7 +1406,9 @@ function calculateRankings(){
       .map(item => ({
         player:item.player,
         points:Number(
-          item.totalPoints ?? item.points ?? 0
+          item.totalPoints ??
+          item.points ??
+          0
         ),
         kits:Array.isArray(item.kits)
           ? item.kits.length
@@ -1065,19 +1416,18 @@ function calculateRankings(){
         tiers:Array.isArray(item.kits)
           ? item.kits.map(k => ({
               kitId:k.kit,
-              kitName:k.kitName,
+              kitName:k.kitName || getKitName(k.kit),
               tier:k.tier,
-              points:Number(k.points || 0)
+              points:Number(
+                k.points ??
+                getPoints(k.tier)
+              )
             }))
           : []
-      }));
+      }))
+      .sort((a,b) => b.points - a.points)
+      .slice(0,50);
   }
-
-
-  /*
-    Fallback calculation if API doesn't provide
-    overallRankings.
-  */
 
   const totals = {};
 
@@ -1086,8 +1436,8 @@ function calculateRankings(){
     const players =
       tierData.data[kit.id] || {};
 
-    Object.entries(players)
-      .forEach(([player,tier]) => {
+    Object.entries(players).forEach(
+      ([player,tier]) => {
 
         const existing =
           Object.keys(totals).find(
@@ -1106,14 +1456,13 @@ function calculateRankings(){
             kits:0,
             tiers:[]
           };
+
         }
 
         const points =
           getPoints(tier);
 
-        totals[key].points +=
-          points;
-
+        totals[key].points += points;
         totals[key].kits++;
 
         totals[key].tiers.push({
@@ -1122,7 +1471,10 @@ function calculateRankings(){
           tier:tier,
           points:points
         });
-      });
+
+      }
+    );
+
   });
 
   return Object.entries(totals)
@@ -1134,5 +1486,309 @@ function calculateRankings(){
     }))
     .sort((a,b) => {
 
-      if(b.points !== a.points){
-        return b.points - a.point
+      if(b.points !== a.points)
+        return b.points - a.points;
+
+      if(b.kits !== a.kits)
+        return b.kits - a.kits;
+
+      return a.player.localeCompare(
+        b.player,
+        undefined,
+        {sensitivity:"base"}
+      );
+
+    })
+    .slice(0,50);
+}
+
+
+/* =====================================================
+   RENDER RANKINGS
+===================================================== */
+
+function renderRankings(){
+
+  if(!tierData) return;
+
+  const rankings =
+    calculateRankings();
+
+  const search =
+    rankingSearch.value
+      .trim()
+      .toLowerCase();
+
+  rankingList.innerHTML = "";
+
+  const filtered =
+    rankings.filter(item =>
+      !search ||
+      item.player.toLowerCase().includes(search)
+    );
+
+  if(!filtered.length){
+
+    rankingList.innerHTML =
+      `<div class="empty">No ranked players found.</div>`;
+
+    return;
+  }
+
+  filtered.forEach(item => {
+
+    const actualRank =
+      rankings.findIndex(
+        r => r.player === item.player
+      ) + 1;
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "ranking-card";
+
+    if(actualRank <= 3){
+      card.classList.add(
+        "rank-" + actualRank
+      );
+    }
+
+    const number =
+      document.createElement("div");
+
+    number.className =
+      "ranking-number";
+
+    number.textContent =
+      "#" + actualRank;
+
+    const middle =
+      document.createElement("div");
+
+    const name =
+      document.createElement("div");
+
+    name.className =
+      "ranking-player";
+
+    name.textContent =
+      item.player;
+
+    middle.appendChild(name);
+
+    const kits =
+      document.createElement("div");
+
+    kits.className =
+      "ranking-kits";
+
+    item.tiers.forEach(rank => {
+
+      const badge =
+        document.createElement("span");
+
+      badge.className =
+        "kit-badge";
+
+      badge.textContent =
+        `${rank.kitName}: ${rank.tier}`;
+
+      kits.appendChild(badge);
+
+    });
+
+    middle.appendChild(kits);
+
+    const points =
+      document.createElement("div");
+
+    points.className =
+      "ranking-points";
+
+    points.textContent =
+      item.points + " pts";
+
+    card.appendChild(number);
+    card.appendChild(middle);
+    card.appendChild(points);
+
+    card.onclick =
+      () => showProfile(item.player      );
+
+    rankingList.appendChild(card);
+
+  });
+
+}
+
+
+/* =====================================================
+   PLAYER PROFILE
+===================================================== */
+
+function showProfile(player){
+
+  if(!tierData) return;
+
+  const rankings =
+    calculateRankings();
+
+  const found =
+    rankings.find(
+      item =>
+        item.player.toLowerCase() ===
+        player.toLowerCase()
+    );
+
+  profileName.textContent =
+    player;
+
+  if(!found){
+
+    profileSummary.innerHTML =
+      `<div class="empty">Player data not found.</div>`;
+
+    profileRanks.innerHTML = "";
+
+    profile.classList.add("active");
+
+    profile.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+    return;
+  }
+
+  const rank =
+    rankings.findIndex(
+      item =>
+        item.player.toLowerCase() ===
+        found.player.toLowerCase()
+    ) + 1;
+
+  profileSummary.innerHTML = `
+    <div class="summary">
+
+      <div class="summary-box">
+        <div class="summary-label">
+          Overall Rank
+        </div>
+
+        <div class="summary-value">
+          #${rank}
+        </div>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-label">
+          Total Points
+        </div>
+
+        <div class="summary-value">
+          ${found.points}
+        </div>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-label">
+          Kits
+        </div>
+
+        <div class="summary-value">
+          ${found.kits}
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  profileRanks.innerHTML = "";
+
+  found.tiers.forEach(rankData => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "rank-card";
+
+    card.innerHTML = `
+      <div>
+        <strong>
+          ${escapeHTML(rankData.kitName)}
+        </strong>
+      </div>
+
+      <div>
+        <span class="rank">
+          ${escapeHTML(rankData.tier)}
+        </span>
+
+        <span class="rank-points">
+          +${rankData.points} pts
+        </span>
+      </div>
+    `;
+
+    profileRanks.appendChild(card);
+
+  });
+
+  profile.classList.add("active");
+
+  profile.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+
+/* =====================================================
+   CLOSE PROFILE
+===================================================== */
+
+function closeProfile(){
+
+  profile.classList.remove("active");
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+searchInput.addEventListener(
+  "input",
+  renderTierList
+);
+
+rankingSearch.addEventListener(
+  "input",
+  renderRankings
+);
+
+kitSelect.addEventListener(
+  "change",
+  renderTierList
+);
+
+
+/* =====================================================
+   START API
+===================================================== */
+
+loadTierData();
+
+setInterval(
+  loadTierData,
+  REFRESH_INTERVAL
+);
+
+</script>
+
+</body>
+</html>
