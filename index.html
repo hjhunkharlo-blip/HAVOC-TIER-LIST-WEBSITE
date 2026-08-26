@@ -1,583 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>HAVOC STYX — FFA Tier List</title>
-
-  <style>
-    :root {
-      --bg: #060608;
-      --panel: #0d0d11;
-      --panel2: #121218;
-      --panel3: #18181f;
-      --border: #292932;
-      --text: #f5f5f7;
-      --muted: #888894;
-      --red: #e11d2e;
-      --red2: #ff5260;
-      --green: #4ade80;
-      --yellow: #facc15;
-      --blue: #5865f2;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(
-          circle at 50% -10%,
-          rgba(225,29,46,.18),
-          transparent 35%
-        ),
-        #060608;
-      color: var(--text);
-    }
-
-    header {
-      padding: 48px 18px 42px;
-      text-align: center;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(225,29,46,.12),
-          transparent
-        ),
-        #09090c;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 13px;
-      border: 1px solid rgba(225,29,46,.4);
-      border-radius: 999px;
-      color: var(--red2);
-      background: rgba(225,29,46,.08);
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .brand-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 12px rgba(225,29,46,.8);
-    }
-
-    header h1 {
-      margin: 12px 0 8px;
-      font-size: clamp(32px, 7vw, 50px);
-      font-weight: 900;
-      letter-spacing: -1.5px;
-    }
-
-    header h1 span {
-      color: var(--red);
-    }
-
-    header p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: auto;
-      padding: 22px 15px 60px;
-    }
-
-    /* NAV */
-
-    .nav {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .nav::-webkit-scrollbar {
-      display: none;
-    }
-
-    .nav button {
-      flex: 0 0 auto;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: var(--panel);
-      color: #a3a3ae;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .nav button.active,
-    .nav button:hover {
-      border-color: var(--red);
-      background: rgba(225,29,46,.1);
-      color: white;
-    }
-
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    /* CONTROLS */
-
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr 250px;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      height: 50px;
-      padding: 0 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      outline: none;
-      background: var(--panel);
-      color: white;
-      font-size: 15px;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(225,29,46,.08);
-    }
-
-    /* HEADINGS */
-
-    .section-title {
-      margin: 0 0 5px;
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .section-subtitle {
-      margin: 0 0 17px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* TIER LIST */
-
-    .tier {
-      display: grid;
-      grid-template-columns: 95px 1fr;
-      margin-bottom: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--panel);
-    }
-
-    .tier-name {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 72px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(225,29,46,.18),
-          rgba(225,29,46,.02)
-        ),
-        var(--panel2);
-      border-right: 1px solid var(--border);
-      font-weight: 900;
-    }
-
-    .tier-points {
-      margin-top: 4px;
-      color: #777783;
-      font-size: 10px;
-    }
-
-    .players {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: center;
-      gap: 7px;
-      min-height: 72px;
-      padding: 10px;
-    }
-
-    .player {
-      padding: 9px 11px;
-      border: 1px solid #30303a;
-      border-radius: 8px;
-      background: #19191f;
-      cursor: pointer;
-      transition: .15s;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .player:hover {
-      transform: translateY(-2px);
-      border-color: var(--red);
-      background: #241317;
-    }
-
-    .player-points {
-      margin-left: 5px;
-      color: #73737e;
-      font-size: 10px;
-    }
-
-    .empty {
-      padding: 8px;
-      color: #5e5e68;
-      font-size: 12px;
-    }
-
-    /* RANKINGS */
-
-    .ranking-list {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .ranking-card {
-      display: grid;
-      grid-template-columns: 60px 1fr auto;
-      align-items: center;
-      gap: 12px;
-      min-height: 65px;
-      padding: 10px 13px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--panel);
-      cursor: pointer;
-      transition: .15s;
-    }
-
-    .ranking-card:hover {
-      border-color: var(--red);
-      transform: translateX(2px);
-    }
-
-    .ranking-number {
-      font-size: 20px;
-      font-weight: 900;
-      color: #777783;
-      text-align: center;
-    }
-
-    .ranking-card:nth-child(1) .ranking-number {
-      color: #ffd700;
-    }
-
-    .ranking-card:nth-child(2) .ranking-number {
-      color: #c0c0c0;
-    }
-
-    .ranking-card:nth-child(3) .ranking-number {
-      color: #cd7f32;
-    }
-
-    .ranking-player {
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .ranking-kits {
-      margin-top: 4px;
-      color: #666672;
-      font-size: 10px;
-    }
-
-    .ranking-points {
-      padding: 7px 10px;
-      border: 1px solid rgba(225,29,46,.25);
-      border-radius: 7px;
-      background: rgba(225,29,46,.08);
-      color: var(--red2);
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    /* PROFILE */
-
-    .profile {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(225,29,46,.06),
-          transparent
-        ),
-        var(--panel);
-    }
-
-    .profile.active {
-      display: block;
-    }
-
-    .profile-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-      margin-bottom: 16px;
-    }
-
-    .profile-label {
-      margin-bottom: 4px;
-      color: #666672;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .profile-name {
-      font-size: 27px;
-      font-weight: 900;
-    }
-
-    .close-button {
-      padding: 9px 13px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--panel3);
-      color: white;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .close-button:hover {
-      border-color: var(--red);
-      color: var(--red2);
-    }
-
-    .summary {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .summary-box {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: var(--panel2);
-    }
-
-    .summary-label {
-      color: #666672;
-      font-size: 9px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .summary-value {
-      margin-top: 4px;
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    .rank-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding: 12px;
-      margin-bottom: 7px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: var(--panel2);
-    }
-
-    .rank {
-      display: inline-block;
-      min-width: 45px;
-      padding: 6px 9px;
-      text-align: center;
-      border-radius: 6px;
-      background: #25252d;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .rank-points {
-      margin-left: 5px;
-      color: #777783;
-      font-size: 10px;
-    }
-
-    .unranked {
-      color: #666672;
-      font-size: 11px;
-    }
-
-    /* DISCORD */
-
-    .discord-card {
-      padding: 25px;
-      border: 1px solid rgba(88,101,242,.3);
-      border-radius: 13px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(88,101,242,.13),
-          transparent
-        ),
-        var(--panel);
-      text-align: center;
-    }
-
-    .discord-card h2 {
-      margin: 0 0 8px;
-    }
-
-    .discord-card p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .discord-button {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 9px;
-      background: var(--blue);
-      color: white;
-      text-decoration: none;
-      font-weight: 900;
-      transition: .15s;
-    }
-
-    .discord-button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
-    }
-
-    /* STATUS */
-
-    #status {
-      margin-top: 18px;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      text-align: center;
-      color: #777783;
-      font-size: 11px;
-    }
-
-    .connected {
-      color: var(--green) !important;
-    }
-
-    .warning {
-      color: var(--yellow) !important;
-    }
-
-    .error {
-      color: #ff5c6c !important;
-    }
-
-    .updated {
-      margin-top: 6px;
-      text-align: center;
-      color: #50505a;
-      font-size: 10px;
-    }
-
-    .footer {
-      margin-top: 35px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: #4e4e58;
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 700px) {
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
-      .tier {
-        grid-template-columns: 70px 1fr;
-      }
-
-      .ranking-card {
-        grid-template-columns: 45px 1fr auto;
-      }
-
-      .ranking-number {
-        font-size: 16px;
-      }
-
-      .ranking-player {
-        font-size: 13px;
-      }
-
-      .ranking-points {
-        font-size: 10px;
-      }
-
-      .summary {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HAVOC STYX FFA</title>
+
+<style>
+:root {
+  --bg:#060608;
+  --panel:#0d0d11;
+  --panel2:#141419;
+  --border:#292932;
+  --text:#f5f5f7;
+  --muted:#888894;
+  --red:#e11d2e;
+  --red2:#ff5260;
+  --green:#4ade80;
+  --yellow:#facc15;
+  --blue:#5865f2;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(225,29,46,.18),
+      transparent 35%
+    ),
+    var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+
+header {
+  padding:45px 18px;
+  text-align:center;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(225,29,46,.12),
+      transparent
+    ),
+    #09090c;
+  border-bottom:1px solid var(--border);
+}
+
+.brand {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 13px;
+  border:1px solid rgba(225,29,46,.4);
+  border-radius:999px;
+  color:var(--red2);
+  background:rgba(225,29,46,.08);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.brand-dot {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 12px rgba(225,29,46,.8);
+}
+
+header h1 {
+  margin:13px 0 7px;
+  font-size:clamp(32px,7vw,52px);
+  font-weight:900;
+  letter-spacing:-1.5px;
+}
+
+header h1 span {
+  color:var(--red);
+}
+
+header p {
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* MAIN */
+
+.container {
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:20px 15px 60px;
+}
+
+/* NAV */
+
+.nav {
+  display:flex;
+  gap:8px;
+  margin-bottom:20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.nav::-webkit-scrollbar {
+  display:none;
+}
+
+.nav button {
+  flex:0 0 auto;
+  padding:10px 15px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel);
+  color:#a3a3ae;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.nav button:hover,
+.nav button.active {
+  border-color:var(--red);
+  background:rgba(225,29,46,.1);
+  color:white;
+}
+
+/* SECTIONS */
+
+.section {
+  display:none;
+}
+
+.section.active {
+  display:block;
+}
+
+/* CONTROLS */
+
+.controls {
+  display:grid;
+  grid-template-columns:1fr 250px;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+input,
+select {
+  width:100%;
+  height:50px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  background:var(--panel);
+  color:white;
+  font-size:15px;
+}
+
+input:focus,
+select:focus {
+  border-color:var(--red);
+}
+
+/* TITLES */
+
+.section-title {
+  margin:0 0 5px;
+  font-size:23px;
+  font-weight:900;
+}
+
+.section-subtitle {
+  margin:0 0 17px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* TIER LIST */
+
+.tier {
+  display:grid;
+  grid-template-columns:95px 1fr;
+  margin-bottom:8px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+}
+
+.tier-name {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:72px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(225,29,46,.18),
+      rgba(225,29,46,.02)
+    ),
+    var(--panel2);
+  border-right:1px solid var(--border);
+  font-weight:900;
+}
+
+.tier-points {
+  margin-top:4px;
+  color:#777783;
+  font-size:10px;
+}
+
+.players {
+  display:flex;
+  flex-wrap:wrap;
+  align-content:center;
+  gap:7px;
+  min-height:72px;
+  padding:10px;
+}
+
+.player {
+  padding:9px 11px;
+  border:1px solid #30303a;
+  border-radius:8px;
+  background:#19191f;
+  cursor:pointer;
+  transition:.15s;
+  font-size:13px;
+  font-weight:700;
+}
+
+.player:hover {
+  transform:translateY(-2px);
+  border-color:var(--red);
+  background:#241317;
+}
+
+.player-points {
+  margin-left:5px;
+  color:#73737e;
+  font-size:10px;
+}
+
+.empty {
+  padding:8px;
+  color:#5e5e68;
+  font-size:12px;
+}
+
+/* RANKINGS */
+
+.ranking-list {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.ranking-card {
+  display:grid;
+  grid-template-columns:60px 1fr auto;
+  align-items:center;
+  gap:12px;
+  min-height:65px;
+  padding:10px 13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+  cursor:pointer;
+  transition:.15s;
+}
+
+.ranking-card:hover {
+  border-color:var(--red);
+  transform:translateX(2px);
+}
+
+.ranking-number {
+  font-size:20px;
+  font-weight:900;
+  color:#777783;
+  text-align:center;
+}
+
+.ranking-card:nth-child(1) .ranking-number {
+  color:#ffd700;
+}
+
+.ranking-card:nth-child(2) .ranking-number {
+  color:#c0c0c0;
+}
+
+.ranking-card:nth-child(3) .ranking-number {
+  color:#cd7f32;
+}
+
+.ranking-player {
+  font-size:15px;
+  font-weight:900;
+}
+
+.ranking-kits {
+  margin-top:4px;
+  color:#666672;
+  font-size:10px;
+}
+
+.ranking-points {
+  padding:7px 10px;
+  border:1px solid rgba(225,29,46,.25);
+  border-radius:7px;
+  background:rgba(225,29,46,.08);
+  color:var(--red2);
+  font-size:12px;
+  font-weight:900;
+}
+
+/* PROFILE */
+
+.profile {
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(225,29,46,.06),
+      transparent
+    ),
+    var(--panel);
+}
+
+.profile.active {
+  display:block;
+}
+
+.profile-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:16px;
+}
+
+.profile-label {
+  margin-bottom:4px;
+  color:#666672;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.profile-name {
+  font-size:27px;
+  font-weight:900;
+}
+
+.close-button {
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--panel2);
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.close-button:hover {
+  border-color:var(--red);
+  color:var(--red2);
+}
+
+.summary {
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.summary-box {
+  flex:1;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel2);
+}
+
+.summary-label {
+  color:#666672;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.summary-value {
+  margin-top:4px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.rank-card {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  margin-bottom:7px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel2);
+}
+
+.rank {
+  display:inline-block;
+  min-width:45px;
+  padding:6px 9px;
+  text-align:center;
+  border-radius:6px;
+  background:#25252d;
+  font-size:12px;
+  font-weight:900;
+}
+
+.rank-points {
+  margin-left:5px;
+  color:#777783;
+  font-size:10px;
+}
+
+.unranked {
+  color:#666672;
+  font-size:11px;
+}
+
+/* DISCORD */
+
+.discord-card {
+  padding:28px;
+  border:1px solid rgba(88,101,242,.3);
+  border-radius:13px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(88,101,242,.13),
+      transparent
+    ),
+    var(--panel);
+  text-align:center;
+}
+
+.discord-card h2 {
+  margin:0 0 8px;
+}
+
+.discord-card p {
+  margin:0 0 18px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.discord-button {
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:9px;
+  background:var(--blue);
+  color:white;
+  text-decoration:none;
+  font-weight:900;
+}
+
+/* STATUS */
+
+#status {
+  margin-top:18px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  text-align:center;
+  color:#777783;
+  font-size:11px;
+}
+
+.connected {
+  color:var(--green) !important;
+}
+
+.warning {
+  color:var(--yellow) !important;
+}
+
+.error {
+  color:#ff5c6c !important;
+}
+
+.updated {
+  margin-top:6px;
+  text-align:center;
+  color:#50505a;
+  font-size:10px;
+}
+
+.footer {
+  margin-top:35px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:#4e4e58;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+  .controls {
+    grid-template-columns:1fr;
+  }
+
+  .tier {
+    grid-template-columns:70px 1fr;
+  }
+
+  .ranking-card {
+    grid-template-columns:45px 1fr auto;
+  }
+
+  .ranking-number {
+    font-size:16px;
+  }
+
+  .ranking-player {
+    font-size:13px;
+  }
+
+  .ranking-points {
+    font-size:10px;
+  }
+
+  .summary {
+    flex-direction:column;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
+
   <div class="brand">
     <span class="brand-dot"></span>
     Official PvP Rankings
   </div>
 
-  <h1>HAVOC <span>STYX</span></h1>
+  <h1>
+    HAVOC <span>STYX</span>
+  </h1>
 
-  <p>FFA Tier List • Top 50 Rankings • Live API</p>
+  <p>
+    FFA Tier List • Top 50 Rankings • Live API
+  </p>
+
 </header>
 
 <div class="container">
 
+  <!-- NAV -->
+
   <div class="nav">
+
     <button
-      id="tierTab"
       class="active"
       onclick="switchSection('tiers', this)"
     >
@@ -595,7 +604,9 @@
     >
       Discord
     </button>
+
   </div>
+
 
   <!-- TIER LIST -->
 
@@ -624,6 +635,7 @@
     <div id="tierList"></div>
 
   </section>
+
 
   <!-- RANKINGS -->
 
@@ -658,6 +670,7 @@
 
   </section>
 
+
   <!-- DISCORD -->
 
   <section
@@ -667,7 +680,9 @@
 
     <div class="discord-card">
 
-      <h2>Join HAVOC STYX</h2>
+      <h2>
+        Join HAVOC STYX
+      </h2>
 
       <p>
         Join our Discord for announcements,
@@ -687,6 +702,7 @@
 
   </section>
 
+
   <!-- PROFILE -->
 
   <div
@@ -697,6 +713,7 @@
     <div class="profile-header">
 
       <div>
+
         <div class="profile-label">
           Player Profile
         </div>
@@ -705,6 +722,7 @@
           id="profileName"
           class="profile-name"
         ></div>
+
       </div>
 
       <button
@@ -720,8 +738,11 @@
 
   </div>
 
+
+  <!-- STATUS -->
+
   <div id="status">
-    Connecting to HAVOC STYX API...
+    ● Connecting to HAVOC STYX API...
   </div>
 
   <div
@@ -729,449 +750,669 @@
     class="updated"
   ></div>
 
+
   <div class="footer">
     HAVOC STYX FFA • Official Tier Rankings
   </div>
 
 </div>
 
+
 <script>
-  /*
-  ==========================================
-  API
-  ==========================================
-  */
 
-  const API_URL =
-    "https://havoc-bot-production-82b2.up.railway.app/api/tiers";
+/*
+================================================
+API
+================================================
+*/
 
-  const REFRESH_INTERVAL = 10000;
+const API_URL =
+  "https://havoc-bot-production-82b2.up.railway.app/api/tiers";
 
-
-  /*
-  ==========================================
-  NEW TIER POINTS
-  ==========================================
-  */
-
-  const POINTS = {
-    HT1: 10,
-    HT2: 8,
-    HT3: 5,
-    HT4: 3,
-    HT5: 1,
-
-    LT1: 8,
-    LT2: 6,
-    LT3: 4,
-    LT4: 2,
-    LT5: 1
-  };
+const REFRESH_INTERVAL = 10000;
 
 
-  /*
-  ==========================================
-  STATE
-  ==========================================
-  */
+/*
+================================================
+HAVOC STYX POINT SYSTEM
+================================================
 
-  let tierData = null;
-  let lastGoodData = null;
+HT:
+HT1 = 10
+HT2 = 8
+HT3 = 5
+HT4 = 3
+HT5 = 1
 
+LT:
+LT1 = 8
+LT2 = 6
+LT3 = 4
+LT4 = 2
+LT5 = 1
+*/
 
-  /*
-  ==========================================
-  ELEMENTS
-  ==========================================
-  */
+const POINTS = {
 
-  const searchInput =
-    document.getElementById("search");
+  HT1:10,
+  HT2:8,
+  HT3:5,
+  HT4:3,
+  HT5:1,
 
-  const rankingSearch =
-    document.getElementById("rankingSearch");
+  LT1:8,
+  LT2:6,
+  LT3:4,
+  LT4:2,
+  LT5:1
 
-  const kitSelect =
-    document.getElementById("kitSelect");
-
-  const tierList =
-    document.getElementById("tierList");
-
-  const rankingList =
-    document.getElementById("rankingList");
-
-  const profile =
-    document.getElementById("profile");
-
-  const profileName =
-    document.getElementById("profileName");
-
-  const profileRanks =
-    document.getElementById("profileRanks");
-
-  const status =
-    document.getElementById("status");
-
-  const updated =
-    document.getElementById("updated");
+};
 
 
-  /*
-  ==========================================
-  SECTION SWITCHING
-  ==========================================
-  */
+/*
+================================================
+STATE
+================================================
+*/
 
-  function switchSection(
-    sectionId,
-    button
+let tierData = null;
+let lastGoodData = null;
+
+
+/*
+================================================
+ELEMENTS
+================================================
+*/
+
+const searchInput =
+  document.getElementById("search");
+
+const rankingSearch =
+  document.getElementById("rankingSearch");
+
+const kitSelect =
+  document.getElementById("kitSelect");
+
+const tierList =
+  document.getElementById("tierList");
+
+const rankingList =
+  document.getElementById("rankingList");
+
+const profile =
+  document.getElementById("profile");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileRanks =
+  document.getElementById("profileRanks");
+
+const status =
+  document.getElementById("status");
+
+const updated =
+  document.getElementById("updated");
+
+
+/*
+================================================
+SECTION SWITCH
+================================================
+*/
+
+function switchSection(
+  sectionId,
+  button
+) {
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+
+      section.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  document
+    .getElementById(sectionId)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+
+      btn.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  button.classList.add("active");
+
+
+  if (
+    sectionId === "rankings"
   ) {
 
-    document
-      .querySelectorAll(".section")
-      .forEach(section => {
-        section.classList.remove(
-          "active"
-        );
-      });
+    renderRankings();
 
-    document
-      .getElementById(sectionId)
-      .classList.add("active");
+  }
 
-    document
-      .querySelectorAll(".nav button")
-      .forEach(btn => {
-        btn.classList.remove(
-          "active"
-        );
-      });
+}
 
-    button.classList.add("active");
+
+/*
+================================================
+POINTS
+================================================
+*/
+
+function getPoints(tier) {
+
+  return POINTS[tier] || 0;
+
+}
+
+
+/*
+================================================
+LOAD API
+================================================
+*/
+
+async function loadTierData() {
+
+  try {
+
+    status.textContent =
+      "● Connecting...";
+
+    status.className = "";
+
+
+    const response =
+      await fetch(
+        API_URL +
+        "?t=" +
+        Date.now(),
+        {
+          method:"GET",
+          cache:"no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
 
     if (
-      sectionId === "rankings"
+      !result ||
+      !Array.isArray(result.kits) ||
+      !Array.isArray(result.tiers) ||
+      !result.data ||
+      typeof result.data !== "object"
     ) {
-      renderRankings();
+
+      throw new Error(
+        "Invalid API response"
+      );
+
     }
-  }
 
 
-  /*
-  ==========================================
-  POINTS
-  ==========================================
-  */
+    /*
+    Save successful data.
+    */
 
-  function getPoints(tier) {
-    return POINTS[tier] || 0;
-  }
+    tierData =
+      result;
 
-
-  /*
-  ==========================================
-  LOAD API
-  ==========================================
-  */
-
-  async function loadTierData() {
-
-    try {
-
-      const response =
-        await fetch(
-          API_URL +
-          "?t=" +
-          Date.now(),
-          {
-            method: "GET",
-            cache: "no-store",
-            mode: "cors"
-          }
-        );
+    lastGoodData =
+      result;
 
 
-      if (!response.ok) {
-        throw new Error(
-          "HTTP " +
-          response.status
-        );
-      }
+    buildKitSelector();
+
+    renderTierList();
+
+    renderRankings();
 
 
-      const result =
-        await response.json();
+    /*
+    Refresh open profile.
+    */
+
+    const openProfile =
+      profile.dataset.player;
 
 
-      if (
-        !result ||
-        !Array.isArray(result.kits) ||
-        !Array.isArray(result.tiers) ||
-        !result.data
-      ) {
-        throw new Error(
-          "Invalid API response"
-        );
-      }
+    if (openProfile) {
 
+      showProfile(
+        openProfile,
+        false
+      );
+
+    }
+
+
+    status.textContent =
+      "● LIVE • Connected";
+
+    status.className =
+      "connected";
+
+
+    updated.textContent =
+      "Last updated: " +
+      new Date()
+        .toLocaleTimeString();
+
+
+  } catch (error) {
+
+    console.error(
+      "HAVOC STYX API ERROR:",
+      error
+    );
+
+
+    /*
+    Keep old working data
+    if a refresh temporarily fails.
+    */
+
+    if (lastGoodData) {
 
       tierData =
-        result;
+        lastGoodData;
 
-      lastGoodData =
-        result;
-
-
-      buildKitSelector();
 
       renderTierList();
 
       renderRankings();
 
 
-      const openProfile =
-        profile.dataset.player;
-
-      if (openProfile) {
-
-        showProfile(
-          openProfile,
-          false
-        );
-
-      }
-
-
       status.textContent =
-        "● LIVE • Connected";
+        "● Temporary connection problem • Showing last data";
 
       status.className =
-        "connected";
+        "warning";
 
 
-      updated.textContent =
-        "Last updated: " +
-        new Date()
-          .toLocaleTimeString();
+    } else {
+
+      status.textContent =
+        "● Unable to connect to HAVOC STYX API";
+
+      status.className =
+        "error";
 
 
-    } catch (error) {
-
-      console.error(
-        "HAVOC STYX API:",
-        error
-      );
-
-
-      if (lastGoodData) {
-
-        tierData =
-          lastGoodData;
-
-
-        status.textContent =
-          "● Temporary connection problem • Showing last data";
-
-        status.className =
-          "warning";
-
-
-        renderTierList();
-        renderRankings();
-
-      } else {
-
-        status.textContent =
-          "● Unable to connect to HAVOC STYX API";
-
-        status.className =
-          "error";
-
-
-        tierList.innerHTML =
-          `
-            <div class="empty">
-              Unable to load tier data.
-              <br><br>
-              Please refresh the page.
-            </div>
-          `;
-
-      }
+      tierList.innerHTML = `
+        <div class="empty">
+          API connection failed.
+          <br><br>
+          Please refresh the page.
+        </div>
+      `;
 
     }
 
   }
 
-
-  /*
-  ==========================================
-  KIT SELECTOR
-  ==========================================
-  */
-
-  function buildKitSelector() {
-
-    const previousKit =
-      kitSelect.value;
+}
 
 
-    kitSelect.innerHTML =
-      "";
+/*
+================================================
+KIT SELECTOR
+================================================
+*/
+
+function buildKitSelector() {
+
+  const previousKit =
+    kitSelect.value;
 
 
-    tierData.kits.forEach(
-      kit => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
+  kitSelect.innerHTML = "";
 
 
-        option.value =
-          kit.id;
+  tierData.kits.forEach(
+    kit => {
 
-        option.textContent =
-          kit.name;
-
-
-        kitSelect.appendChild(
-          option
+      const option =
+        document.createElement(
+          "option"
         );
 
-      }
+
+      option.value =
+        kit.id;
+
+
+      option.textContent =
+        kit.name;
+
+
+      kitSelect.appendChild(
+        option
+      );
+
+    }
+  );
+
+
+  const exists =
+    tierData.kits.some(
+      kit =>
+        kit.id === previousKit
     );
 
 
-    const exists =
-      tierData.kits.some(
-        kit =>
-          kit.id === previousKit
-      );
+  if (exists) {
 
+    kitSelect.value =
+      previousKit;
 
-    if (exists) {
+  } else if (
+    tierData.kits.length > 0
+  ) {
 
-      kitSelect.value =
-        previousKit;
-
-    } else if (
-      tierData.kits.length
-    ) {
-
-      kitSelect.value =
-        tierData.kits[0].id;
-
-    }
+    kitSelect.value =
+      tierData.kits[0].id;
 
   }
 
-
-  /*
-  ==========================================
-  TIER LIST
-  ==========================================
-  */
-
-  function renderTierList() {
-
-    if (!tierData) {
-      return;
-    }
+}
 
 
-    tierList.innerHTML =
-      "";
+/*
+================================================
+RENDER TIER LIST
+================================================
+*/
+
+function renderTierList() {
+
+  if (!tierData) {
+    return;
+  }
 
 
-    const kitId =
-      kitSelect.value;
+  tierList.innerHTML = "";
 
 
-    const players =
-      tierData.data[kitId] ||
-      {};
+  const kitId =
+    kitSelect.value;
 
 
-    const search =
-      searchInput.value
-        .trim()
-        .toLowerCase();
+  const players =
+    tierData.data[kitId] || {};
 
 
-    tierData.tiers.forEach(
-      tier => {
-
-        const row =
-          document.createElement(
-            "div"
-          );
-
-        row.className =
-          "tier";
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
 
 
-        const tierName =
-          document.createElement(
-            "div"
-          );
+  tierData.tiers.forEach(
+    tier => {
 
-        tierName.className =
-          "tier-name";
+      const row =
+        document.createElement(
+          "div"
+        );
 
-
-        tierName.innerHTML =
-          `
-            <div>
-              ${escapeHTML(tier)}
-            </div>
-
-            <div class="tier-points">
-              ${getPoints(tier)} pts
-            </div>
-          `;
+      row.className =
+        "tier";
 
 
-        const playersBox =
-          document.createElement(
-            "div"
-          );
+      const tierName =
+        document.createElement(
+          "div"
+        );
 
-        playersBox.className =
-          "players";
-
-
-        const matching =
-          Object.entries(players)
-            .filter(
-              ([player, playerTier]) => {
-
-                if (
-                  playerTier !== tier
-                ) {
-                  return false;
-                }
+      tierName.className =
+        "tier-name";
 
 
-                if (!search) {
-                  return true;
-                }
+      tierName.innerHTML = `
+        <div>
+          ${escapeHTML(tier)}
+        </div>
+
+        <div class="tier-points">
+          ${getPoints(tier)} pts
+        </div>
+      `;
 
 
-                return player
-                  .toLowerCase()
-                  .includes(search);
+      const playersBox =
+        document.createElement(
+          "div"
+        );
+
+      playersBox.className =
+        "players";
+
+
+      const matching =
+        Object.entries(players)
+          .filter(
+            ([player, playerTier]) => {
+
+              if (
+                playerTier !== tier
+              ) {
+
+                return false;
 
               }
-            )
-            .sort(
-              ([a], [b]) =>
-                a.localeCompare(b)
+
+
+              if (!search) {
+
+                return true;
+
+              }
+
+
+              return player
+                .toLowerCase()
+                .includes(search);
+
+            }
+          )
+          .sort(
+            ([a], [b]) =>
+              a.localeCompare(b)
+          );
+
+
+      if (
+        matching.length === 0
+      ) {
+
+        const empty =
+          document.createElement(
+            "div"
+          );
+
+
+        empty.className =
+          "empty";
+
+
+        empty.textContent =
+          "No players";
+
+
+        playersBox.appendChild(
+          empty
+        );
+
+
+      } else {
+
+        matching.forEach(
+          ([player, playerTier]) => {
+
+            const button =
+              document.createElement(
+                "div"
+              );
+
+
+            button.className =
+              "player";
+
+
+            button.innerHTML = `
+              ${escapeHTML(player)}
+
+              <span class="player-points">
+                +${getPoints(playerTier)}
+              </span>
+            `;
+
+
+            button.onclick =
+              () =>
+                showProfile(player);
+
+
+            playersBox.appendChild(
+              button
             );
 
+          }
+        );
 
-        if (
-          matching.length === 0
-        ) {
-  
+      }
+
+
+      row.appendChild(
+        tierName
+      );
+
+
+      row.appendChild(
+        playersBox
+      );
+
+
+      tierList.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+/*
+================================================
+CALCULATE OVERALL RANKINGS
+================================================
+*/
+
+function calculateRankings() {
+
+  if (!tierData) {
+    return [];
+  }
+
+
+  const totals = {};
+
+
+  tierData.kits.forEach(
+    kit => {
+
+      const players =
+        tierData.data[
+          kit.id
+        ] || {};
+
+
+      Object.entries(players)
+        .forEach(
+          ([player, tier]) => {
+
+            /*
+            Make player names case-insensitive.
+            This prevents Yunglah and yunglah
+            from becoming two different players.
+            */
+
+            const existing =
+              Object.keys(totals)
+                .find(
+                  name =>
+                    name.toLowerCase() ===
+                    player.toLowerCase()
+                );
+
+
+            const key =
+              existing || player;
+
+
+            if (!totals[key]) {
+
+              totals[key] = {
+                points:0,
+                kits:0
+              };
+
+            }
+
+
+            totals[key].points +=
+              getPoints(tier);
+
+            totals[key].kits++;
+
+          }
+        );
+
+    }
+  );
+
+
+  return Object.entries(totals)
+    .map(
+      ([player, info]) => ({
+
+        player:player,
+
+        points:info.points,
+
+        kits:info.kits
+
+      })
+    )
+    .sort(
+      (a  
