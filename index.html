@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAVOC STYX FFA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HAVOC STYX • FFA Tier List</title>
 
 <style>
 :root{
@@ -24,8 +24,6 @@
 }
 
 *{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -112,11 +110,11 @@ header p{
   font-weight:800;
 }
 
-.nav button:hover,
-.nav button.active{
+.nav button.active,
+.nav button:hover{
   border-color:var(--red);
   background:rgba(225,29,46,.1);
-  color:white;
+  color:#fff;
 }
 
 .section{display:none}
@@ -137,11 +135,13 @@ input,select{
   border-radius:10px;
   outline:none;
   background:var(--panel);
-  color:white;
+  color:#fff;
   font-size:15px;
 }
 
-input:focus,select:focus{border-color:var(--red)}
+input:focus,select:focus{
+  border-color:var(--red);
+}
 
 .section-title{
   margin:0 0 5px;
@@ -217,7 +217,7 @@ input:focus,select:focus{border-color:var(--red)}
 }
 
 .empty{
-  padding:8px;
+  padding:12px 8px;
   color:#5e5e68;
   font-size:12px;
 }
@@ -247,13 +247,6 @@ input:focus,select:focus{border-color:var(--red)}
   transform:translateX(2px);
 }
 
-.ranking-number{
-  font-size:20px;
-  font-weight:900;
-  color:#777783;
-  text-align:center;
-}
-
 .ranking-card.rank-1{
   border-color:rgba(255,215,0,.45);
   background:linear-gradient(90deg,rgba(255,215,0,.08),var(--panel));
@@ -267,6 +260,13 @@ input:focus,select:focus{border-color:var(--red)}
 .ranking-card.rank-3{
   border-color:rgba(205,127,50,.4);
   background:linear-gradient(90deg,rgba(205,127,50,.07),var(--panel));
+}
+
+.ranking-number{
+  text-align:center;
+  font-size:20px;
+  font-weight:900;
+  color:#777783;
 }
 
 .rank-1 .ranking-number{color:var(--gold)}
@@ -347,7 +347,7 @@ input:focus,select:focus{border-color:var(--red)}
   border:1px solid var(--border);
   border-radius:8px;
   background:var(--panel2);
-  color:white;
+  color:#fff;
   cursor:pointer;
   font-weight:700;
 }
@@ -392,7 +392,6 @@ input:focus,select:focus{border-color:var(--red)}
 }
 
 .rank{
-  display:inline-block;
   min-width:45px;
   padding:6px 9px;
   text-align:center;
@@ -418,7 +417,9 @@ input:focus,select:focus{border-color:var(--red)}
   text-align:center;
 }
 
-.discord-card h2{margin:0 0 8px}
+.discord-card h2{
+  margin:0 0 8px;
+}
 
 .discord-card p{
   margin:0 0 18px;
@@ -431,7 +432,7 @@ input:focus,select:focus{border-color:var(--red)}
   padding:12px 20px;
   border-radius:9px;
   background:var(--blue);
-  color:white;
+  color:#fff;
   text-decoration:none;
   font-weight:900;
 }
@@ -468,14 +469,26 @@ input:focus,select:focus{border-color:var(--red)}
 }
 
 @media(max-width:700px){
-  .controls{grid-template-columns:1fr}
-  .tier{grid-template-columns:70px 1fr}
-  .ranking-card{grid-template-columns:45px 1fr}
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  .tier{
+    grid-template-columns:70px 1fr;
+  }
+
+  .ranking-card{
+    grid-template-columns:45px 1fr;
+  }
+
   .ranking-points{
     grid-column:2;
     justify-self:start;
   }
-  .summary{flex-direction:column}
+
+  .summary{
+    flex-direction:column;
+  }
 }
 </style>
 </head>
@@ -511,6 +524,7 @@ input:focus,select:focus{border-color:var(--red)}
   <section id="tiers" class="section active">
 
     <div class="controls">
+
       <input
         id="search"
         type="text"
@@ -521,6 +535,7 @@ input:focus,select:focus{border-color:var(--red)}
       <select id="kitSelect">
         <option value="">Connecting...</option>
       </select>
+
     </div>
 
     <div id="tierList"></div>
@@ -538,12 +553,14 @@ input:focus,select:focus{border-color:var(--red)}
     </p>
 
     <div class="controls">
+
       <input
         id="rankingSearch"
         type="text"
         placeholder="Search ranked player..."
         autocomplete="off"
       >
+
     </div>
 
     <div id="rankingList" class="ranking-list"></div>
@@ -612,7 +629,7 @@ input:focus,select:focus{border-color:var(--red)}
 <script>
 
 /* =====================================================
-   RAILWAY API
+   API
 ===================================================== */
 
 const API_URL =
@@ -622,7 +639,7 @@ const REFRESH_INTERVAL = 10000;
 
 
 /* =====================================================
-   POINT SYSTEM
+   FALLBACK POINTS
 ===================================================== */
 
 const POINTS = {
@@ -689,7 +706,7 @@ const updated =
    SECTION SWITCH
 ===================================================== */
 
-function switchSection(sectionId, button){
+function switchSection(id,button){
 
   document
     .querySelectorAll(".section")
@@ -697,12 +714,9 @@ function switchSection(sectionId, button){
       section.classList.remove("active")
     );
 
-  const section =
-    document.getElementById(sectionId);
-
-  if(section){
-    section.classList.add("active");
-  }
+  document
+    .getElementById(id)
+    .classList.add("active");
 
   document
     .querySelectorAll(".nav button")
@@ -710,27 +724,11 @@ function switchSection(sectionId, button){
       btn.classList.remove("active")
     );
 
-  if(button){
-    button.classList.add("active");
-  }
+  button.classList.add("active");
 
-  if(sectionId === "rankings"){
+  if(id === "rankings"){
     renderRankings();
   }
-}
-
-
-/* =====================================================
-   POINTS
-===================================================== */
-
-function getPoints(tier){
-
-  if(!tier) return 0;
-
-  return POINTS[
-    String(tier).toUpperCase()
-  ] || 0;
 }
 
 
@@ -750,18 +748,14 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   FIND CASE-INSENSITIVE PLAYER
+   POINTS
 ===================================================== */
 
-function findExistingPlayer(totals, player){
+function getPoints(tier){
 
-  const lower =
-    String(player).toLowerCase();
-
-  return Object.keys(totals).find(
-    name =>
-      name.toLowerCase() === lower
-  ) || null;
+  return POINTS[
+    String(tier || "").toUpperCase()
+  ] || 0;
 }
 
 
@@ -778,20 +772,18 @@ async function loadTierData(){
 
     status.className = "";
 
-
     const response =
       await fetch(
-        API_URL + "?t=" + Date.now(),
+        API_URL + "?cache=" + Date.now(),
         {
           method:"GET",
-          cache:"no-store",
           mode:"cors",
+          cache:"no-store",
           headers:{
             "Accept":"application/json"
           }
         }
       );
-
 
     if(!response.ok){
       throw new Error(
@@ -799,43 +791,26 @@ async function loadTierData(){
       );
     }
 
-
-    const result =
+    const data =
       await response.json();
 
-
     if(
-      !result ||
-      !Array.isArray(result.kits) ||
-      !Array.isArray(result.tiers) ||
-      !result.data ||
-      typeof result.data !== "object"
+      data.status !== "online" ||
+      !Array.isArray(data.kits) ||
+      !Array.isArray(data.tiers) ||
+      !data.data
     ){
       throw new Error(
-        "Invalid API response"
+        "Invalid HAVOC STYX API response"
       );
     }
 
-
-    tierData = result;
-    lastGoodData = result;
-
+    tierData = data;
+    lastGoodData = data;
 
     buildKitSelector();
     renderTierList();
     renderRankings();
-
-
-    const openPlayer =
-      profile.dataset.player;
-
-    if(openPlayer){
-      showProfile(
-        openPlayer,
-        false
-      );
-    }
-
 
     status.textContent =
       "● LIVE • Connected";
@@ -843,11 +818,9 @@ async function loadTierData(){
     status.className =
       "connected";
 
-
     updated.textContent =
       "Last updated: " +
       new Date().toLocaleTimeString();
-
 
   }catch(error){
 
@@ -855,7 +828,6 @@ async function loadTierData(){
       "HAVOC STYX API ERROR:",
       error
     );
-
 
     if(lastGoodData){
 
@@ -866,9 +838,8 @@ async function loadTierData(){
       renderTierList();
       renderRankings();
 
-
       status.textContent =
-        "● Temporary connection problem • Showing last data";
+        "● API temporarily unavailable • Showing last data";
 
       status.className =
         "warning";
@@ -876,21 +847,29 @@ async function loadTierData(){
     }else{
 
       status.textContent =
-        "● Unable to connect to HAVOC STYX API";
+        "● API connection failed";
 
       status.className =
         "error";
 
-
       tierList.innerHTML = `
         <div class="empty">
-          API connection failed.
+          <strong>Unable to connect.</strong>
           <br><br>
           Railway API:
           <br>
           ${escapeHTML(API_URL)}
           <br><br>
-          Make sure the Railway service is running.
+          Check the browser console if this persists.
+        </div>
+      `;
+
+      kitSelect.innerHTML =
+        `<option value="">API unavailable</option>`;
+
+      rankingList.innerHTML = `
+        <div class="empty">
+          Waiting for HAVOC STYX API...
         </div>
       `;
     }
@@ -906,11 +885,10 @@ function buildKitSelector(){
 
   if(!tierData) return;
 
-  const previousKit =
+  const oldValue =
     kitSelect.value;
 
   kitSelect.innerHTML = "";
-
 
   tierData.kits.forEach(kit => {
 
@@ -926,20 +904,17 @@ function buildKitSelector(){
     kitSelect.appendChild(option);
   });
 
-
   const exists =
     tierData.kits.some(
-      kit =>
-        kit.id === previousKit
+      kit => kit.id === oldValue
     );
-
 
   if(exists){
 
     kitSelect.value =
-      previousKit;
+      oldValue;
 
-  }else if(tierData.kits.length > 0){
+  }else if(tierData.kits.length){
 
     kitSelect.value =
       tierData.kits[0].id;
@@ -948,7 +923,7 @@ function buildKitSelector(){
 
 
 /* =====================================================
-   RENDER TIER LIST
+   TIER LIST
 ===================================================== */
 
 function renderTierList(){
@@ -957,32 +932,24 @@ function renderTierList(){
 
   tierList.innerHTML = "";
 
-
   const kitId =
     kitSelect.value;
 
-
   if(!kitId){
 
-    tierList.innerHTML = `
-      <div class="empty">
-        No kit available.
-      </div>
-    `;
+    tierList.innerHTML =
+      `<div class="empty">No kit selected.</div>`;
 
     return;
   }
 
-
   const players =
     tierData.data[kitId] || {};
-
 
   const search =
     searchInput.value
       .trim()
       .toLowerCase();
-
 
   tierData.tiers.forEach(tier => {
 
@@ -992,134 +959,145 @@ function renderTierList(){
     row.className =
       "tier";
 
-
-    const tierName =
+    const name =
       document.createElement("div");
 
-    tierName.className =
+    name.className =
       "tier-name";
 
-
-    tierName.innerHTML = `
+    name.innerHTML = `
       <div>${escapeHTML(tier)}</div>
       <div class="tier-points">
         +${getPoints(tier)} pts
       </div>
     `;
 
-
-    const playersBox =
+    const box =
       document.createElement("div");
 
-    playersBox.className =
+    box.className =
       "players";
 
-
-    const matching =
+    const matches =
       Object.entries(players)
-        .filter(([player, playerTier]) => {
+        .filter(([player,value]) => {
 
           if(
-            String(playerTier).toUpperCase() !==
+            String(value).toUpperCase() !==
             String(tier).toUpperCase()
           ){
             return false;
           }
 
-          if(!search){
-            return true;
-          }
-
-          return player
-            .toLowerCase()
-            .includes(search);
-
+          return !search ||
+            player.toLowerCase().includes(search);
         })
         .sort(([a],[b]) =>
           a.localeCompare(b)
         );
 
+    if(!matches.length){
 
-    if(matching.length === 0){
-
-      const empty =
-        document.createElement("div");
-
-      empty.className =
-        "empty";
-
-      empty.textContent =
-        "No players";
-
-      playersBox.appendChild(empty);
+      box.innerHTML =
+        `<div class="empty">No players</div>`;
 
     }else{
 
-      matching.forEach(
-        ([player, playerTier]) => {
+      matches.forEach(
+        ([player,value]) => {
 
-          const button =
+          const item =
             document.createElement("div");
 
-          button.className =
+          item.className =
             "player";
 
-          button.innerHTML = `
+          item.innerHTML = `
             ${escapeHTML(player)}
             <span class="player-points">
-              +${getPoints(playerTier)}
+              +${getPoints(value)}
             </span>
           `;
 
-          button.onclick =
+          item.onclick =
             () => showProfile(player);
 
-          playersBox.appendChild(button);
+          box.appendChild(item);
         }
       );
     }
 
-
-    row.appendChild(tierName);
-    row.appendChild(playersBox);
+    row.appendChild(name);
+    row.appendChild(box);
 
     tierList.appendChild(row);
-
   });
 }
 
 
 /* =====================================================
-   CALCULATE OVERALL RANKINGS
+   CALCULATE RANKINGS
 ===================================================== */
 
 function calculateRankings(){
 
   if(!tierData) return [];
 
+  /*
+    If Railway already calculated rankings,
+    use those values directly.
+  */
+
+  if(
+    Array.isArray(tierData.overallRankings) &&
+    tierData.overallRankings.length
+  ){
+
+    return tierData.overallRankings
+      .map(item => ({
+        player:item.player,
+        points:Number(
+          item.totalPoints ?? item.points ?? 0
+        ),
+        kits:Array.isArray(item.kits)
+          ? item.kits.length
+          : 0,
+        tiers:Array.isArray(item.kits)
+          ? item.kits.map(k => ({
+              kitId:k.kit,
+              kitName:k.kitName,
+              tier:k.tier,
+              points:Number(k.points || 0)
+            }))
+          : []
+      }));
+  }
+
+
+  /*
+    Fallback calculation if API doesn't provide
+    overallRankings.
+  */
 
   const totals = {};
-
 
   tierData.kits.forEach(kit => {
 
     const players =
       tierData.data[kit.id] || {};
 
-
     Object.entries(players)
       .forEach(([player,tier]) => {
 
         const existing =
-          findExistingPlayer(
-            totals,
-            player
+          Object.keys(totals).find(
+            name =>
+              name.toLowerCase() ===
+              player.toLowerCase()
           );
-
 
         const key =
           existing || player;
-
 
         if(!totals[key]){
 
@@ -1128,20 +1106,15 @@ function calculateRankings(){
             kits:0,
             tiers:[]
           };
-
         }
-
 
         const points =
           getPoints(tier);
 
-
         totals[key].points +=
           points;
 
-        totals[key].kits +=
-          1;
-
+        totals[key].kits++;
 
         totals[key].tiers.push({
           kitId:kit.id,
@@ -1149,25 +1122,17 @@ function calculateRankings(){
           tier:tier,
           points:points
         });
-
       });
-
   });
 
-
   return Object.entries(totals)
-
-    .map(([player,info]) => ({
-      player:player,
-      points:info.points,
-      kits:info.kits,
-      tiers:info.tiers
+    .map(([player,value]) => ({
+      player,
+      points:value.points,
+      kits:value.kits,
+      tiers:value.tiers
     }))
-
     .sort((a,b) => {
 
       if(b.points !== a.points){
-        return b.points - a.points;
-      }
-
- 
+        return b.points - a.point
